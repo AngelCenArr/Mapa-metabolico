@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Mapa metabólico interactivo - Carbohidratos, Lípidos y Nitrógeno</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --cytosol:#fdfbf6; --cytosol-edge:#d9b98b;
+    --mito-fill:#fff9f0; --mito-edge:#c25e2a; --mito-dash:#e67e22;
+    --re-fill:#f0f7ff; --re-edge:#2f6fb0;
+    --nucleus:#f3f0ff; --nucleus-edge:#8e44ad;
+    --lyso:#f0fff0; --lyso-edge:#27ae60;
+    --perox:#e0ffff; --perox-edge:#16a085;
+    --membrane:#4a3b2a;
+    --bg:#f8f5f0; --panel:#ffffff; --ink:#1a150f; --ink-soft:#5a5042; --line:#e0d8cc;
+    --shadow:0 1px 2px rgba(60,45,25,.06),0 8px 30px rgba(60,45,25,.10);
+    /* Familias */
+    --carb:#c25e2a; --lipido:#2f6fb0; --nitro:#4a9a52;
+    --carb-bg:#fdf2e9; --lipido-bg:#ebf5ff; --nitro-bg:#f0f9f0;
+    --enz:#c0392b;
+    --r:16px;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --disp:'Space Grotesk',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{font-family:var(--body);color:var(--ink);line-height:1.5;background:var(--bg);-webkit-font-smoothing:antialiased}
+  
+  header.top{padding:24px clamp(16px,5vw,48px) 20px;border-bottom:1px solid var(--line);background:#fff}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px}
+  h1{font-family:var(--disp);font-weight:700;font-size:clamp(22px,3vw,32px);line-height:1.1;margin:0;letter-spacing:-.02em}
+  h1 .c1{color:var(--carb)} h1 .c2{color:var(--lipido)} h1 .c3{color:var(--nitro)}
+  .sub{margin:12px 0 0;max-width:85ch;color:var(--ink-soft);font-size:15px}
+
+  .wrap{display:grid;grid-template-columns:340px minmax(0,1fr);gap:24px;padding:24px clamp(16px,4vw,48px) 60px;align-items:start}
+  @media (max-width:1024px){.wrap{grid-template-columns:1fr}}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+    position:sticky;top:24px;overflow:hidden;max-height:calc(100vh - 48px);display:flex;flex-direction:column}
+  @media (max-width:1024px){.panel{position:static;max-height:none}}
+  .panel h2{font-family:var(--disp);font-size:16px;margin:0;padding:18px 20px 4px}
+  .panel .hint{font-size:12px;color:var(--ink-soft);padding:0 20px 12px;margin:0}
+  .plist{overflow:auto}
+  .group{border-top:1px solid var(--line)}
+  .glabel{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:13px;
+    color:#fff;padding:10px 20px;position:sticky;top:0;z-index:2}
+  .glabel .num{font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.2);padding:1px 6px;border-radius:4px}
+  .route{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;cursor:pointer;text-align:left;
+    padding:9px 20px;font:inherit;border-left:4px solid transparent;transition:.15s}
+  .route:hover{background:#f9f7f2}
+  .route .ebadge{width:16px;height:16px;border-radius:50%;background:var(--enz);color:#fff;font:700 9px var(--body);
+    display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .route .rname{font-size:13px;flex:1}
+  .route .rloc{font-family:var(--mono);font-size:10px;color:var(--ink-soft);opacity:.7}
+  .route[aria-pressed="true"]{background:#fdf2e9;font-weight:600;border-left-color:currentColor}
+
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);background:#fff}
+  .tbtn{font:500 13px var(--body);cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);
+    padding:8px 16px;border-radius:999px;display:inline-flex;gap:8px;align-items:center;transition:.15s}
+  .tbtn:hover{border-color:var(--carb);color:var(--carb)}
+  .tbtn[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .tbtn svg{width:16px;height:16px}
+  .tbtn.ghost{margin-left:auto;opacity:.7}
+
+  .map-container{position:relative;background:#f0f0f0;overflow:auto;aspect-ratio:1408 / 768;}
+  .map-image-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;z-index:1}
+  svg.map{position:absolute;top:0;left:0;width:100%;height:100%;display:block;z-index:2;pointer-events:none}
+
+  .chip{cursor:pointer;outline:none;pointer-events:auto}
+  .chip rect{transition:.2s;stroke-width:2;fill:rgba(255,255,255,0.01)}
+  .chip text{font:700 11px var(--body);text-anchor:middle;dominant-baseline:middle;pointer-events:none;display:none}
+  .chip:hover rect{fill:rgba(255,255,255,0.2);stroke-width:3}
+  .chip.is-active rect{fill:rgba(255,255,255,0.3);stroke-width:4;stroke-dasharray:none}
+  
+  svg.map.has-selection .chip:not(.is-active){opacity:.1}
+
+  /* Drawer & UI Extras */
+  .scrim{position:fixed;inset:0;background:rgba(26,21,15,.4);opacity:0;visibility:hidden;transition:.25s;z-index:100;backdrop-filter:blur(3px)}
+  .scrim.open{opacity:1;visibility:visible}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(500px,100%);background:#fff;z-index:110;
+    box-shadow:-20px 0 60px rgba(0,0,0,.15);transform:translateX(100%);
+    transition:transform .4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}
+  .drawer.open{transform:none}
+  .dr-head{padding:32px 24px 24px;color:#fff;position:relative}
+  .dr-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;cursor:pointer;font-size:24px}
+  .dr-body{padding:24px;overflow:auto;flex:1}
+  .reaction-box{background:var(--bg);border-radius:12px;padding:16px;font-family:var(--mono);font-size:14px;margin-bottom:20px;border:1px solid var(--line)}
+  .dr-sec{margin-bottom:24px}
+  .dr-sec h4{font:700 11px var(--mono);text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;letter-spacing:.1em}
+  .io-row{display:flex;gap:12px;margin-bottom:8px;font-size:14px}
+  .tag{font:700 9px var(--mono);padding:3px 6px;border-radius:4px;flex:none}
+  .tag.in{background:#e8f5e9;color:#2e7d32}
+  .tag.out{background:#ffebee;color:#c62828}
+  .dr-foot{padding:20px 24px;border-top:1px solid var(--line);display:flex;gap:12px}
+  .dr-btn{flex:1;text-align:center;text-decoration:none;padding:12px;border-radius:8px;font-weight:600;font-size:14px}
+  .dr-btn.primary{background:var(--ink);color:#fff}
+  .dr-btn.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}
+
+  .legend{padding:14px 20px;background:#fdfcfb;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--ink-soft)}
+  .leg-item{display:flex;align-items:center;gap:6px}
+  .leg-box{width:14px;height:14px;border-radius:3px}
+
+  /* --- Modo edición de posiciones --- */
+  svg.map.edit{pointer-events:auto}
+  svg.map.edit .chip{touch-action:none}
+  svg.map.edit .chip rect{fill:rgba(255,255,255,.18);cursor:grab}
+  svg.map.edit .chip:hover rect{fill:rgba(255,255,255,.30)}
+  svg.map.edit .chip text{display:block;fill:var(--ink)}
+  .chip .handle{display:none}
+  svg.map.edit .chip .handle{display:block;cursor:nwse-resize;fill-opacity:.9}
+
+  .editpanel{display:none;padding:14px 20px;border-bottom:1px solid var(--line);background:#fffaf3;font-size:12px;color:var(--ink-soft)}
+  .editpanel.open{display:block}
+  .editpanel .erow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:8px}
+  .editpanel #activeReadout{font-family:var(--mono);font-weight:600;color:var(--ink)}
+  .editpanel #curPos,.editpanel #imgInfo{font-family:var(--mono);font-size:11px}
+  .editpanel textarea{width:100%;height:130px;font:500 11px var(--mono);border:1px solid var(--line);border-radius:8px;padding:10px;resize:vertical;background:#fff;color:var(--ink)}
+  .editpanel .ebtn{font:600 12px var(--body);cursor:pointer;border:1px solid var(--carb);background:var(--carb);color:#fff;padding:7px 14px;border-radius:8px}
+  .editpanel code{background:#f0e6d8;padding:1px 5px;border-radius:4px;font-size:11px}
+</style>
+</head>
+<body>
+<header class="top">
+<p class="eyebrow">Biología Celular · Atlas Metabólico</p>
+<h1>Mapa de <span class="c1">Carbohidratos</span>, <span class="c2">Lípidos</span> y <span class="c3">Nitrógeno</span></h1>
+<p class="sub">Representación gráfica de alta fidelidad. Haz clic sobre las etiquetas del póster para explorar los detalles moleculares.</p>
+</header>
+<div class="wrap">
+<aside class="panel">
+<h2>Rutas del Sistema</h2>
+<p class="hint">Organizadas por familia metabólica.</p>
+<div class="plist" id="routeList"></div>
+</aside>
+<main class="stage">
+<div class="toolbar" role="group">
+<button class="tbtn" id="showLabelsToggle">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Resaltar áreas</button>
+<button class="tbtn" id="editToggle" aria-pressed="false">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"></path></svg>Editar posiciones</button>
+<button class="tbtn ghost" id="resetBtn">Restablecer vista</button>
+</div>
+<div class="legend">
+<div class="leg-item"><span class="leg-box" style="background:var(--carb)"></span> Carbohidratos</div>
+<div class="leg-item"><span class="leg-box" style="background:var(--lipido)"></span> Lípidos</div>
+<div class="leg-item"><span class="leg-box" style="background:var(--nitro)"></span> Nitrógeno</div>
+</div>
+<div class="map-container">
+<img alt="Metabolic Map Background" class="map-image-bg" src="img/fotomapaajja.jpeg"/>
+<svg class="map" id="map" viewbox="0 0 1408 768">
+<g id="layerChips"></g>
+</svg>
+</div>
+<div class="editpanel" id="editPanel">
+<div class="erow">
+<span id="activeReadout">Arrastra un recuadro para moverlo · usa la esquina para redimensionar</span>
+</div>
+<div class="erow">
+<span id="curPos">cursor: x:–  y:–</span>
+<span id="imgInfo"></span>
+<button class="ebtn" id="copyCoords" style="margin-left:auto">Copiar coordenadas</button>
+</div>
+<textarea id="coordsOut" readonly="" spellcheck="false"></textarea>
+<p style="margin:8px 0 0">Pega estos valores en cada ruta de <code>ROUTES</code> (campos <code>x, y, w, h</code>). Las coordenadas son <strong>píxeles de la imagen</strong> (lienzo <code>1408 × 768</code>); <code>x, y</code> es el centro del recuadro.</p>
+</div>
+<div style="padding: 20px; font-size: 12px; color: var(--ink-soft); border-top: 1px solid var(--line); text-align: center;">
+      Infografía Original · Visualización Interactiva Optimizada
+    </div>
+</main>
+</div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" tabindex="-1">
+<div class="dr-head" id="drHead">
+<button class="dr-close" id="drClose">×</button>
+<div id="drCat" style="font-size:10px; text-transform:uppercase; letter-spacing:.2em; opacity:.8; margin-bottom:8px"></div>
+<h3 id="drTitle" style="margin:0; font-family:var(--disp); font-size:24px"></h3>
+<div id="drLoc" style="margin-top:12px; font-size:13px; font-weight:600; display:inline-block; padding:4px 10px; background:rgba(255,255,255,.2); border-radius:4px"></div>
+</div>
+<div class="dr-body">
+<div class="reaction-box" id="drReaction"></div>
+<div class="dr-sec">
+<h4>Descripción Clave</h4>
+<p id="drFact" style="margin:0; font-size:15px; color:var(--ink)"></p>
+</div>
+<div class="dr-sec" id="drEnzSec">
+<h4>Enzima de Regulación</h4>
+<div style="display:flex; align-items:center; gap:10px">
+<span style="width:20px; height:20px; background:var(--enz); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700">E</span>
+<span id="drEnz" style="font-size:14px; font-weight:600"></span>
+</div>
+</div>
+<div class="dr-sec">
+<h4>Intercambio de Masa</h4>
+<div class="io-row"><span class="tag in">ENTRADA</span> <span id="drIn" style="font-weight:500"></span></div>
+<div class="io-row"><span class="tag out">SALIDA</span> <span id="drOut" style="font-weight:500"></span></div>
+</div>
+<div class="dr-sec">
+<h4>Pasos Metabólicos</h4>
+<ul id="drSteps" style="margin:0; padding-left:18px; font-size:14px; color:var(--ink-soft)"></ul>
+</div>
+</div>
+<div class="dr-foot">
+
+<button class="dr-btn secondary" id="drBack">Volver al mapa</button>
+</div>
+</aside>
+<script>
+const CATS = {
+  carbohidratos: { n: 1, label: "Carbohidratos", hex: "#c25e2a", bg: "#fdf2e9" },
+  lipidos: { n: 2, label: "Lípidos", hex: "#2f6fb0", bg: "#ebf5ff" },
+  nitrogeno: { n: 3, label: "Nitrógeno", hex: "#4a9a52", bg: "#f0f9f0" }
+};
+
+// 36 rutas (Carbohidratos, Lípidos, Nitrógeno). x,y,w,h en píxeles de la imagen (1408x768); x,y = centro.
+const ROUTES={
+  /* ===================== 1 · CARBOHIDRATOS ===================== */
+  glucolisis:{name:"Glucólisis",short:"Glucólisis",cat:"carbohidratos",loc:"Citosol",enz:"PFK-1 · hexoquinasa", x:221, y:112, w:100, h:30,
+    reaction:"Glucosa → 2 Piruvato",in:"Glucosa · 2 ATP · 2 NAD⁺",out:"2 Piruvato · 2 ATP neto · 2 NADH",
+    steps:["Fosforilación de la glucosa.","Ruptura en dos triosas-fosfato.","Obtención de ATP por fosforilación a nivel de sustrato."],
+    reg:"La PFK-1 es el punto de control principal.",fact:"Ruta universal: funciona con o sin oxígeno."},
+  gluconeogenesis:{name:"Gluconeogénesis",short:"Gluconeogénesis",cat:"carbohidratos",loc:"Citosol",enz:"PEPCK · F-1,6-BPasa", x:233, y:208, w:122, h:28,
+    reaction:"Piruvato → Glucosa",in:"Piruvato · ATP · GTP",out:"Glucosa",
+    steps:["Rodea los pasos irreversibles de la glucólisis.","Usa PEPCK y glucosa-6-fosfatasa."],
+    reg:"Activa en ayuno; opuesta a la glucólisis.",fact:"Mantiene la glucemia hepática cuando no comemos."},
+  cori:{name:"Ciclo de Cori",short:"Ciclo de Cori",cat:"carbohidratos",loc:"Músculo ↔ Hígado",enz:"", x:725, y:200, w:128, h:20,
+    reaction:"Lactato (músculo) → Glucosa (hígado)",in:"Lactato",out:"Glucosa",
+    steps:["Músculo: glucosa → lactato.","Hígado: lactato → glucosa.","La glucosa vuelve al músculo."],
+    reg:"Conecta dos órganos por la sangre.",fact:"Recicla el lactato del ejercicio intenso."},
+  glu_alanina:{name:"Ciclo Glucosa-Alanina",short:"Glucosa-Alanina",cat:"carbohidratos",loc:"Músculo ↔ Hígado",enz:"", x:725, y:219, w:128, h:20,
+    reaction:"Alanina → Glucosa + Urea",in:"Alanina",out:"Glucosa · N → urea",
+    steps:["Músculo: piruvato + amino → alanina.","Hígado: alanina → glucosa; el N va a la urea."],
+    reg:"Transporta carbono y nitrógeno a la vez.",fact:"Como el ciclo de Cori, pero llevando nitrógeno."},
+  ox_piruvato:{name:"Oxidación del Piruvato",short:"Ox. Piruvato",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Piruvato deshidrogenasa (PDH)", x:455, y:293, w:74, h:24,
+    reaction:"Piruvato → Acetil-CoA + CO₂",in:"Piruvato · NAD⁺ · CoA",out:"Acetil-CoA · NADH · CO₂",
+    steps:["Complejo piruvato deshidrogenasa.","Descarboxilación oxidativa irreversible."],
+    reg:"Inhibida por acetil-CoA y NADH.",fact:"Enlaza la glucólisis con el ciclo de Krebs."},
+  krebs:{name:"Ciclo de Krebs",short:"Ciclo de Krebs",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Citrato sintasa", x:456, y:513, w:96, h:42,
+    reaction:"Acetil-CoA → 2 CO₂",in:"Acetil-CoA · NAD⁺ · FAD",out:"CO₂ · NADH · FADH₂ · GTP",
+    steps:["Formación de citrato.","Descarboxilaciones oxidativas.","Regeneración del oxalacetato."],
+    reg:"Citrato sintasa e isocitrato deshidrogenasa.",fact:"Cruce central de azúcares, grasas y proteínas."},
+  carb_piruvato:{name:"Carboxilación del Piruvato",short:"Carbox. Piruvato",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Piruvato carboxilasa", x:560, y:238, w:92, h:30,
+    reaction:"Piruvato + CO₂ → Oxalacetato",in:"Piruvato · CO₂ · ATP",out:"Oxalacetato",
+    steps:["Piruvato carboxilasa (requiere biotina).","Repone oxalacetato para Krebs/gluconeogénesis."],
+    reg:"Activada por el acetil-CoA.",fact:"Reacción anaplerótica: rellena el ciclo de Krebs."},
+  fosfox:{name:"Fosforilación Oxidativa",short:"Fosfor. Oxidativa",cat:"carbohidratos",loc:"Membrana interna mito.",enz:"ATP sintasa", x:690, y:515, w:142, h:40,
+    reaction:"NADH + O₂ + ADP → ATP + H₂O",in:"NADH · FADH₂ · O₂ · ADP · Pi",out:"ATP · H₂O",
+    steps:["Gradiente de protones de la cadena.","ATP sintasa fabrica ATP por quimiósmosis."],
+    reg:"Acoplada a ADP y O₂.",fact:"Produce la mayor parte del ATP celular."},
+  cte:{name:"Cadena de Transporte de Electrones",short:"Cadena de e⁻",cat:"carbohidratos",loc:"Membrana interna mito.",enz:"Complejos I–IV", x:655, y:582, w:92, h:28,
+    reaction:"NADH → e⁻ → O₂ (bombea H⁺)",in:"NADH · FADH₂ · O₂",out:"H₂O · gradiente de H⁺",
+    steps:["Los complejos I–IV transfieren electrones.","Bombean protones al espacio intermembrana."],
+    reg:"El O₂ es el aceptor final.",fact:"Sin oxígeno se detiene y se acumula NADH."},
+  pentosas:{name:"Ruta de las Pentosas Fosfato",short:"Pentosas-P",cat:"carbohidratos",loc:"Citosol",enz:"G6PDH", x:585, y:111, w:150, h:28,
+    reaction:"Glucosa-6-P → NADPH + Ribosa-5-P",in:"Glucosa-6-P",out:"NADPH · Ribosa-5-P · CO₂",
+    steps:["Fase oxidativa: genera NADPH.","Fase no oxidativa: reorganiza azúcares."],
+    reg:"Demanda de NADPH y de ribosa.",fact:"Aporta poder reductor y precursores de nucleótidos."},
+  fructosa:{name:"Metabolismo de la Fructosa",short:"Fructosa",cat:"carbohidratos",loc:"Citosol (hígado)",enz:"Fructoquinasa · aldolasa B", x:140, y:255, w:110, h:20,
+    reaction:"Fructosa → triosas-fosfato",in:"Fructosa · ATP",out:"Gliceraldehído-3-P · DHAP",
+    steps:["Fructoquinasa → fructosa-1-fosfato.","La aldolasa B la rompe en triosas."],
+    reg:"Salta el control por PFK-1.",fact:"Su exceso favorece la síntesis de grasa hepática."},
+  galactosa:{name:"Metabolismo de la Galactosa",short:"Galactosa",cat:"carbohidratos",loc:"Citosol",enz:"Galactoquinasa · vía de Leloir", x:236, y:255, w:92, h:20,
+    reaction:"Galactosa → Glucosa-6-P",in:"Galactosa · ATP · UDP-glucosa",out:"Glucosa-6-P",
+    steps:["Galactoquinasa → galactosa-1-fosfato.","Vía de Leloir → glucosa-6-fosfato."],
+    reg:"Su fallo enzimático causa galactosemia.",fact:"Procesa la galactosa de la lactosa (leche)."},
+  glucogenesis:{name:"Glucogénesis",short:"Glucogénesis",cat:"carbohidratos",loc:"Citosol",enz:"Glucógeno sintasa", x:728, y:102, w:134, h:34,
+    reaction:"Glucosa → Glucógeno",in:"Glucosa · UTP",out:"Glucógeno",
+    steps:["Activación de la glucosa (UDP-Glc).","Polimerización ramificada."],
+    reg:"Estimulada por la insulina.",fact:"Reserva rápida de glucosa en hígado y músculo."},
+
+  /* ===================== 2 · LÍPIDOS ===================== */
+  lanz_citrato:{name:"Lanzadera de Citrato",short:"Lanzadera Citrato",cat:"lipidos",loc:"Mitocondria → Citosol",enz:"ATP-citrato liasa", x:878, y:168, w:98, h:40,
+    reaction:"Citrato → Acetil-CoA (citosol)",in:"Citrato (matriz)",out:"Acetil-CoA citosólico",
+    steps:["El citrato sale de la mitocondria.","La ATP-citrato liasa libera el acetil-CoA."],
+    reg:"Aporta acetil-CoA para sintetizar lípidos.",fact:"El acetil-CoA no cruza la membrana: viaja como citrato."},
+  palmitate:{name:"Síntesis de Palmitato a partir de Acetil-CoA",short:"Síntesis Palmitato",cat:"lipidos",loc:"Citosol",enz:"ACC · FAS", x:1011, y:163, w:128, h:40,
+    reaction:"Acetil-CoA → Palmitato (C16)",in:"Acetil-CoA · NADPH · ATP",out:"Palmitato",
+    steps:["Acetil-CoA carboxilasa → malonil-CoA.","La FAS alarga la cadena hasta 16 carbonos."],
+    reg:"Activada por insulina y citrato.",fact:"Es el ácido graso del que derivan los demás."},
+  triglic:{name:"Síntesis de Triglicéridos",short:"Triglicéridos",cat:"lipidos",loc:"Retículo endoplásmico",enz:"Aciltransferasas", x:902, y:270, w:104, h:20,
+    reaction:"Glicerol-3-P + 3 acil-CoA → TAG",in:"Glicerol-3-P · acil-CoA",out:"Triacilglicerol",
+    steps:["Acilación sucesiva del glicerol-3-fosfato.","Ácido fosfatídico y luego triglicérido."],
+    reg:"Aumenta tras las comidas (insulina).",fact:"Principal forma de almacenar energía."},
+  glicerofosfo:{name:"Síntesis de Glicerofosfolípidos",short:"Glicerofosfolíp.",cat:"lipidos",loc:"Retículo endoplásmico",enz:"CDP-transferasas", x:935, y:287, w:150, h:20,
+    reaction:"Ác. fosfatídico → Fosfolípido",in:"Ác. fosfatídico · CDP-colina/etanolamina",out:"Fosfatidilcolina, etanolamina…",
+    steps:["Activación con CDP del alcohol o del DAG.","Unión de la cabeza polar."],
+    reg:"Coordinada con la síntesis de membranas.",fact:"Forman la bicapa de todas las membranas."},
+  catab_fosfolip:{name:"Catabolismo de Glicerofosfolípidos",short:"Catab. fosfolíp.",cat:"lipidos",loc:"Citosol / lisosoma",enz:"Fosfolipasas A, C, D", x:930, y:318, w:162, h:22,
+    reaction:"Fosfolípido → ác. grasos + cabeza polar",in:"Glicerofosfolípido",out:"Ácidos grasos · glicerol · fosfato",
+    steps:["Las fosfolipasas cortan distintos enlaces.","Liberan ácidos grasos y segundos mensajeros."],
+    reg:"Inicia rutas de señalización.",fact:"La fosfolipasa A₂ libera ácido araquidónico."},
+  degr_fosfoglic:{name:"Degradación de Fosfoglicéridos",short:"Degr. fosfoglic.",cat:"lipidos",loc:"Membranas / lisosoma",enz:"Fosfolipasa A₂", x:930, y:333, w:162, h:18,
+    reaction:"Fosfoglicérido → componentes",in:"Fosfoglicéridos de membrana",out:"Glicerol · ác. grasos · fosfato · base",
+    steps:["Hidrólisis escalonada por fosfolipasas.","Recambio continuo de la membrana."],
+    reg:"Equilibrio síntesis/degradación.",fact:"Permite remodelar y reciclar las membranas."},
+  ceramida:{name:"Ceramida",short:"Ceramida",cat:"lipidos",loc:"Retículo endoplásmico",enz:"Ceramida sintasa", x:878, y:353, w:58, h:18,
+    reaction:"Esfinganina + acil-CoA → Ceramida",in:"Esfinganina · acil-CoA",out:"Ceramida",
+    steps:["Núcleo común de los esfingolípidos.","Base para esfingomielina y glucolípidos."],
+    reg:"Segundo mensajero (apoptosis).",fact:"Base estructural de los esfingolípidos."},
+  esfingo:{name:"Metabolismo de Esfingolípidos",short:"Esfingolípidos",cat:"lipidos",loc:"R. endoplásmico / Golgi",enz:"Serina palmitoiltransferasa", x:972, y:353, w:80, h:18,
+    reaction:"Serina + palmitoil-CoA → esfingolípidos",in:"Serina · palmitoil-CoA · azúcares",out:"Esfingomielina · glucolípidos",
+    steps:["Síntesis de ceramida en el RE.","Adición de cabezas en el Golgi."],
+    reg:"Su acumulación causa esfingolipidosis.",fact:"Abundan en la mielina de las neuronas."},
+  eicosanoides:{name:"Metabolismo de Eicosanoides",short:"Eicosanoides",cat:"lipidos",loc:"RE / membrana",enz:"Ciclooxigenasa (COX) · LOX", x:905, y:370, w:142, h:18,
+    reaction:"Ác. araquidónico → Prostaglandinas…",in:"Ácido araquidónico · O₂",out:"Prostaglandinas · tromboxanos · leucotrienos",
+    steps:["La COX da prostaglandinas y tromboxanos.","La lipooxigenasa da leucotrienos."],
+    reg:"La aspirina inhibe la COX.",fact:"Median inflamación, dolor, fiebre y coagulación."},
+  esteroles:{name:"Metabolismo de Esteroles",short:"Esteroles",cat:"lipidos",loc:"RE / citosol",enz:"HMG-CoA reductasa", x:1045, y:370, w:72, h:18,
+    reaction:"Acetil-CoA → Colesterol",in:"Acetil-CoA · NADPH",out:"Colesterol",
+    steps:["Vía del mevalonato (HMG-CoA reductasa).","Escualeno → ciclación → colesterol."],
+    reg:"La HMG-CoA reductasa es diana de las estatinas.",fact:"El colesterol origina hormonas y sales biliares."},
+  degr_colesterol:{name:"Degradación del Colesterol",short:"Degr. colesterol",cat:"lipidos",loc:"R. endoplásmico (hígado)",enz:"7α-hidroxilasa", x:1045, y:352, w:72, h:18,
+    reaction:"Colesterol → Ácidos biliares",in:"Colesterol",out:"Ácidos y sales biliares",
+    steps:["La 7α-hidroxilasa inicia la conversión.","Se conjugan y se excretan por la bilis."],
+    reg:"Principal vía para eliminar colesterol.",fact:"Los ácidos biliares ayudan a digerir las grasas."},
+  boxidacion:{name:"β-Oxidación de Ácidos Grasos",short:"β-oxidación",cat:"lipidos",loc:"Matriz mitocondrial",enz:"Carnitina aciltransferasa I", x:925, y:418, w:115, h:28,
+    reaction:"Acil-CoA → Acetil-CoA",in:"Acil-CoA · NAD⁺ · FAD",out:"Acetil-CoA · NADH · FADH₂",
+    steps:["Ciclos de cuatro reacciones.","Cada vuelta libera un acetil-CoA (–2 C)."],
+    reg:"Transporte por carnitina; activa en ayuno.",fact:"Las grasas rinden más del doble de energía que los azúcares."},
+  cetogenesis:{name:"Cetogénesis",short:"Cetogénesis",cat:"lipidos",loc:"Matriz mitocondrial (hígado)",enz:"HMG-CoA sintasa", x:1030, y:418, w:96, h:28,
+    reaction:"Acetil-CoA → Cuerpos cetónicos",in:"Acetil-CoA",out:"Acetoacetato · β-hidroxibutirato · acetona",
+    steps:["Condensación a HMG-CoA.","Rotura del HMG-CoA → acetoacetato."],
+    reg:"Aumenta en ayuno y diabetes.",fact:"En ayuno largo el cerebro usa cuerpos cetónicos."},
+
+  /* ===================== 3 · NITRÓGENO ===================== */
+  metab_aa:{name:"Metabolismo de Aminoácidos",short:"Aminoácidos",cat:"nitrogeno",loc:"Citosol / mitocondria",enz:"Aminotransferasas (ALT, AST)", x:950, y:668, w:170, h:24,
+    reaction:"Aminoácido → α-cetoácido + NH₄⁺",in:"Aminoácidos",out:"Esqueletos carbonados · NH₄⁺",
+    steps:["Transaminación del grupo amino.","Desaminación oxidativa que libera amoníaco."],
+    reg:"Conecta las proteínas con Krebs y la urea.",fact:"Los esqueletos pueden ser glucogénicos o cetogénicos."},
+  metab_nitro:{name:"Metabolismo del Nitrógeno",short:"Nitrógeno",cat:"nitrogeno",loc:"Citosol / mitocondria",enz:"Glutamato deshidrogenasa", x:935, y:505, w:168, h:24,
+    reaction:"NH₄⁺ ↔ aminoácidos / urea",in:"Aminoácidos · α-cetoglutarato",out:"Glutamato · NH₄⁺",
+    steps:["El glutamato concentra los grupos amino.","La glutamato deshidrogenasa libera amoníaco."],
+    reg:"Equilibra fijación y eliminación de N.",fact:"El glutamato es el repartidor central del nitrógeno."},
+  urea:{name:"Ciclo de la Urea",short:"Ciclo de la Urea",cat:"nitrogeno",loc:"Mitocondria + citosol (hígado)",enz:"CPS I · ornitina transcarbamilasa", x:935, y:586, w:170, h:96,
+    reaction:"NH₄⁺ + CO₂ → Urea",in:"NH₄⁺ · CO₂ · aspartato · ATP",out:"Urea",
+    steps:["Inicia en la mitocondria (CPS I).","Se completa en el citosol regenerando ornitina."],
+    reg:"Se ajusta a la proteína de la dieta.",fact:"Convierte el amoníaco tóxico en urea excretable."},
+  aa_akg:{name:"Síntesis de aminoácidos derivados del α-cetoglutarato",short:"Aa del α-CG",cat:"nitrogeno",loc:"Mitocondria / citosol",enz:"Aminotransferasas", x:995, y:690, w:150, h:20,
+    reaction:"α-Cetoglutarato → Glu, Gln, Pro, Arg",in:"α-Cetoglutarato · NH₄⁺",out:"Glutamato · glutamina · prolina · arginina",
+    steps:["El α-cetoglutarato del Krebs recibe el amino.","Origina la familia del glutamato."],
+    reg:"Une el ciclo de Krebs con la síntesis de aa.",fact:"Aminoácidos no esenciales: el cuerpo los fabrica."},
+  glu_gln:{name:"Síntesis de glutamato y glutamina",short:"Glu y Gln",cat:"nitrogeno",loc:"Mitocondria / citosol",enz:"Glutamina sintetasa", x:915, y:706, w:120, h:30,
+    reaction:"α-CG + NH₄⁺ → Glutamato → Glutamina",in:"α-Cetoglutarato · NH₄⁺ · ATP",out:"Glutamato · glutamina",
+    steps:["La glutamato deshidrogenasa fija el NH₄⁺.","La glutamina sintetasa añade un segundo amino."],
+    reg:"La glutamina sintetasa está muy regulada.",fact:"La glutamina transporta nitrógeno de forma segura."},
+  porfirinas:{name:"Metabolismo de Porfirinas",short:"Porfirinas",cat:"nitrogeno",loc:"Mitocondria + citosol",enz:"ALA sintasa (ALAS 1)", x:1288, y:505, w:218, h:22,
+    reaction:"Glicina + succinil-CoA → Hemo",in:"Glicina · succinil-CoA · Fe²⁺",out:"Hemo",
+    steps:["Comienza y termina en la mitocondria.","Pasos intermedios en el citosol."],
+    reg:"Sus fallos causan las porfirias.",fact:"El hemo da color a la sangre y capta el oxígeno."},
+  catab_hemo:{name:"Catabolismo del grupo Hemo",short:"Catab. del hemo",cat:"nitrogeno",loc:"RE / citosol (bazo, hígado)",enz:"Hemo-oxigenasa", x:1288, y:523, w:218, h:20,
+    reaction:"Hemo → Bilirrubina",in:"Hemo · O₂",out:"Biliverdina → bilirrubina · Fe · CO",
+    steps:["La hemo-oxigenasa abre el anillo.","Se reduce a bilirrubina y se excreta por la bilis."],
+    reg:"Recicla el hierro de los glóbulos rojos.",fact:"La bilirrubina da el color amarillo de la ictericia."},
+  nucleotidos:{name:"Metabolismo de Nucleótidos",short:"Nucleótidos",cat:"nitrogeno",loc:"Citosol",enz:"Ribonucleótido reductasa", x:1260, y:628, w:264, h:22,
+    reaction:"Bases ↔ Nucleótidos",in:"Bases · ribosa-5-P · ATP",out:"Nucleótidos (síntesis o reciclaje)",
+    steps:["Vía de novo: síntesis desde cero.","Vía de recuperación: recicla bases libres."],
+    reg:"La recuperación ahorra energía.",fact:"Aportan los ladrillos del ADN y el ARN."},
+  pur_pir:{name:"Metabolismo de Purinas y Pirimidinas",short:"Purinas/pirim.",cat:"nitrogeno",loc:"Citosol",enz:"PRPP sintetasa", x:1260, y:648, w:260, h:20,
+    reaction:"Aminoácidos + PRPP → bases",in:"Aminoácidos · PRPP · CO₂",out:"Purinas (A, G) · pirimidinas (C, U, T)",
+    steps:["Purinas: el anillo se arma sobre la ribosa.","Pirimidinas: el anillo se hace y luego se une a la ribosa."],
+    reg:"El catabolismo de purinas da ácido úrico.",fact:"El exceso de ácido úrico provoca la gota."},
+  novo:{name:"Biosíntesis de Novo",short:"Síntesis de Novo",cat:"nitrogeno",loc:"Citosol",enz:"PRPP sintetasa", x:1228, y:675, w:150, h:20,
+    reaction:"Precursores simples → Nucleótidos",in:"Aminoácidos · PRPP · CO₂ · ATP",out:"Nucleótidos nuevos",
+    steps:["Construye el nucleótido desde cero.","Costosa en energía frente al reciclaje."],
+    reg:"Diana de fármacos antitumorales.",fact:"Imprescindible en células que se dividen mucho."}
+};
+
+const SVGNS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+const layerChips = $("layerChips");
+const map = $("map");
+
+function el(n, a) {
+  const e = document.createElementNS(SVGNS, n);
+  for (const k in a) e.setAttribute(k, a[k]);
+  return e;
+}
+
+function drawChips() {
+  for (const id in ROUTES) {
+    const r = ROUTES[id];
+    const c = CATS[r.cat];
+
+    const g = el("g", { class: "chip", "data-route": id, tabindex: "0" });
+    const rect = el("rect", { rx: 6, stroke: c.hex, "stroke-dasharray": "14 7" });
+    const label = el("text", {});
+    label.textContent = r.short || r.name;
+    const handle = el("rect", { class: "handle", width: 12, height: 12, rx: 2, fill: c.hex });
+
+    g.appendChild(rect);
+    g.appendChild(label);
+    g.appendChild(handle);
+    chipRefs[id] = { g, rect, label, handle };
+
+    // Clic normal abre la ficha; en modo edición selecciona el recuadro
+    g.addEventListener("click", () => {
+      if (editMode) { activeEdit = id; refreshEditPanel(); }
+      else selectRoute(id);
+    });
+    // Arrastrar para mover (sólo en modo edición)
+    g.addEventListener("pointerdown", e => {
+      if (editMode && e.target !== handle) onChipDown(id, "move", e);
+    });
+    // Esquina inferior derecha para redimensionar
+    handle.addEventListener("pointerdown", e => {
+      if (editMode) { e.stopPropagation(); onChipDown(id, "resize", e); }
+    });
+
+    layerChips.appendChild(g);
+    updateChip(id);            // coloca el recuadro según x,y,w,h
+    addToPanel(id, r, c);
+  }
+}
+
+function addToPanel(id, r, c) {
+  let group = $(`group-${r.cat}`);
+  if (!group) {
+    group = document.createElement("div");
+    group.id = `group-${r.cat}`;
+    group.className = "group";
+    group.innerHTML = `<div class="glabel" style="background:${c.hex}">
+      <span class="num">${c.n}</span> ${c.label}
+    </div>`;
+    $("routeList").appendChild(group);
+  }
+  
+  const btn = document.createElement("button");
+  btn.className = "route";
+  btn.id = `btn-${id}`;
+  btn.style.color = c.hex;
+  btn.innerHTML = `
+    ${r.enz ? '<span class="ebadge">E</span>' : ''}
+    <span class="rname">${r.name}</span>
+    <span class="rloc" style="font-size:9px">${r.loc}</span>
+  `;
+  btn.onclick = () => selectRoute(id);
+  group.appendChild(btn);
+}
+
+function selectRoute(id) {
+  map.classList.add("has-selection");
+  document.querySelectorAll(".chip").forEach(c => c.classList.remove("is-active"));
+  document.querySelectorAll(".route").forEach(b => b.setAttribute("aria-pressed", "false"));
+  
+  const chip = document.querySelector(`.chip[data-route="${id}"]`);
+  if (chip) chip.classList.add("is-active");
+  
+  const btn = $(`btn-${id}`);
+  if (btn) btn.setAttribute("aria-pressed", "true");
+  
+  openDrawer(id);
+}
+
+function openDrawer(id) {
+  const r = ROUTES[id];
+  const c = CATS[r.cat];
+  
+  $("drHead").style.background = `linear-gradient(135deg, ${c.hex}, ${c.hex}dd)`;
+  $("drCat").textContent = `${c.n} · ${c.label}`;
+  $("drTitle").textContent = r.name;
+  $("drLoc").textContent = `📍 ${r.loc}`;
+  $("drReaction").innerHTML = r.reaction.replace("→", '<span style="color:var(--nitro); font-weight:bold">→</span>');
+  $("drFact").textContent = r.fact;
+  
+  if(r.enz) {
+    $("drEnzSec").style.display = "block";
+    $("drEnz").textContent = r.enz;
+  } else {
+    $("drEnzSec").style.display = "none";
+  }
+  
+  $("drIn").textContent = r.in;
+  $("drOut").textContent = r.out;
+  $("drSteps").innerHTML = r.steps.map(s => `<li>${s}</li>`).join("");
+  
+  
+  $("scrim").classList.add("open");
+  $("drawer").classList.add("open");
+}
+
+function closeDrawer() {
+  $("scrim").classList.remove("open");
+  $("drawer").classList.remove("open");
+}
+
+function resetView() {
+  map.classList.remove("has-selection");
+  document.querySelectorAll(".chip").forEach(c => c.classList.remove("is-active"));
+  document.querySelectorAll(".route").forEach(b => b.setAttribute("aria-pressed", "false"));
+  closeDrawer();
+}
+
+let labelsVisible = false;
+$("showLabelsToggle").onclick = () => {
+  labelsVisible = !labelsVisible;
+  const chips = document.querySelectorAll(".chip rect");
+  chips.forEach(rect => {
+    rect.style.fill = labelsVisible ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.01)";
+    rect.style.strokeWidth = labelsVisible ? "2" : "1";
+  });
+  $("showLabelsToggle").setAttribute("aria-pressed", labelsVisible);
+};
+
+/* ===================================================================
+   AJUSTE DE POSICIONES  (lee esto para mover los recuadros)
+   -------------------------------------------------------------------
+   1) VIEW_W / VIEW_H  = tamaño del lienzo SVG. Para que los recuadros
+      caigan EXACTO sobre la imagen, debe tener la MISMA proporción que
+      tu imagen. Lo ideal es ponerlos al tamaño real en píxeles de la
+      imagen (al abrir, el panel "Editar posiciones" te dice ese tamaño).
+   2) BASE_W / BASE_H  = la escala en la que escribes x,y,w,h de cada
+      ruta. Si quieres escribir las coordenadas directamente en píxeles
+      de la imagen, pon BASE_W = VIEW_W y BASE_H = VIEW_H.
+   3) Cada recuadro se controla con los campos x, y, w, h de su ruta en
+      el objeto ROUTES (x,y = CENTRO del recuadro). Edítalos a mano o,
+      más fácil, pulsa "Editar posiciones", arrastra cada caja a su
+      sitio y pulsa "Copiar coordenadas".
+   =================================================================== */
+const VIEW_W = 1408, VIEW_H = 768;   // <-- ajusta al tamaño/proporción de tu imagen
+const BASE_W = 1408, BASE_H = 768;   // <-- escala de x,y,w,h (= píxeles reales de la imagen)
+const SX = VIEW_W / BASE_W, SY = VIEW_H / BASE_H;
+
+const chipRefs = {};
+let editMode = false, drag = null, activeEdit = null;
+
+function setupViewBox() {
+  map.setAttribute("viewBox", `0 0 ${VIEW_W} ${VIEW_H}`);
+  const cont = document.querySelector(".map-container");
+  if (cont) cont.style.aspectRatio = `${VIEW_W} / ${VIEW_H}`;
+}
+
+// Convierte coordenadas de pantalla a coordenadas del SVG (rejilla VIEW)
+function svgPt(evt) {
+  const p = map.createSVGPoint();
+  p.x = evt.clientX; p.y = evt.clientY;
+  return p.matrixTransform(map.getScreenCTM().inverse());
+}
+
+// Coloca/actualiza un recuadro a partir de sus x,y,w,h (en base BASE)
+function updateChip(id) {
+  const r = ROUTES[id], ref = chipRefs[id];
+  if (!ref) return;
+  const w = r.w || 120, h = r.h || 35;
+  const X = (r.x - w / 2) * SX, Y = (r.y - h / 2) * SY, W = w * SX, H = h * SY;
+  ref.rect.setAttribute("x", X);
+  ref.rect.setAttribute("y", Y);
+  ref.rect.setAttribute("width", W);
+  ref.rect.setAttribute("height", H);
+  ref.label.setAttribute("x", r.x * SX);
+  ref.label.setAttribute("y", r.y * SY);
+  ref.handle.setAttribute("x", X + W - 12);
+  ref.handle.setAttribute("y", Y + H - 12);
+}
+
+function onChipDown(id, kind, evt) {
+  if (!editMode) return;
+  evt.preventDefault();
+  const r = ROUTES[id], p = svgPt(evt);
+  activeEdit = id;
+  drag = (kind === "move")
+    ? { id, kind, offx: p.x / SX - r.x, offy: p.y / SY - r.y }
+    : { id, kind };
+  refreshEditPanel();
+}
+
+window.addEventListener("pointermove", e => {
+  if (editMode) {
+    const p = svgPt(e);
+    const cp = $("curPos");
+    if (cp) cp.textContent = `cursor: x:${Math.round(p.x / SX)}  y:${Math.round(p.y / SY)}`;
+  }
+  if (!drag) return;
+  const r = ROUTES[drag.id], p = svgPt(e);
+  if (drag.kind === "move") {
+    r.x = Math.round(p.x / SX - drag.offx);
+    r.y = Math.round(p.y / SY - drag.offy);
+  } else {
+    r.w = Math.max(20, Math.round(2 * (p.x / SX - r.x)));
+    r.h = Math.max(14, Math.round(2 * (p.y / SY - r.y)));
+  }
+  updateChip(drag.id);
+  refreshEditPanel();
+});
+window.addEventListener("pointerup", () => { drag = null; });
+
+function refreshEditPanel() {
+  const out = $("coordsOut");
+  if (out) {
+    out.value = Object.keys(ROUTES).map(id => {
+      const r = ROUTES[id];
+      return `  ${id}: { x:${r.x}, y:${r.y}, w:${r.w}, h:${r.h} },`;
+    }).join("\n");
+  }
+  const ar = $("activeReadout");
+  if (ar) {
+    ar.textContent = activeEdit
+      ? `▸ ${activeEdit}  →  x:${ROUTES[activeEdit].x}  y:${ROUTES[activeEdit].y}  w:${ROUTES[activeEdit].w}  h:${ROUTES[activeEdit].h}`
+      : "Arrastra un recuadro para moverlo · usa la esquina para redimensionar";
+  }
+}
+
+function setEdit(on) {
+  editMode = on;
+  map.classList.toggle("edit", on);
+  $("editPanel").classList.toggle("open", on);
+  $("editToggle").setAttribute("aria-pressed", on);
+  if (on) refreshEditPanel();
+}
+
+$("editToggle").onclick = () => setEdit(!editMode);
+$("copyCoords").onclick = async () => {
+  const t = $("coordsOut");
+  t.select();
+  try { await navigator.clipboard.writeText(t.value); } catch (e) { try { document.execCommand("copy"); } catch (e2) {} }
+  const b = $("copyCoords");
+  b.textContent = "¡Copiado!";
+  setTimeout(() => b.textContent = "Copiar coordenadas", 1200);
+};
+
+// Informa del tamaño real de la imagen (para fijar VIEW_W/VIEW_H si quieres 1:1)
+const bgImg = document.querySelector(".map-image-bg");
+function reportImg() {
+  const info = $("imgInfo");
+  if (info && bgImg && bgImg.naturalWidth)
+    info.textContent = `· imagen real: ${bgImg.naturalWidth}×${bgImg.naturalHeight} px`;
+}
+if (bgImg) { bgImg.complete ? reportImg() : bgImg.addEventListener("load", reportImg); }
+
+$("drClose").onclick = closeDrawer;
+$("drBack").onclick = closeDrawer;
+$("scrim").onclick = closeDrawer;
+$("resetBtn").onclick = resetView;
+
+setupViewBox();
+drawChips();
+</script>
+</body></html>
