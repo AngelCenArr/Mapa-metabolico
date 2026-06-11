@@ -173,51 +173,65 @@
 </div>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" role="dialog" tabindex="-1">
-<div class="dr-head" id="drHead">
-<button class="dr-close" id="drClose">×</button>
-<div id="drCat" style="font-size:10px; text-transform:uppercase; letter-spacing:.2em; opacity:.8; margin-bottom:8px"></div>
-<h3 id="drTitle" style="margin:0; font-family:var(--disp); font-size:24px"></h3>
-<div id="drLoc" style="margin-top:12px; font-size:13px; font-weight:600; display:inline-block; padding:4px 10px; background:rgba(255,255,255,.2); border-radius:4px"></div>
-</div>
-<div class="dr-body">
-<div class="reaction-box" id="drReaction"></div>
-<div class="dr-sec">
-<h4>Descripción Clave</h4>
-<p id="drFact" style="margin:0; font-size:15px; color:var(--ink)"></p>
-</div>
-<div class="dr-sec" id="drEnzSec">
-<h4>Enzima de Regulación</h4>
-<div style="display:flex; align-items:center; gap:10px">
-<span style="width:20px; height:20px; background:var(--enz); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700">E</span>
-<span id="drEnz" style="font-size:14px; font-weight:600"></span>
-</div>
-</div>
-<div class="dr-sec">
-<h4>Intercambio de Masa</h4>
-<div class="io-row"><span class="tag in">ENTRADA</span> <span id="drIn" style="font-weight:500"></span></div>
-<div class="io-row"><span class="tag out">SALIDA</span> <span id="drOut" style="font-weight:500"></span></div>
-</div>
-<div class="dr-sec">
-<h4>Pasos Metabólicos</h4>
-<ul id="drSteps" style="margin:0; padding-left:18px; font-size:14px; color:var(--ink-soft)"></ul>
-</div>
-<div class="dr-sec" id="drRegSec">
-<h4>Regulación</h4>
-<p id="drReg" style="margin:0; font-size:14px; color:var(--ink-soft)"></p>
-</div>
-<div class="dr-sec" id="drClinSec">
-<h4>Correlación Clínica</h4>
-<p id="drClin" style="margin:0; font-size:14px; color:var(--ink-soft)"></p>
-</div>
-<div class="dr-sec" id="drDatoSec">
-<h4>Dato Curioso</h4>
-<p id="drDato" style="margin:0; font-size:14px; color:var(--ink-soft)"></p>
-</div>
-</div>
-<div class="dr-foot">
-<a class="dr-btn primary" id="drVideo" target="_blank" rel="noopener">▶ Ver video</a>
-<button class="dr-btn secondary" id="drBack">Volver al mapa</button>
-</div>
+  <div class="dr-head" id="drHead">
+    <button class="dr-close" id="drClose">×</button>
+    <div id="drCat" style="font-size:10px; text-transform:uppercase; letter-spacing:.2em; opacity:.8; margin-bottom:8px"></div>
+    <h3 id="drTitle" style="margin:0; font-family:var(--disp); font-size:24px"></h3>
+    <div id="drLoc" style="margin-top:12px; font-size:13px; font-weight:600; display:inline-block; padding:4px 10px; background:rgba(255,255,255,.2); border-radius:4px"></div>
+  </div>
+
+  <div class="dr-body">
+    <div class="dr-sec" id="drImgSec" style="display:none; text-align:center; margin-bottom:20px;">
+      <h4>Esquema de la Ruta</h4>
+      <div id="drImgContainer" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:4px;"></div>
+    </div>
+
+    <div class="reaction-box" id="drReaction"></div>
+    
+    <div class="dr-sec">
+      <h4>Descripción Clave</h4>
+      <p id="drFact" style="margin:0; font-size:15px; color:var(--ink)"></p>
+    </div>
+    
+    <div class="dr-sec" id="drEnzSec">
+      <h4>Enzima de Regulación</h4>
+      <div style="display:flex; align-items:center; gap:10px">
+        <span style="width:20px; height:20px; background:var(--enz); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700">E</span>
+        <span id="drEnz" style="font-size:14px; font-weight:600"></span>
+      </div>
+    </div>
+    
+    <div class="dr-sec">
+      <h4>Intercambio de Masa</h4>
+      <div class="io-row"><span class="tag in">ENTRADA</span> <span id="drIn" style="font-weight:500"></span></div>
+      <div class="io-row"><span class="tag out">SALIDA</span> <span id="drOut" style="font-weight:500"></span></div>
+    </div>
+    
+    <div class="dr-sec">
+      <h4>Pasos Metabólicos</h4>
+      <ul id="drSteps" style="margin:0; padding-left:18px; font-size:14px; color:var(--ink-soft)"></ul>
+    </div>
+    
+    <div class="dr-sec" id="drRegSec">
+      <h4>Regulación</h4>
+      <p id="drReg" style="margin:0; font-size:14px; color:var(--ink-soft)"></p>
+    </div>
+    
+    <div class="dr-sec" id="drClinSec">
+      <h4>Correlación Clínica</h4>
+      <p id="drClin" style="margin:0; font-size:14px; color:var(--ink-soft)"></p>
+    </div>
+    
+    <div class="dr-sec" id="drDatoSec">
+      <h4>Dato Curioso</h4>
+      <p id="drDato" style="margin:0; font-size:14px; color:var(--ink-soft)"></p>
+    </div>
+  </div>
+
+  <div class="dr-foot">
+    <a class="dr-btn primary" id="drVideo" target="_blank" rel="noopener">▶ Ver video</a>
+    <button class="dr-btn secondary" id="drBack">Volver al mapa</button>
+  </div>
 </aside>
 <script>
 const CATS = {
@@ -227,44 +241,848 @@ const CATS = {
 };
 
 // 36 rutas (Carbohidratos, Lípidos, Nitrógeno). x,y,w,h en píxeles de la imagen (1920x1920); x,y = centro.
+// 36 rutas (Carbohidratos, Lípidos, Nitrógeno). x,y,w,h en píxeles de la imagen (1920x1920); x,y = centro.
 const ROUTES={
-  glucolisis:{"name": "Glucólisis", "short": "Glucólisis", "cat": "carbohidratos", "loc": "Citoplasma (todas las células)", "enz": "PFK-1 (paso limitante) · hexocinasa/glucocinasa · piruvato quinasa", "x": 137, "y": 81, "w": 150, "h": 28, "reaction": "Glucosa → 2 Piruvato", "in": "Glucosa · 2 ATP · 2 NAD⁺", "out": "2 Piruvato · 4 ATP (neto +2) · 2 NADH", "steps": ["Fase de inversión: se gastan 2 ATP (Glucosa → G6P → F6P → F-1,6-bisP).", "Fase de generación: 4 ATP, 2 NADH y 2 piruvatos.", "Balance neto por glucosa: +2 ATP y 2 NADH."], "fact": "Vía que degrada la glucosa (6C) hasta dos piruvatos (3C) para producir energía rápidamente; muy activa en músculo, cerebro, eritrocitos y tejido adiposo.", "reg": "Se activa con abundancia de glucosa, insulina alta y estado posprandial. PFK-1 se activa por AMP/ADP y fructosa-2,6-bisP; se inhibe por ATP y citrato.", "clinica": "El déficit de piruvato quinasa causa hemólisis (los eritrocitos solo dependen de la glucólisis). En el cáncer, el efecto Warburg acelera la glucólisis aun con oxígeno (base del PET).", "dato": "Los eritrocitos obtienen el 100% de su energía por glucólisis porque no tienen mitocondrias.", "video": "https://youtu.be/iUroKREmOKo?si=0flvVDU1aI0PbRR2"},
-  gluconeogenesis:{"name": "Gluconeogénesis", "short": "Gluconeogénesis", "cat": "carbohidratos", "loc": "Hígado (90%) y riñón (10%) · mitocondria, citoplasma y RE", "enz": "Piruvato carboxilasa · PEP carboxiquinasa · F-1,6-bisfosfatasa · glucosa-6-fosfatasa", "x": 929, "y": 86, "w": 174, "h": 27, "reaction": "Lactato / Alanina / Glicerol → Glucosa", "in": "Piruvato · ATP · GTP", "out": "Glucosa", "steps": ["Piruvato → oxalacetato (piruvato carboxilasa, mitocondria; biotina + ATP).", "Oxalacetato → PEP (PEP carboxiquinasa, GTP).", "Rodea los pasos irreversibles con F-1,6-bisfosfatasa y glucosa-6-fosfatasa."], "fact": "Síntesis de glucosa a partir de compuestos que no son carbohidratos (lactato del ciclo de Cori, alanina del músculo y glicerol del tejido adiposo).", "reg": "Se activa en ayuno, ejercicio prolongado y estrés. La estimulan glucagón, cortisol y adrenalina; la inhibe la insulina.", "clinica": "La enfermedad de Von Gierke (déficit de glucosa-6-fosfatasa) provoca hipoglucemia severa, hepatomegalia y acidosis láctica.", "dato": "Tras 24 h de ayuno, la gluconeogénesis se vuelve la principal fuente de glucosa sanguínea.", "video": "https://youtu.be/oVR6fjNsvLM?si=XZqMST1Q5wdMERzo"},
-  cori:{"name": "Ciclo de Cori", "short": "Ciclo de Cori", "cat": "carbohidratos", "loc": "Músculo ↔ Sangre ↔ Hígado", "enz": "", "x": 1133, "y": 80, "w": 150, "h": 28, "reaction": "Lactato (músculo) → Glucosa (hígado)", "in": "Lactato", "out": "Glucosa", "steps": ["Músculo: glucosa → lactato (glucólisis anaerobia).", "La sangre transporta el lactato.", "Hígado: lactato → glucosa (gluconeogénesis), que vuelve al músculo."], "fact": "Intercambio metabólico entre músculo e hígado que permite mantener la glucólisis anaerobia durante el esfuerzo.", "reg": "Se intensifica durante el ejercicio intenso y la hipoxia muscular.", "clinica": "En el ejercicio intenso aumenta el lactato y baja el pH, contribuyendo a la fatiga muscular.", "dato": "El hígado gasta 6 ATP para regenerar una glucosa que el músculo obtuvo produciendo solo 2 ATP.", "video": "https://youtu.be/dSUwB_Ma7lA?si=sDLGWx7Qqyc8Fq84"},
-  glu_alanina:{"name": "Ciclo Glucosa-Alanina", "short": "Ciclo Glucosa-Alanina", "cat": "carbohidratos", "loc": "Músculo ↔ Sangre ↔ Hígado", "enz": "Alanina aminotransferasa (ALT)", "x": 1141, "y": 462, "w": 175, "h": 42, "reaction": "Alanina → Glucosa + (N → urea)", "in": "Piruvato + NH₃ (músculo) → Alanina", "out": "Glucosa · nitrógeno → ciclo de la urea", "steps": ["Músculo: piruvato + NH₃ → alanina.", "La alanina viaja por la sangre al hígado.", "Hígado: alanina → piruvato (→ glucosa) y el nitrógeno entra al ciclo de la urea."], "fact": "Sistema que transporta nitrógeno desde el músculo hacia el hígado, eliminando nitrógeno tóxico y produciendo glucosa a la vez.", "reg": "Se activa en ayuno prolongado, caquexia y diabetes descontrolada.", "clinica": "En la diabetes descontrolada y la caquexia se intensifica el flujo de alanina hacia el hígado.", "dato": "Es una forma elegante del organismo para mover simultáneamente carbono y nitrógeno.", "video": "https://youtu.be/Sd3TUoMET5I?si=yi7WCMSJNUlz1-9K"},
-  ox_piruvato:{"name": "Oxidación del Piruvato", "short": "Oxidación del Piruvato", "cat": "carbohidratos", "loc": "Matriz mitocondrial", "enz": "Complejo piruvato deshidrogenasa (PDH)", "x": 150, "y": 790, "w": 205, "h": 30, "reaction": "Piruvato + CoA + NAD⁺ → Acetil-CoA + CO₂ + NADH", "in": "Piruvato · CoA · NAD⁺", "out": "Acetil-CoA · CO₂ · NADH", "steps": ["Descarboxilación oxidativa irreversible del piruvato.", "Requiere cofactores: tiamina (B1), riboflavina (B2), niacina (B3), pantoténico (B5) y lipoato.", "Conecta la glucólisis con el ciclo de Krebs."], "fact": "Puente entre la glucólisis y el ciclo de Krebs: convierte el piruvato en acetil-CoA dentro de la mitocondria.", "reg": "La activan ADP y piruvato; la inhiben ATP, acetil-CoA y NADH.", "clinica": "El déficit de tiamina impide que el piruvato entre a Krebs y acumula lactato (acidosis láctica, beriberi, Wernicke-Korsakoff).", "dato": "Es una reacción irreversible: por eso los ácidos grasos no pueden convertirse en glucosa de forma significativa en humanos.", "video": "https://youtu.be/6IPByBkCkxo?si=wW1B5HDDP0IMBkpC"},
-  krebs:{"name": "Ciclo de Krebs", "short": "Ciclo de Krebs", "cat": "carbohidratos", "loc": "Matriz mitocondrial", "enz": "Citrato sintasa · isocitrato deshidrogenasa · α-cetoglutarato deshidrogenasa", "x": 690, "y": 1090, "w": 280, "h": 170, "reaction": "Acetil-CoA → 2 CO₂ (+ 3 NADH, 1 FADH₂, 1 GTP)", "in": "Acetil-CoA · NAD⁺ · FAD", "out": "2 CO₂ · 3 NADH · 1 FADH₂ · 1 GTP", "steps": ["Oxida por completo el acetil-CoA.", "Por vuelta: 3 NADH, 1 FADH₂, 1 GTP y 2 CO₂.", "Regenera el oxalacetato en cada ciclo."], "fact": "Ruta central del metabolismo energético que oxida completamente el acetil-CoA en la matriz mitocondrial.", "reg": "Lo activan ADP y Ca²⁺; lo inhiben ATP y NADH.", "clinica": "Mutaciones en enzimas del ciclo pueden favorecer el cáncer por acumulación de oncometabolitos.", "dato": "No consume oxígeno directamente, pero depende de él porque NADH y FADH₂ deben reoxidarse en la cadena respiratoria.", "video": "https://youtu.be/JQcQhNKvLW8?si=wJlKKSeLbZg0PxX-"},
-  carb_piruvato:{"name": "Carboxilación del Piruvato", "short": "Carboxilación del Piruvato", "cat": "carbohidratos", "loc": "Matriz mitocondrial", "enz": "Piruvato carboxilasa (biotina, vit. B7)", "x": 458, "y": 842, "w": 175, "h": 44, "reaction": "Piruvato + CO₂ + ATP → Oxalacetato", "in": "Piruvato · CO₂ · ATP", "out": "Oxalacetato · ADP · Pi", "steps": ["Primer paso de la gluconeogénesis.", "Reacción anaplerótica: repone oxalacetato del ciclo de Krebs."], "fact": "Convierte piruvato en oxalacetato; es el primer paso de la gluconeogénesis y repone intermediarios del ciclo de Krebs.", "reg": "Su activador más importante es el acetil-CoA (señal de 'hay suficiente combustible, fabrica glucosa').", "clinica": "La deficiencia de biotina puede producir hipoglucemia, acidosis láctica y alteraciones neurológicas.", "dato": "La clara de huevo cruda contiene avidina, que secuestra biotina y puede causar deficiencia si se consume en exceso.", "video": "https://youtu.be/11Gq7VSXB3I?si=eBun5p2D5E9Y3PyI"},
-  cte:{"name": "Cadena de Transporte de Electrones", "short": "Cadena de Transporte de Electrones", "cat": "carbohidratos", "loc": "Membrana interna mitocondrial", "enz": "Complejos I–IV (NADH DH, succinato DH, citocromo bc1, citocromo oxidasa)", "x": 1025, "y": 962, "w": 205, "h": 46, "reaction": "NADH / FADH₂ → e⁻ → O₂ (bombea H⁺)", "in": "NADH · FADH₂ · O₂", "out": "H₂O · gradiente de protones", "steps": ["Complejo I recibe e⁻ del NADH y bombea protones.", "Complejo II (succinato DH) recibe e⁻ del FADH₂, no bombea protones.", "Complejos III y IV llevan los e⁻ hasta el O₂: O₂ + e⁻ + H⁺ → H₂O."], "fact": "Transporta los electrones del NADH y el FADH₂ para generar un gradiente de protones en la membrana interna mitocondrial.", "reg": "El O₂ es el aceptor final de electrones; sin él se detiene la cadena, se acumula NADH y se frena el ciclo de Krebs.", "clinica": "La intoxicación por cianuro bloquea el complejo IV y causa hipoxia celular y acidosis láctica aunque haya oxígeno en sangre.", "dato": "Más del 90% del oxígeno que respiras termina utilizándose en la cadena respiratoria.", "video": "https://youtu.be/bQl4U3xsdnQ?si=mDNeIzadQ9t2AVwp"},
-  fosfox:{"name": "Fosforilación Oxidativa", "short": "Fosforilación Oxidativa", "cat": "carbohidratos", "loc": "Membrana interna mitocondrial", "enz": "ATP sintasa (complejo V)", "x": 1040, "y": 1155, "w": 205, "h": 30, "reaction": "ADP + Pi + gradiente H⁺ → ATP", "in": "Gradiente de protones · ADP · Pi", "out": "ATP (~30-32 por glucosa)", "steps": ["La cadena respiratoria bombea protones al espacio intermembrana.", "Los protones regresan por la ATP sintasa generando ATP.", "NADH → ~2.5 ATP; FADH₂ → ~1.5 ATP (≈30-32 ATP por glucosa)."], "fact": "Usa la energía del gradiente de protones para sintetizar la mayor parte del ATP celular mediante la ATP sintasa.", "reg": "Acoplada al gradiente de protones. Los desacopladores (termogenina/UCP1, DNP) dejan pasar protones sin formar ATP y disipan la energía como calor.", "clinica": "Los desacopladores como el DNP son tóxicos; la termogenina (UCP1) genera calor en la grasa parda.", "dato": "Los bebés tienen abundante grasa parda porque usan termogenina para mantenerse calientes.", "video": "https://youtu.be/bQl4U3xsdnQ?si=mDNeIzadQ9t2AVwp"},
-  pentosas:{"name": "Vía de las Pentosas Fosfato", "short": "Vía de las Pentosas Fosfato", "cat": "carbohidratos", "loc": "Citoplasma (hígado, glándula mamaria, adiposo, suprarrenal, eritrocitos)", "enz": "Glucosa-6-fosfato deshidrogenasa (G6PD)", "x": 431, "y": 82, "w": 185, "h": 28, "reaction": "Glucosa-6-P → NADPH + Ribosa-5-P", "in": "Glucosa-6-P", "out": "NADPH · Ribosa-5-P · CO₂", "steps": ["Fase oxidativa: produce NADPH.", "Fase no oxidativa: produce ribosa-5-fosfato para nucleótidos.", "No produce ATP."], "fact": "Ruta alternativa de la glucosa que no produce ATP; genera NADPH (síntesis de lípidos y colesterol, defensa antioxidante) y ribosa-5-fosfato.", "reg": "La G6PD es la enzima limitante; el NADPH mantiene el glutatión reducido (defensa antioxidante).", "clinica": "El déficit de G6PD (la enzimopatía más frecuente) causa anemia hemolítica e ictericia, con hemólisis por sulfas, primaquina o habas (favismo).", "dato": "El déficit de G6PD brinda cierta protección contra la malaria.", "video": "https://youtu.be/aUCH9E6aOOQ?si=c2kv31xmP1JRWfkL"},
-  fructosa:{"name": "Metabolismo de la Fructosa", "short": "Metabolismo de la Fructosa", "cat": "carbohidratos", "loc": "Citoplasma (principalmente hígado)", "enz": "Fructocinasa · aldolasa B", "x": 397, "y": 554, "w": 185, "h": 42, "reaction": "Fructosa → DHAP + Gliceraldehído → Glucólisis", "in": "Fructosa · ATP", "out": "DHAP · Gliceraldehído", "steps": ["Fructosa → fructosa-1-fosfato (fructocinasa).", "Fructosa-1-P → DHAP + gliceraldehído (aldolasa B).", "Evita el paso regulador de la PFK-1, por eso se metaboliza muy rápido."], "fact": "Metabolismo de la fructosa (frutas, miel, jarabe de maíz, sacarosa), principalmente hepático, que entra a la glucólisis saltándose la PFK-1.", "reg": "Al saltarse la PFK-1 no tiene el control principal de la glucólisis, por eso es muy lipogénica.", "clinica": "La intolerancia hereditaria a la fructosa (déficit de aldolasa B) causa hipoglucemia, vómitos y daño hepático. El exceso favorece hígado graso y resistencia a la insulina.", "dato": "La fructosa es más lipogénica que la glucosa porque entra 'saltándose' uno de los principales controles metabólicos.", "video": "https://youtu.be/VZ0Wz4avjnc?si=1MHJEqMdZZVesajQ"},
-  galactosa:{"name": "Metabolismo de la Galactosa", "short": "Metabolismo de la Galactosa", "cat": "carbohidratos", "loc": "Citoplasma", "enz": "Galactocinasa · galactosa-1-fosfato uridiltransferasa (GALT)", "x": 640, "y": 568, "w": 185, "h": 42, "reaction": "Galactosa → Glucosa-1-fosfato", "in": "Galactosa · ATP · UDP-glucosa", "out": "Glucosa-1-fosfato", "steps": ["Galactosa → galactosa-1-P (galactocinasa).", "Galactosa-1-P → UDP-galactosa → UDP-glucosa (GALT).", "Finalmente entra al metabolismo de la glucosa."], "fact": "Procesa la galactosa de la lactosa de la leche y la incorpora al metabolismo de la glucosa.", "reg": "Tratamiento de su déficit: eliminar leche, lactosa y galactosa de la dieta.", "clinica": "La galactosemia clásica (déficit de GALT) causa ictericia, cataratas, hepatomegalia y retraso mental si no se trata.", "dato": "La acumulación de galactitol en el cristalino produce cataratas.", "video": "https://youtu.be/Wi9fQ6JbeJg?si=lD1gQScVJLOTD8Tp"},
-  glucogenesis:{"name": "Glucogénesis (síntesis de glucógeno)", "short": "Glucogénesis (síntesis de glucógeno)", "cat": "carbohidratos", "loc": "Hígado y músculo (citoplasma)", "enz": "Glucógeno sintasa", "x": 685, "y": 84, "w": 149, "h": 32, "reaction": "Glucosa → Glucógeno", "in": "Glucosa · UTP", "out": "Glucógeno", "steps": ["Forma glucógeno para almacenamiento.", "Se activa en estado alimentado con insulina alta."], "fact": "Formación de glucógeno para almacenamiento; en el hígado mantiene la glucemia y en el músculo es reserva propia.", "reg": "Se activa en estado alimentado con insulina alta; enzima limitante: glucógeno sintasa.", "clinica": "La enfermedad de Andersen (déficit de enzima ramificante) produce glucógeno anormal.", "dato": "Un adulto almacena ~100 g de glucógeno en hígado y 300–500 g en músculo según entrenamiento y dieta.", "video": "https://youtu.be/bVCt61Vk-I0?si=aSFNaArXI1iieUQX"},
-  glucogenolisis:{"name": "Glucogenólisis", "short": "Glucogenólisis", "cat": "carbohidratos", "loc": "Hígado y músculo (citoplasma)", "enz": "Glucógeno fosforilasa", "x": 680, "y": 307, "w": 149, "h": 32, "reaction": "Glucógeno → Glucosa-1-P → Glucosa-6-P", "in": "Glucógeno · Pi", "out": "Glucosa-1-P → Glucosa-6-P", "steps": ["La glucógeno fosforilasa degrada el glucógeno.", "Hígado: la activan glucagón y adrenalina.", "Músculo: la activan adrenalina, calcio y AMP."], "fact": "Degradación del glucógeno para liberar glucosa; aporta glucosa sanguínea en el hígado y energía local en el músculo.", "reg": "Hígado: glucagón y adrenalina. Músculo: adrenalina, calcio y AMP.", "clinica": "La enfermedad de McArdle (déficit de glucógeno fosforilasa muscular) causa fatiga rápida, calambres e intolerancia al ejercicio.", "dato": "El músculo no tiene glucosa-6-fosfatasa, por lo que no puede liberar glucosa a la sangre; solo la usa para sí mismo.", "video": "https://youtu.be/_JAvyxvhOFk?si=FydR4i2croSX_mtE"},
-  lanz_citrato:{"name": "Lanzadera de Citrato", "short": "Lanzadera de Citrato", "cat": "lipidos", "loc": "Mitocondria → Citoplasma (hígado, adiposo, glándula mamaria)", "enz": "ATP-citrato liasa", "x": 1365, "y": 85, "w": 195, "h": 26, "reaction": "Citrato → Acetil-CoA (citoplasma)", "in": "Acetil-CoA + Oxalacetato → Citrato", "out": "Acetil-CoA citoplasmático", "steps": ["Acetil-CoA + oxalacetato → citrato en la mitocondria.", "El citrato sale al citoplasma.", "ATP-citrato liasa: citrato → acetil-CoA para sintetizar ácidos grasos."], "fact": "Transporta acetil-CoA de la mitocondria al citoplasma (como citrato), porque el acetil-CoA no cruza la membrana pero la síntesis de ácidos grasos es citoplasmática.", "reg": "Se activa en estado alimentado, con glucosa e insulina altas y exceso de energía.", "clinica": "Con exceso de carbohidratos: glucosa → acetil-CoA → citrato → ácidos grasos; por eso el azúcar sobrante se almacena como grasa.", "dato": "La obesidad no depende solo de la grasa: grandes excesos de carbohidratos también se convierten en triglicéridos.", "video": "https://youtu.be/lHPuBhggnFs?si=XaKXA0NLyDCG"},
-  palmitate:{"name": "Síntesis de Palmitato", "short": "Síntesis de Palmitato", "cat": "lipidos", "loc": "Citoplasma (hígado, adiposo, glándula mamaria)", "enz": "Acetil-CoA carboxilasa (ACC) · ácido graso sintasa", "x": 1593, "y": 86, "w": 160, "h": 28, "reaction": "Acetil-CoA → Malonil-CoA → Palmitato (C16:0)", "in": "Acetil-CoA · ATP · NADPH", "out": "Palmitato (C16:0)", "steps": ["ACC: acetil-CoA → malonil-CoA (paso comprometido).", "El complejo ácido graso sintasa alarga la cadena hasta palmitato.", "El NADPH proviene de la vía de las pentosas fosfato."], "fact": "Proceso por el que el cuerpo fabrica ácidos grasos; el palmitato (C16:0) es la base de muchos otros.", "reg": "La activan insulina y citrato; la inhiben glucagón, adrenalina y el propio palmitato.", "clinica": "El exceso de carbohidratos lleva a lipogénesis y acumulación hepática (hígado graso no alcohólico), que puede progresar a inflamación y fibrosis.", "dato": "El cerebro prácticamente no sintetiza ácidos grasos para obtener energía.", "video": ""},
-  triglic:{"name": "Síntesis de Triglicéridos", "short": "Síntesis de Triglicéridos", "cat": "lipidos", "loc": "Hígado, tejido adiposo e intestino", "enz": "Aciltransferasas", "x": 1831, "y": 93, "w": 170, "h": 46, "reaction": "Glicerol-3-P + 3 ácidos grasos → Triglicérido", "in": "Glicerol-3-fosfato · ácidos grasos activados", "out": "Triglicéridos (TAG)", "steps": ["Glicerol-3-fosfato + ácidos grasos activados → triglicéridos.", "Es la forma principal de almacenamiento de energía."], "fact": "Forma principal de almacenamiento energético: un glicerol unido a 3 ácidos grasos.", "reg": "La insulina estimula la captación de glucosa y la síntesis de triglicéridos.", "clinica": "La obesidad acumula triglicéridos en los adipocitos; la hipertrigliceridemia puede causar pancreatitis aguda y riesgo cardiovascular.", "dato": "Un gramo de grasa aporta ~9 kcal, frente a 4 kcal/g de carbohidratos y proteínas.", "video": "https://youtu.be/H4NEZUJavx4?si=C5ud6KHNc0jAzZTg"},
-  glicerofosfo:{"name": "Síntesis de Glicerofosfolípidos", "short": "Síntesis de Glicerofosfolípidos", "cat": "lipidos", "loc": "Retículo endoplásmico", "enz": "", "x": 1330, "y": 472, "w": 185, "h": 42, "reaction": "Ácido fosfatídico → Glicerofosfolípidos", "in": "Ácido fosfatídico · CDP-DAG", "out": "Fosfatidilcolina · etanolamina · serina", "steps": ["Forman la bicapa lipídica de las membranas.", "Participan en transporte, señalización y fluidez de membrana."], "fact": "Principales componentes de las membranas (fosfatidilcolina, fosfatidiletanolamina, fosfatidilserina), sintetizados en el retículo endoplásmico.", "reg": "", "clinica": "Las alteraciones en fosfolípidos pueden afectar el sistema nervioso, la función hepática y la señalización celular.", "dato": "Más del 50% de la masa de muchas membranas celulares corresponde a fosfolípidos.", "video": "https://youtu.be/nMQcp2bwaGk?si=1PjgL17C0vX9VzpI"},
-  catab_fosfolip:{"name": "Catabolismo de Glicerofosfolípidos", "short": "Catabolismo de Glicerofosfolípidos", "cat": "lipidos", "loc": "Lisosoma / citoplasma", "enz": "Fosfolipasas A1, A2, C y D", "x": 1570, "y": 472, "w": 185, "h": 42, "reaction": "Fosfolípido → Lisofosfolípido + Ácido araquidónico", "in": "Glicerofosfolípido", "out": "Lisofosfolípido · ácido graso libre (araquidónico)", "steps": ["Las fosfolipasas (A1, A2, C, D) hidrolizan distintos enlaces.", "La fosfolipasa A2 libera ácido araquidónico.", "El araquidónico inicia la síntesis de eicosanoides."], "fact": "Degradación de glicerofosfolípidos por fosfolipasas; la fosfolipasa A2 libera ácido araquidónico, precursor de los eicosanoides.", "reg": "Los glucocorticoides inhiben la fosfolipasa A2 (de ahí su potente efecto antiinflamatorio).", "clinica": "Al inhibir la fosfolipasa A2, los glucocorticoides reducen la inflamación.", "dato": "La fosfolipasa A2 está presente en muchos venenos de serpientes.", "video": "https://youtu.be/T9In5D6e5Bc?si=tpQgYLg3XzPn4imq"},
-  degr_fosfoglic:{"name": "Degradación de Fosfoglicéridos", "short": "Degradación de Fosfoglicéridos", "cat": "lipidos", "loc": "Lisosoma", "enz": "Fosfolipasas", "x": 1810, "y": 472, "w": 185, "h": 42, "reaction": "Fosfoglicérido → Glicerol + Ácidos grasos + Fosfato + Base", "in": "Fosfoglicéridos de membrana", "out": "Glicerol · ácidos grasos · fosfato · base", "steps": ["Las fosfolipasas hidrolizan los fosfoglicéridos de membrana.", "Permite el recambio y reciclaje de los lípidos de membrana."], "fact": "Degradación de los fosfoglicéridos de membrana por fosfolipasas, liberando sus componentes para reciclaje.", "reg": "Comparte mecanismo con el catabolismo de glicerofosfolípidos; los glucocorticoides inhiben la fosfolipasa A2.", "clinica": "La fosfolipasa A2 conecta con la inflamación al liberar ácido araquidónico.", "dato": "La fosfolipasa A2 está presente en muchos venenos de serpientes.", "video": "https://youtu.be/T9In5D6e5Bc?si=tpQgYLg3XzPn4imq"},
-  esfingo:{"name": "Metabolismo de Esfingolípidos", "short": "Metabolismo de Esfingolípidos", "cat": "lipidos", "loc": "RE / Golgi (cerebro, nervios, mielina)", "enz": "", "x": 1324, "y": 1117, "w": 185, "h": 46, "reaction": "Esfingosina → Esfingolípidos", "in": "Esfingosina · ácidos grasos · azúcares", "out": "Esfingomielina · cerebrósidos · gangliósidos", "steps": ["Lípidos complejos derivados de la esfingosina.", "Tipos: esfingomielina, cerebrósidos y gangliósidos.", "Funciones: aislamiento nervioso y señalización celular."], "fact": "Lípidos complejos derivados de la esfingosina, muy abundantes en cerebro, nervios y mielina.", "reg": "", "clinica": "", "dato": "", "video": "https://youtu.be/9CS1zgIZmmA?si=ibMOFjLfh1gSJnS2"},
-  ceramida:{"name": "Ceramida", "short": "Ceramida", "cat": "lipidos", "loc": "Centro de señalización (RE)", "enz": "Ceramidasa", "x": 1504, "y": 1119, "w": 135, "h": 28, "reaction": "Ceramida → Esfingosina → Esfingosina-1-P", "in": "Esfinganina · acil-CoA", "out": "Esfingomielina · gangliósidos · cerebrósidos", "steps": ["Molécula central del metabolismo de esfingolípidos.", "Precursor de esfingomielina, gangliósidos y cerebrósidos.", "Participa en apoptosis, inflamación y estrés celular."], "fact": "Molécula central de los esfingolípidos y precursora de esfingomielina, gangliósidos y cerebrósidos; también actúa en apoptosis e inflamación.", "reg": "", "clinica": "Niveles elevados de ceramida se asocian con resistencia a la insulina, obesidad y diabetes tipo 2.", "dato": "Actualmente se estudia la ceramida como biomarcador cardiovascular.", "video": ""},
-  eicosanoides:{"name": "Metabolismo de Eicosanoides", "short": "Metabolismo de Eicosanoides", "cat": "lipidos", "loc": "Citoplasma / RE", "enz": "Ciclooxigenasa (COX) · lipooxigenasa", "x": 1810, "y": 768, "w": 185, "h": 46, "reaction": "Ácido araquidónico → Prostaglandinas / Tromboxanos / Leucotrienos", "in": "Ácido araquidónico", "out": "Prostaglandinas · tromboxanos · leucotrienos", "steps": ["COX produce prostaglandinas (inflamación, dolor, fiebre) y tromboxanos (agregación plaquetaria).", "La lipooxigenasa produce leucotrienos (broncoconstricción, alergias, asma)."], "fact": "Moléculas señalizadoras derivadas del ácido araquidónico: prostaglandinas, tromboxanos y leucotrienos.", "reg": "Los AINEs (aspirina, ibuprofeno) bloquean la COX y reducen dolor, inflamación y fiebre.", "clinica": "Los AINEs inhiben la COX; la aspirina la acetila de forma irreversible.", "dato": "La aspirina acetila irreversiblemente la COX.", "video": "https://youtu.be/qShr7YDX_S0?si=D0Obf50IJ2TBtzEx"},
-  esteroles:{"name": "Metabolismo de Esteroles (Colesterol)", "short": "Metabolismo de Esteroles (Colesterol)", "cat": "lipidos", "loc": "Hígado", "enz": "HMG-CoA reductasa (paso regulador)", "x": 1655, "y": 1120, "w": 160, "h": 42, "reaction": "Acetil-CoA → Escualeno → Colesterol", "in": "Acetil-CoA · NADPH", "out": "Colesterol → hormonas, ácidos biliares, vit. D", "steps": ["Síntesis de colesterol vía HMG-CoA reductasa (paso más importante).", "El colesterol da hormonas esteroideas, ácidos biliares, vitamina D y membranas."], "fact": "Síntesis de colesterol (hígado), precursor de hormonas esteroideas, ácidos biliares, vitamina D y componente de membranas.", "reg": "La estimula la insulina; la inhiben el glucagón y el colesterol elevado.", "clinica": "Las estatinas inhiben la HMG-CoA reductasa y por eso reducen el colesterol plasmático.", "dato": "Cerca del 70% del colesterol corporal lo sintetiza el propio organismo.", "video": "https://youtu.be/zqc77lmFQZk?si=ePq98isdrK_A1A3t"},
-  degr_colesterol:{"name": "Degradación del Colesterol", "short": "Degradación del Colesterol", "cat": "lipidos", "loc": "Hígado", "enz": "Colesterol 7α-hidroxilasa (CYP7A1)", "x": 1825, "y": 1116, "w": 140, "h": 46, "reaction": "Colesterol → Ácidos biliares → Excreción", "in": "Colesterol", "out": "Ácidos biliares (excreción por heces)", "steps": ["El colesterol se convierte en ácidos biliares en el hígado.", "Permiten la digestión y absorción de las grasas."], "fact": "El destino principal del colesterol es convertirse en ácidos biliares en el hígado, para digerir y absorber grasas.", "reg": "", "clinica": "Los cálculos biliares pueden formarse por alteraciones en colesterol, sales biliares y fosfolípidos.", "dato": "La única forma importante de eliminar colesterol es a través de las heces.", "video": "https://youtu.be/zqc77lmFQZk?si=ePq98isdrK_A1A3t"},
-  boxidacion:{"name": "β-Oxidación de Ácidos Grasos", "short": "β-Oxidación de Ácidos Grasos", "cat": "lipidos", "loc": "Matriz mitocondrial", "enz": "CPT-I (regulada por malonil-CoA) · translocasa · CPT-II", "x": 1330, "y": 775, "w": 185, "h": 46, "reaction": "Ácido graso → Acetil-CoA (+ NADH + FADH₂)", "in": "Acil-CoA · NAD⁺ · FAD", "out": "Acetil-CoA · NADH · FADH₂", "steps": ["Transporte a la mitocondria por carnitina (CPT-I, translocasa, CPT-II).", "Cada ciclo produce acetil-CoA, NADH y FADH₂.", "El palmitato (16C) rinde ~106 ATP."], "fact": "Degradación de ácidos grasos en la matriz mitocondrial para producir gran cantidad de energía.", "reg": "Se activa en ayuno, ejercicio y baja insulina. El malonil-CoA inhibe la CPT-I para que no coincidan síntesis y degradación de grasa.", "clinica": "El déficit de carnitina produce debilidad muscular, hipoglucemia y fatiga.", "dato": "Durante un maratón, la mayor parte de la energía proviene de la β-oxidación.", "video": "https://youtu.be/TYow1qgI3Gk?si=3--PVeGK5KKVGNrR"},
-  cetogenesis:{"name": "Cetogénesis", "short": "Cetogénesis", "cat": "lipidos", "loc": "Mitocondria hepática", "enz": "HMG-CoA sintasa · HMG-CoA liasa", "x": 1550, "y": 768, "w": 155, "h": 28, "reaction": "Acetil-CoA → Acetoacetato / β-hidroxibutirato / Acetona", "in": "Acetil-CoA", "out": "Acetoacetato · β-hidroxibutirato · acetona", "steps": ["Produce cuerpos cetónicos a partir de acetil-CoA.", "Suministra energía a cerebro, músculo y corazón cuando escasea la glucosa."], "fact": "Producción de cuerpos cetónicos a partir de acetil-CoA en la mitocondria hepática, como combustible alternativo.", "reg": "Se activa en ayuno prolongado, dieta cetogénica y diabetes tipo 1 descontrolada.", "clinica": "La cetoacidosis diabética (insulina muy baja) eleva lipólisis, β-oxidación y cetogénesis, causando acidosis metabólica y deshidratación: emergencia médica.", "dato": "Tras varias semanas de ayuno, el cerebro puede obtener más de la mitad de su energía de cuerpos cetónicos.", "video": "https://youtu.be/_XDXTwD1jls?si=0E46XBg_rjLDjWxb"},
-  metab_aa:{"name": "Metabolismo de Aminoácidos", "short": "Metabolismo de Aminoácidos", "cat": "nitrogeno", "loc": "Hígado, músculo y riñón", "enz": "Transaminasas · desaminasas", "x": 145, "y": 1472, "w": 205, "h": 42, "reaction": "Aminoácido → NH₃ + esqueleto carbonado", "in": "Aminoácidos", "out": "NH₃ · esqueletos carbonados", "steps": ["El grupo amino libera nitrógeno (NH₃).", "El esqueleto carbonado entra a glucólisis, Krebs o cetogénesis.", "Hay aminoácidos glucogénicos, cetogénicos o mixtos."], "fact": "Procesos por los que los aminoácidos forman proteínas, energía, glucosa, lípidos o neurotransmisores.", "reg": "En ayuno prolongado, el músculo degrada proteínas para mantener la glucemia.", "clinica": "Durante el ayuno prolongado, el músculo degrada proteínas para sostener la glucemia.", "dato": "No existe un almacén específico de proteínas como sí lo hay para grasas o glucógeno.", "video": "https://youtu.be/L5cxXtrCJmM?si=rvf5k7rrds5vhcD2"},
-  metab_nitro:{"name": "Metabolismo del Nitrógeno", "short": "Metabolismo del Nitrógeno", "cat": "nitrogeno", "loc": "Tejidos periféricos → Hígado", "enz": "", "x": 1210, "y": 1460, "w": 195, "h": 42, "reaction": "NH₃ → transporte (glutamina/alanina) → eliminación", "in": "Aminoácidos (grupo amino) → NH₃", "out": "Glutamina · alanina (transportadores de N)", "steps": ["La degradación de aminoácidos libera NH₃, muy tóxico para el cerebro.", "La glutamina transporta N desde tejidos periféricos.", "La alanina transporta N desde el músculo al hígado."], "fact": "Maneja el amoníaco (NH₃), muy tóxico, transportándolo y transformándolo para eliminarlo.", "reg": "Principales transportadores de nitrógeno: glutamina (tejidos periféricos) y alanina (músculo → hígado).", "clinica": "La hiperamonemia puede producir confusión, convulsiones y coma.", "dato": "Incluso concentraciones moderadamente elevadas de amonio pueden alterar la función cerebral.", "video": "https://youtu.be/jMG_0p9CrtY?si=55GjtQylj9I562Qx"},
-  urea:{"name": "Ciclo de la Urea", "short": "Ciclo de la Urea", "cat": "nitrogeno", "loc": "Hígado (mitocondria y citoplasma)", "enz": "Carbamoil-fosfato sintetasa I (CPS-I); activador: N-acetilglutamato", "x": 930, "y": 1460, "w": 245, "h": 42, "reaction": "NH₃ + CO₂ + Aspartato → Urea", "in": "Amonio · CO₂ · aspartato", "out": "Urea (excreción por orina)", "steps": ["Convierte NH₃ en urea para excretarla por la orina.", "Parte ocurre en la mitocondria y parte en el citoplasma.", "Enzima reguladora: CPS-I, activada por N-acetilglutamato."], "fact": "Ruta hepática que elimina nitrógeno en forma de urea; ocurre entre la mitocondria y el citoplasma.", "reg": "La CPS-I es la enzima reguladora y se activa por N-acetilglutamato.", "clinica": "Los defectos del ciclo de la urea provocan hiperamonemia, daño neurológico y retraso del desarrollo.", "dato": "El hígado es prácticamente el único órgano capaz de realizar el ciclo completo de la urea de forma eficiente.", "video": "https://youtu.be/miiF324Dzxs?si=5HUAmsv8Cpnxurhg"},
-  aa_akg:{"name": "Síntesis de aa derivados del α-cetoglutarato", "short": "Síntesis de aa derivados del α-cetoglutarato", "cat": "nitrogeno", "loc": "Mitocondria / citoplasma", "enz": "Transaminasas (transaminación)", "x": 618, "y": 1464, "w": 215, "h": 42, "reaction": "α-Cetoglutarato → Glutamato, Glutamina, Prolina, Arginina", "in": "α-Cetoglutarato (de Krebs) · NH₃", "out": "Glutamato · glutamina · prolina · arginina", "steps": ["El α-cetoglutarato (de Krebs) origina la familia del glutamato.", "Conecta el ciclo de Krebs con el metabolismo nitrogenado."], "fact": "Síntesis de aminoácidos a partir del α-cetoglutarato, un intermediario del ciclo de Krebs.", "reg": "Es una conexión entre el ciclo de Krebs y el metabolismo nitrogenado.", "clinica": "El glutamato es uno de los neurotransmisores excitadores más importantes del sistema nervioso.", "dato": "Muchos aminoácidos no esenciales pueden sintetizarse a partir de intermediarios metabólicos.", "video": ""},
-  glu_gln:{"name": "Síntesis de Glutamato y Glutamina", "short": "Síntesis de Glutamato y Glutamina", "cat": "nitrogeno", "loc": "Mitocondria / citoplasma", "enz": "Glutamato deshidrogenasa · glutamina sintetasa", "x": 380, "y": 1463, "w": 205, "h": 42, "reaction": "α-CG → Glutamato; Glutamato + NH₃ + ATP → Glutamina", "in": "α-Cetoglutarato · NH₃ · ATP", "out": "Glutamato · glutamina", "steps": ["Glutamato: por transaminación del α-cetoglutarato; recolecta nitrógeno y forma GABA.", "Glutamina: glutamato + NH₃ + ATP; transporta nitrógeno y nutre enterocitos y células inmunes."], "fact": "Formación de glutamato (recolector de nitrógeno y precursor de GABA) y glutamina (transporte de nitrógeno y combustible de enterocitos e inmunidad).", "reg": "La glutamina es clave para enterocitos y células inmunes; los pacientes críticos consumen mucha.", "clinica": "Los pacientes críticos pueden consumir grandes cantidades de glutamina.", "dato": "La glutamina es el aminoácido libre más abundante del plasma.", "video": ""},
-  porfirinas:{"name": "Metabolismo de Porfirinas", "short": "Metabolismo de Porfirinas", "cat": "nitrogeno", "loc": "Hígado y médula ósea", "enz": "ALA sintasa (paso limitante; requiere vitamina B6)", "x": 1716, "y": 1460, "w": 205, "h": 42, "reaction": "Succinil-CoA + Glicina → ALA → Porfirinas → Hemo", "in": "Succinil-CoA · glicina", "out": "Hemo (hemoglobina, mioglobina, citocromos)", "steps": ["ALA sintasa (con vitamina B6) inicia la vía: succinil-CoA + glicina → ALA.", "ALA → síntesis de porfirinas → hemo."], "fact": "Síntesis de las porfirinas, precursoras del grupo hemo para hemoglobina, mioglobina y citocromos.", "reg": "El paso limitante es la ALA sintasa, que necesita vitamina B6.", "clinica": "Las porfirias (trastornos de la síntesis del hemo) producen dolor abdominal, alteraciones neurológicas y fotosensibilidad.", "dato": "La acumulación de ciertos intermediarios puede dar a la orina tonalidades rojizas.", "video": ""},
-  catab_hemo:{"name": "Catabolismo del Grupo Hemo", "short": "Catabolismo del Grupo Hemo", "cat": "nitrogeno", "loc": "Macrófagos (bazo) → Hígado → Intestino", "enz": "Hemo oxigenasa · biliverdina reductasa", "x": 1422, "y": 1463, "w": 195, "h": 42, "reaction": "Hemo → Biliverdina → Bilirrubina → Bilis", "in": "Hemo (de hemoglobina) · O₂", "out": "Bilirrubina · CO · Fe²⁺ · estercobilina · urobilina", "steps": ["Hemo → biliverdina → bilirrubina indirecta.", "En el hígado se conjuga y pasa a la bilis y al intestino.", "Estercobilina (color de las heces) y urobilina (color de la orina)."], "fact": "Degradación del hemo de los eritrocitos viejos por los macrófagos hasta bilirrubina, que se excreta por la bilis.", "reg": "La bilirrubina indirecta es insoluble y viaja unida a la albúmina hasta el hígado, donde se conjuga.", "clinica": "La ictericia (acumulación de bilirrubina) produce coloración amarilla en piel y escleróticas.", "dato": "La bilirrubina indirecta es insoluble en agua y necesita albúmina para transportarse.", "video": "https://youtu.be/UCvUtIQeXP8?si=YL21GfdztrcP2d_l"},
-  pur_pir:{"name": "Metabolismo de Purinas y Pirimidinas", "short": "Metabolismo de Purinas y Pirimidinas", "cat": "nitrogeno", "loc": "Citoplasma", "enz": "", "x": 404, "y": 1783, "w": 664, "h": 48, "reaction": "Síntesis de bases → Purinas (A, G) y Pirimidinas (C, T, U)", "in": "Aminoácidos · PRPP", "out": "Purinas (adenina, guanina) · pirimidinas (citosina, timina, uracilo)", "steps": ["Forman las bases nitrogenadas del ADN y el ARN.", "Permiten la replicación, la transcripción y la división celular."], "fact": "Síntesis de las bases nitrogenadas del ADN y el ARN: purinas (adenina, guanina) y pirimidinas (citosina, timina, uracilo).", "reg": "El ácido úrico es el producto final del metabolismo de purinas en humanos.", "clinica": "La gota se debe al exceso de ácido úrico, que forma cristales en las articulaciones (típicamente el primer dedo del pie).", "dato": "El ácido úrico es el producto final del metabolismo de purinas en humanos.", "video": "https://youtu.be/Kko9PvRBWtM?si=Ldqdzn_bbihXgXL6"},
-  nucleotidos:{"name": "Metabolismo de Nucleótidos", "short": "Metabolismo de Nucleótidos", "cat": "nitrogeno", "loc": "Citoplasma", "enz": "", "x": 949, "y": 1796, "w": 195, "h": 28, "reaction": "De novo (síntesis) ↔ Salvamento (reciclaje)", "in": "Bases · ribosa-5-P · aminoácidos", "out": "Nucleótidos (ADN, ARN, ATP, GTP, cAMP)", "steps": ["Vía de novo: construcción desde moléculas simples.", "Vía de salvamento: reciclaje de bases nitrogenadas."], "fact": "Los nucleótidos forman ADN, ARN, ATP, GTP y cAMP; se obtienen por síntesis de novo o por salvamento.", "reg": "El reciclaje (salvamento) consume mucha menos energía que la síntesis desde cero.", "clinica": "Los defectos en las vías de salvamento pueden producir acumulación excesiva de ácido úrico.", "dato": "Reciclar bases consume mucha menos energía que sintetizarlas desde cero.", "video": "https://youtu.be/Q7hSyw8Z9sU?si=gU-MehHRJWOsnki3"},
-  novo:{"name": "Biosíntesis de Novo", "short": "Biosíntesis de Novo", "cat": "nitrogeno", "loc": "Citoplasma", "enz": "", "x": 289, "y": 1816, "w": 170, "h": 24, "reaction": "Precursores simples → Nucleótidos", "in": "Glutamina · glicina · aspartato · folato · PRPP", "out": "Nucleótidos nuevos", "steps": ["Purinas: se construyen sobre una ribosa ya formada (glutamina, glicina, aspartato, folato).", "Pirimidinas: primero se forma la base y luego se une a la ribosa.", "Retroalimentación negativa: si hay suficientes nucleótidos, se inhibe la síntesis."], "fact": "Producción de nucleótidos desde precursores simples; regulada por retroalimentación negativa.", "reg": "Retroalimentación negativa: cuando hay suficientes nucleótidos, se inhibe la síntesis.", "clinica": "El metotrexato inhibe el metabolismo del folato y disminuye la síntesis de ADN; se usa en cáncer y enfermedades autoinmunes.", "dato": "Las células tumorales suelen tener una biosíntesis de novo muy activa por su rápida proliferación.", "video": "https://youtu.be/WKkz235VfvM?si=jbv6TbxfpGbtQgEx"},
+  glucolisis: {
+    "name": "Glucólisis",
+    "short": "Glucólisis",
+    "cat": "carbohidratos",
+    "loc": "Citoplasma de prácticamente todas las células (Músculo, Cerebro, Eritrocitos, Tejido adiposo)",
+    "enz": "Hexocinasa / Glucocinasa · Fosfofructocinasa-1 (PFK-1, paso limitante) · Piruvato quinasa",
+    "x": 137, "y": 81, "w": 150, "h": 28,
+    "reaction": "Glucosa (6 carbonos) → 2 Piruvato (3 carbonos)",
+    "in": "Glucosa · 2 ATP · NAD⁺",
+    "out": "2 Piruvato · 4 ATP · 2 NADH",
+    "steps": [
+      "Fase de inversión energética: Se gastan 2 ATP (Glucosa → Glucosa-6-fosfato → Fructosa-6-fosfato → Fructosa-1,6-bisfosfato).",
+      "Fase de generación de energía: Se producen 4 ATP, 2 NADH y 2 Piruvatos.",
+      "Balance energético neto: Ganancia de 2 ATP + 2 NADH por cada molécula de glucosa degradada."
+    ],
+    "fact": "Vía metabólica encargada de degradar la glucosa para producir energía rápidamente. Es la única fuente energética para los eritrocitos.",
+    "reg": "Se activa con abundancia de glucosa, insulina alta, necesidad de ATP y estado alimentado (postprandial). PFK-1 es activada por AMP, ADP y Fructosa-2,6-bisfosfato, e inhibida por ATP y Citrato. Piruvato quinasa es activada por Fructosa-1,6-bisfosfato e inhibida por ATP y Alanina.",
+    "clinica": "Déficit de piruvato quinasa: Produce menos ATP y causa hemólisis ya que los eritrocitos dependen exclusivamente de esta vía. Cáncer y efecto Warburg: Células tumorales realizan glucólisis acelerada incluso con oxígeno, útil para diagnóstico mediante PET con glucosa marcada.",
+    "dato": "Los eritrocitos obtienen el 100% de su energía mediante glucólisis porque no tienen mitocondrias.",
+    "video": "https://youtu.be/iUroKREmOKo?si=0flvVDU1aI0PbRR2",
+    "img": "img/glucolisis.jpeg"
+
+    
+  },
+  gluconeogenesis: {
+    "name": "Gluconeogénesis",
+    "short": "Gluconeogénesis",
+    "cat": "carbohidratos",
+    "loc": "Hígado (90%) y Riñón (10%) · Mitocondria, Citoplasma y Retículo endoplásmico",
+    "enz": "Piruvato carboxilasa · PEP carboxiquinasa · Fructosa-1,6-bisfosfatasa (paso limitante) · Glucosa-6-fosfatasa",
+    "x": 929, "y": 86, "w": 174, "h": 27,
+    "reaction": "Lactato / Alanina / Glicerol → Glucosa",
+    "in": "Sustratos no carbohidratos (Lactato del Ciclo de Cori, Alanina del músculo, Glicerol del tejido adiposo) · ATP · GTP",
+    "out": "Glucosa",
+    "steps": [
+      "Piruvato carboxilasa: Convierte Piruvato → Oxalacetato en la mitocondria (necesita Biotina y ATP).",
+      "PEP carboxiquinasa: Convierte Oxalacetato → PEP (necesita GTP).",
+      "Fructosa-1,6-bisfosfatasa: Paso limitante de la vía.",
+      "Glucosa-6-fosfatasa: Convierte G6P en Glucosa libre (Solo en hígado y riñón; el músculo carece de ella y no puede liberar glucosa)."
+    ],
+    "fact": "Síntesis de glucosa a partir de compuestos que NO son carbohidratos para mantener los niveles glucémicos corporales.",
+    "reg": "Se activa durante el ayuno, el ejercicio prolongado y situaciones de estrés. Es estimulada por las hormonas Glucagón, Cortisol y Adrenalina; es fuertemente inhibida por la Insulina.",
+    "clinica": "Enfermedad de Von Gierke: Deficiencia de glucosa-6-fosfatasa. Produce hipoglucemia severa, hepatomegalia y acidosis láctica.",
+    "dato": "Después de 24 horas de ayuno la gluconeogénesis se vuelve la principal fuente de glucosa sanguínea.",
+    "video": "https://youtu.be/oVR6fjNsvLM?si=XZqMST1Q5wdMERzo",
+    "img": "img/gluconeogenesis.jpeg"
+
+  },
+  cori: {
+    "name": "Ciclo de Cori",
+    "short": "Ciclo de Cori",
+    "cat": "carbohidratos",
+    "loc": "Músculo ↔ Sangre ↔ Hígado",
+    "enz": "Lactato deshidrogenasa",
+    "x": 1133, "y": 80, "w": 150, "h": 28,
+    "reaction": "Glucosa → Lactato (Músculo) | Lactato → Glucosa (Hígado)",
+    "in": "Lactato muscular · 6 ATP (en hígado)",
+    "out": "Glucosa hepática · 2 ATP (netos en músculo)",
+    "steps": [
+      "Músculo: La glucosa se degrada a lactato mediante glucólisis anaerobia.",
+      "Sangre: Transporta el lactato producido desde el músculo hacia el hígado.",
+      "Hígado: El lactato se transforma de nuevo en glucosa mediante la gluconeogénesis.",
+      "Retorno: La glucosa es liberada al torrente sanguíneo y regresa al músculo para ser reutilizada."
+    ],
+    "fact": "Circuito de intercambio metabólico entre el tejido muscular y el hepático que permite la continuidad de la glucólisis anaerobia.",
+    "reg": "Se activa marcadamente durante el ejercicio físico intenso y condiciones de demanda energética en anaerobiosis.",
+    "clinica": "Durante el ejercicio intenso, el aumento drástico de lactato y la consecuente disminución del pH celular conducen a la fatiga muscular.",
+    "dato": "El hígado gasta 6 ATP para regenerar una glucosa que el músculo obtuvo produciendo solamente 2 ATP.",
+    "video": "https://youtu.be/dSUwB_Ma7lA?si=sDLGWx7Qqyc8Fq84",
+    "img": "img/cicloDeCori.jpeg"
+
+  },
+  glu_alanina: {
+    "name": "Ciclo Glucosa-Alanina",
+    "short": "Ciclo G-Ala",
+    "cat": "carbohidratos",
+    "loc": "Músculo ↔ Sangre ↔ Hígado",
+    "enz": "Alanina aminotransferasa (ALT)",
+    "x": 1141, "y": 462, "w": 175, "h": 42,
+    "reaction": "Piruvato + NH₃ (Músculo) → Alanina → Piruvato (Hígado) → Glucosa",
+    "in": "Piruvato muscular · Grupos Amino (-NH₃)",
+    "out": "Glucosa plasmática · Nitrógeno para el ciclo de la urea",
+    "steps": [
+      "Músculo: El piruvato se transamina acoplando un grupo amonio (NH₃) para formar Alanina.",
+      "Sangre: La alanina se libera a la circulación y viaja directamente al hígado.",
+      "Hígado: La alanina se desamina volviendo a convertirse en piruvato; el nitrógeno tóxico remanente se desvía al ciclo de la urea, mientras que el esqueleto de carbono se usa para producir glucosa."
+    ],
+    "fact": "Sistema integrado de transporte de nitrógeno y carbono desde el tejido muscular hacia el hígado.",
+    "reg": "Se activa en situaciones de ayuno prolongado, caquexia y estados de diabetes descontrolada.",
+    "clinica": "Se asocia a estados hipercatabólicos como la caquexia y la diabetes descontrolada, donde la degradación de proteínas musculares está aumentada.",
+    "dato": "Es una forma elegante del organismo para mover simultáneamente carbono y nitrógeno sin intoxicar los tejidos.",
+    "video": "https://youtu.be/Sd3TUoMET5I?si=yi7WCMSJNUlz1-9K",
+    "img": "img/cicloGlucosa-Alanina.jpeg"
+
+  },
+  ox_piruvato: {
+    "name": "Oxidación del Piruvato",
+    "short": "Oxidación Piruvato",
+    "cat": "carbohidratos",
+    "loc": "Matriz mitocondrial",
+    "enz": "Complejo Piruvato deshidrogenasa (PDH)",
+    "x": 150, "y": 790, "w": 205, "h": 30,
+    "reaction": "Piruvato + CoA + NAD⁺ → Acetil-CoA + CO₂ + NADH",
+    "in": "Piruvato · Coenzima A (CoA) · NAD⁺",
+    "out": "Acetil-CoA · Dióxido de carbono (CO₂) · NADH",
+    "steps": [
+      "El piruvato mitocondrial sufre una descarboxilación oxidativa.",
+      "Requiere de 5 cofactores esenciales: Tiamina (B1), Riboflavina (B2), Niacina (B3), Ácido pantoténico (B5) y Lipoato.",
+      "El producto Acetil-CoA queda listo para ingresar de inmediato al ciclo de Krebs."
+    ],
+    "fact": "Paso enzimático irreversible que actúa como puente de conexión obligatorio entre la glucólisis citoplasmática y el ciclo de Krebs mitocondrial.",
+    "reg": "Es activada alostéricamente por niveles altos de ADP y Piruvato. Es fuertemente inhibida por la acumulación de sus propios productos: ATP, Acetil-CoA y NADH.",
+    "clinica": "Déficit de tiamina (Vitamina B1): El piruvato no puede convertirse y se desvía a lactato, acumulándose. Causa acidosis láctica, Beriberi y el Síndrome de Wernicke-Korsakoff.",
+    "dato": "Es una reacción irreversible, por eso los ácidos grasos no pueden convertirse en glucosa de manera significativa en humanos.",
+    "video": "https://youtu.be/6IPByBkCkxo?si=wW1B5HDDP0IMBkpC",
+    "img": "img/oxidacionDelPiruvato.jpeg"
+
+  },
+  krebs: {
+    "name": "Ciclo de Krebs",
+    "short": "Ciclo de Krebs",
+    "cat": "carbohidratos",
+    "loc": "Matriz mitocondrial",
+    "enz": "Citrato sintasa · Isocitrato deshidrogenasa · α-cetoglutarato deshidrogenasa",
+    "x": 690, "y": 1090, "w": 280, "h": 170,
+    "reaction": "Acetil-CoA + Oxalacetato → Coenzimas reducidas + CO₂ + GTP",
+    "in": "Acetil-CoA · NAD⁺ · FAD · GDP + Pi",
+    "out": "3 NADH · 1 FADH₂ · 1 GTP · 2 CO₂",
+    "steps": [
+      "El Acetil-CoA se condensa con Oxalacetato para formar Citrato.",
+      "Se llevan a cabo oxidaciones sucesivas que extraen los electrones de alta energía.",
+      "Por cada vuelta completa del ciclo, 1 Acetil-CoA rinde exactamente: 3 NADH, 1 FADH₂, 1 GTP y 2 CO₂."
+    ],
+    "fact": "Ruta metabólica anfíbólica central del organismo, encargada de la oxidación total del grupo acetilo de los nutrientes.",
+    "reg": "Activado alostéricamente por la presencia de ADP y Ca²⁺. Inhibido de forma estricta por altas concentraciones intracelulares de ATP y NADH.",
+    "clinica": "Mutaciones genéticas en las enzimas del ciclo de Krebs provocan la acumulación de metabolitos oncometabólicos, favoreciendo directamente la oncogénesis.",
+    "dato": "El ciclo de Krebs no consume oxígeno directamente, pero depende completamente de él porque necesita que NADH y FADH₂ sean reoxidados por la cadena respiratoria.",
+    "video": "https://youtu.be/JQcQhNKvLW8?si=wJlKKSeLbZg0PxX-",
+    "img": "img/cicloDeKrebs.jpeg"
+
+  },
+  carb_piruvato: {
+    "name": "Carboxilación del Piruvato",
+    "short": "Carboxilación Piruvato",
+    "cat": "carbohidratos",
+    "loc": "Matriz mitocondrial",
+    "enz": "Piruvato carboxilasa",
+    "x": 458, "y": 842, "w": 175, "h": 44,
+    "reaction": "Piruvato + CO₂ + ATP → Oxalacetato + ADP + Pi",
+    "in": "Piruvato · CO₂ · ATP",
+    "out": "Oxalacetato · ADP · Pi",
+    "steps": [
+      "El piruvato mitocondrial es fijado con una molécula de CO₂ utilizando la energía de un ATP.",
+      "Requiere obligatoriamente Biotina (Vitamina B7) como cofactor acoplado.",
+      "El oxalacetato resultante puede destinarse a la gluconeogénesis o al ciclo celular."
+    ],
+    "fact": "Reacción química anaplerótica clave encargada de reponer los intermediarios del ciclo de Krebs e iniciar la gluconeogénesis.",
+    "reg": "Su activador alostérico obligatorio más importante es el Acetil-CoA. Altos niveles indican que hay suficiente combustible graso y es momento de fabricar glucosa.",
+    "clinica": "Deficiencia de biotina: Produce fallas en la enzima, manifestando clínicamente hipoglucemia, acidosis láctica generalizada y severas alteraciones neurológicas.",
+    "dato": "La clara de huevo cruda contiene avidina, una proteína que secuestra biotina y puede producir deficiencia si se consume en grandes cantidades durante mucho tiempo.",
+    "video": "https://youtu.be/11Gq7VSXB3I?si=eBun5p2D5E9Y3PyI",
+    "img": "img/carboxilacionDelPiruvato.jpeg"
+
+  },
+  cte: {
+    "name": "Cadena de Transporte de Electrones",
+    "short": "Cadena Respiratoria",
+    "cat": "carbohidratos",
+    "loc": "Membrana interna mitocondrial",
+    "enz": "Complejo I (NADH deshidrogenasa) · Complejo II (Succinato deshidrogenasa) · Coenzima Q · Complejo III (Citocromo bc1) · Citocromo C · Complejo IV (Citocromo oxidasa)",
+    "x": 1025, "y": 962, "w": 205, "h": 46,
+    "reaction": "Coenzimas reducidas (NADH/FADH₂) + O₂ → H₂O + Gradiente de protones",
+    "in": "NADH · FADH₂ · Oxígeno molecular (O₂)",
+    "out": "H₂O · Gradiente electroquímico de protones (H⁺)",
+    "steps": [
+      "El Complejo I recibe los electrones del NADH y bombea protones al espacio intermembrana.",
+      "El Complejo II recibe electrones del FADH₂ pero NO bombea protones (Dato de examen: es la única enzima que participa simultáneamente en Krebs y CTE).",
+      "Los electrones fluyen a través de transportadores móviles (Coenzima Q y Citocromo C) hasta el Complejo IV.",
+      "El Complejo IV transfiere los electrones finales al oxígeno en la reacción: O₂ + e⁻ + H⁺ → H₂O."
+    ],
+    "fact": "Sistema multienzimático encargado de transportar electrones provenientes de equivalentes reductores con el fin de bombear protones y generar energía potencial.",
+    "reg": "Depende estrictamente de la disponibilidad de Oxígeno como aceptor final de electrones. Sin oxígeno, la cadena se detiene, se acumula NADH, se frena Krebs y cae el ATP.",
+    "clinica": "Intoxicación por cianuro: Bloquea drásticamente el Complejo IV (Citocromo oxidasa), causando hipoxia celular aguda, acidosis láctica y muerte rápida, aun con saturación normal de oxígeno sanguíneo.",
+    "dato": "Más del 90% del oxígeno que respiras termina utilizándose en la cadena respiratoria.",
+    "video": "https://youtu.be/bQl4U3xsdnQ?si=mDNeIzadQ9t2AVwp",
+    "img": "img/cte.jpeg"
+
+  },
+  fosfox: {
+    "name": "Fosforilación Oxidativa",
+    "short": "Fosforilación Ox",
+    "cat": "carbohidratos",
+    "loc": "Membrana interna mitocondrial",
+    "enz": "ATP sintasa (Complejo V)",
+    "x": 1040, "y": 1155, "w": 205, "h": 30,
+    "reaction": "ADP + Pi + Fuerza electromotriz → ATP",
+    "in": "Gradiente de protones · ADP · Fosfato inorgánico (Pi)",
+    "out": "ATP (Aproximadamente 30-32 ATP totales por molécula de glucosa)",
+    "steps": [
+      "La CTE acumula un gradiente de alta concentración de protones en el espacio intermembrana.",
+      "Los protones se ven obligados a regresar a la matriz mitocondrial atravesando el canal de la ATP sintasa.",
+      "El flujo rotatorio mecánico de la enzima cataliza la unión de ADP y Pi para sintetizar ATP.",
+      "Rendimiento estimado: Cada NADH sintetiza ~2.5 ATP y cada FADH₂ sintetiza ~1.5 ATP."
+    ],
+    "fact": "Proceso celular mediante el cual la energía química contenida en el gradiente de protones mitocondrial es convertida en ATP.",
+    "reg": "Regulado por el estado energético celular. Agentes desacopladores fisiológicos (Termogenina/UCP1) o químicos (DNP) abren canales alternos al gradiente disipando la energía netamente como calor.",
+    "clinica": "Los desacopladores permiten el regreso de protones sin generar ATP. El DNP es una droga altamente tóxica; la Termogenina disipa la energía en forma de calor.",
+    "dato": "Los bebés tienen abundante grasa parda porque utilizan termogenina para mantenerse calientes.",
+    "video": "https://youtu.be/bQl4U3xsdnQ?si=mDNeIzadQ9t2AVwp",
+    "img": "img/cte.jpeg"
+
+  },
+  pentosas: {
+    "name": "Vía de las Pentosas Fosfato",
+    "short": "Vía de Pentosas",
+    "cat": "carbohidratos",
+    "loc": "Citoplasma celular (Muy activa en Hígado, Glándula mamaria, Tejido adiposo, Corteza suprarrenal y Eritrocitos)",
+    "enz": "Glucosa-6-fosfato deshidrogenasa (G6PD, enzima limitante)",
+    "x": 431, "y": 82, "w": 185, "h": 28,
+    "reaction": "Glucosa-6-Fosfato → NADPH + Ribosa-5-Fosfato",
+    "in": "Glucosa-6-fosfato · NADP⁺",
+    "out": "NADPH · Ribosa-5-fosfato (No genera ATP)",
+    "steps": [
+      "Fase oxidativa: Reacciones irreversibles que producen coenzimas NADPH.",
+      "Fase no oxidativa: Reacciones reversibles que reorganizan azúcares para formar Ribosa-5-fosfato.",
+      "La Ribosa-5-fosfato se desvía directamente a la síntesis de nucleótidos y ácidos nucleicos."
+    ],
+    "fact": "Ruta metabólica alternativa para la oxidación de la glucosa que no tiene como fin la producción de ATP, sino la obtención de poder reductor y azúcares estructurales.",
+    "reg": "Controlada por la disponibilidad del sustrato NADP⁺ y la inhibición por producto del NADPH sobre la enzima limitante G6PD.",
+    "clinica": "Deficiencia de G6PD: Es la enzimopatía más frecuente del mundo. Produce anemia hemolítica severa e ictericia al exponerse a fármacos oxidantes (Sulfas, Primaquina) o a la ingesta de habas (Favismo).",
+    "dato": "La deficiencia de G6PD brinda cierta protección biológica contra la infección por malaria.",
+    "video": "https://youtu.be/aUCH9E6aOOQ?si=c2kv31xmP1JRWfkL",
+    "img": "img/pentosasFosfato.jpeg"
+
+  },
+  fructosa: {
+    "name": "Metabolismo de la Fructosa",
+    "short": "Metab Fructosa",
+    "cat": "carbohidratos",
+    "loc": "Citoplasma (Principalmente en el tejido hepático)",
+    "enz": "Fructocinasa · Aldolasa B",
+    "x": 397, "y": 554, "w": 185, "h": 42,
+    "reaction": "Fructosa → Fructosa-1-P → DHAP + Gliceraldehído → Glucólisis",
+    "in": "Fructosa (de frutas, miel o sacarosa) · ATP",
+    "out": "DHAP · Gliceraldehído (Intermediarios glucolíticos)",
+    "steps": [
+      "La Fructocinasa fosforila la fructosa consumiendo un ATP para producir Fructosa-1-fosfato.",
+      "La Aldolasa B escinde la Fructosa-1-fosfato en DHAP y Gliceraldehído.",
+      "Los productos se activan e ingresan directamente a la vía glucolítica."
+    ],
+    "fact": "Vía encargada de asimilar y degradar la fructosa dietética para incorporarla a las rutas de producción central.",
+    "reg": "Particularidad: Esta vía evita por completo el paso regulador alostérico de la PFK-1. Por ende, su velocidad metabólica es extremadamente alta y descontrolada.",
+    "clinica": "Intolerancia hereditaria a la fructosa: Deficiencia genética de la enzima Aldolasa B; causa hipoglucemia, vómitos, daño hepático y hepatomegalia. El exceso crónico de fructosa favorece lipogénesis, hígado graso y resistencia a la insulina.",
+    "dato": "La fructosa es más lipogénica que la glucosa porque entra 'saltándose' uno de los principales controles metabólicos del cuerpo.",
+    "video": "https://youtu.be/VZ0Wz4avjnc?si=1MHJEqMdZZVesajQ",
+    "img": "img/metabolismoDeFructosa.jpeg"
+
+  },
+  galactosa: {
+    "name": "Metabolismo de la Galactosa",
+    "short": "Metab Galactosa",
+    "cat": "carbohidratos",
+    "loc": "Citoplasma celular",
+    "enz": "Galactocinasa · Galactosa-1-fosfato uridiltransferasa (GALT)",
+    "x": 640, "y": 568, "w": 185, "h": 42,
+    "reaction": "Galactosa → Galactosa-1-P → UDP-Galactosa → UDP-Glucosa → Glucosa",
+    "in": "Galactosa (proveniente de la lactosa de la leche) · ATP",
+    "out": "Intermediarios de Glucosa (Glucosa-1-fosfato)",
+    "steps": [
+      "La Galactocinasa fosforila el azúcar a Galactosa-1-fosfato gastando un ATP.",
+      "La enzima GALT cataliza la transferencia de nucleótidos formando UDP-galactosa.",
+      "Mediante una epimerasa se transforma en UDP-glucosa para entrar finalmente en las vías centrales de la glucosa."
+    ],
+    "fact": "Conjunto de reacciones encargado de transformar la galactosa en intermediarios fácilmente aprovechables por la vía glucolítica o glucogénica.",
+    "reg": "Ruta dependiente de la ingesta láctea. El tratamiento ante fallas metabólicas consiste en la estricta eliminación dietética de leche, lactosa y galactosa.",
+    "clinica": "Galactosemia clásica: Deficiencia congénita de la enzima GALT. Provoca ictericia neonatal, hepatomegalia macroscópica, retraso mental severo y desarrollo temprano de cataratas.",
+    "dato": "La acumulación patológica de galactitol (un polialcohol derivado) en el cristalino ocular es lo que produce las cataratas.",
+    "video": "https://youtu.be/Wi9fQ6JbeJg?si=lD1gQScVJLOTD8Tp",
+    "img": "img/metabolismoDeGalactosa.jpeg"
+
+  },
+  glucogenesis: {
+    "name": "Glucogénesis (Síntesis de Glucógeno)",
+    "short": "Glucogénesis",
+    "cat": "carbohidratos",
+    "loc": "Citoplasma de células del Hígado y Músculo esquelético",
+    "enz": "Glucógeno sintasa (Enzima limitante)",
+    "x": 685, "y": 84, "w": 149, "h": 32,
+    "reaction": "Glucosa libre → UDP-Glucosa → Glucógeno polimerizado",
+    "in": "Glucosa-6-fosfato · UTP · ATP",
+    "out": "Glucógeno macromolecular",
+    "steps": [
+      "La glucosa se isomeriza y activa químicamente mediante la adición de UDP.",
+      "La Glucógeno sintasa une las moléculas de UDP-glucosa mediante enlaces alfa-1,4.",
+      "Una enzima ramificante introduce puntos de ramificación con enlaces alfa-1,6 para compactar el polímero."
+    ],
+    "fact": "Proceso bioquímico anabólico de polimerización encargado de almacenar el exceso de glucosa en forma de glucógeno.",
+    "reg": "Se activa fuertemente en el estado alimentado postprandial ante concentraciones elevadas de insulina. La insulina desfosforila y activa a la glucógeno sintasa.",
+    "clinica": "Enfermedad de Andersen: Deficiencia hereditaria de la enzima ramificante. Produce la formación de un glucógeno anormal con pocas ramificaciones que lesiona tejidos.",
+    "dato": "Un adulto promedio puede almacenar aproximadamente 100 g de glucógeno en el hígado y entre 300-500 g en el músculo, variando según la dieta y el entrenamiento.",
+    "video": "https://youtu.be/bVCt61Vk-I0?si=aSFNaArXI1iieUQX",
+    "img": "img/glucogenesis.jpeg"
+
+  },
+  glucogenolisis: {
+    "name": "Glucogenólisis",
+    "short": "Glucogenólisis",
+    "cat": "carbohidratos",
+    "loc": "Citoplasma de las células hepáticas y del tejido muscular",
+    "enz": "Glucógeno fosforilasa (Enzima principal)",
+    "x": 680, "y": 307, "w": 149, "h": 32,
+    "reaction": "Glucógeno polimerizado → Glucosa-1-Fosfato → Glucosa-6-Fosfato",
+    "in": "Glucógeno almacenado · Fosfato inorgánico (Pi)",
+    "out": "Glucosa-1-fosfato (Hígado libera glucosa libre; músculo la consume internamente)",
+    "steps": [
+      "La Glucógeno fosforilasa rompe los enlaces alfa-1,4 terminales liberando Glucosa-1-fosfato.",
+      "Una enzima desramificante rompe las uniones alfa-1,6 eliminando los puntos de ramificación.",
+      "La glucosa-1-P se isomeriza a glucosa-6-P para su posterior aprovechamiento."
+    ],
+    "fact": "Ruta catabólica encargada de la degradación del glucógeno para movilizar rápidamente la glucosa almacenada.",
+    "reg": "En el hígado es estimulada por el Glucagón y la Adrenalina para mantener la glucemia. En el músculo es activada por Adrenalina, Calcio intracelular y niveles altos de AMP.",
+    "clinica": "Enfermedad de McArdle: Deficiencia de la enzima glucógeno fosforilasa muscular; genera fatiga muscular de aparición rápida, calambres intensos e intolerancia severa al ejercicio.",
+    "dato": "El músculo no posee la enzima glucosa-6-fosfatasa, por lo que no puede liberar glucosa a la sangre; solo la utiliza para su propio consumo energético.",
+    "video": "https://youtu.be/_JAvyxvhOFk?si=FydR4i2croSX_mtE",
+    "img": "img/glucogenolisis.jpeg"
+
+  },
+  lanz_citrato: {
+    "name": "Lanzadera de Citrato",
+    "short": "Lanzadera Citrato",
+    "cat": "lipidos",
+    "loc": "Mitocondria → Citoplasma (Hígado, Tejido adiposo, Glándula mamaria lactante)",
+    "enz": "ATP-citrato liasa",
+    "x": 1365, "y": 85, "w": 195, "h": 26,
+    "reaction": "Acetil-CoA (Mito) + Oxalacetato → Citrato (Sale) → Acetil-CoA (Cito) + Oxalacetato",
+    "in": "Acetil-CoA mitocondrial · Oxalacetato · ATP",
+    "out": "Acetil-CoA citoplasmático · Oxalacetato citoplasmático",
+    "steps": [
+      "Dentro de la mitocondria, el Acetil-CoA se une al Oxalacetato para sintetizar Citrato.",
+      "El Citrato atraviesa libremente la membrana mitocondrial hacia el citoplasma mediante un transportador específico.",
+      "En el citoplasma, la enzima ATP-citrato liasa rompe el Citrato, regenerando Acetil-CoA y Oxalacetato."
+    ],
+    "fact": "Sistema de transporte encargado de movilizar unidades de Acetil-CoA desde el interior de la mitocondria hacia el citoplasma celular, donde se requiere para la síntesis de lípidos.",
+    "reg": "Se activa exclusivamente en el estado alimentado con alta disponibilidad de glucosa, exceso energético corporal y niveles elevados de insulina.",
+    "clinica": "Cuando una persona consume exceso de carbohidratos, la glucosa se convierte en Acetil-CoA, este pasa a citrato y sale al citoplasma para formar ácidos grasos. Por eso el exceso de azúcar termina almacenado como grasa.",
+    "dato": "La obesidad no depende únicamente del consumo de grasa; grandes excesos de carbohidratos también pueden terminar convirtiéndose en triglicéridos corporales.",
+    "video": "https://youtu.be/lHPuBhggnFs?si=XaKXA0NLyDCG",
+    "img": "img/lanzaderaDeCitrato.jpeg"
+
+  },
+  palmitate: {
+    "name": "Síntesis de Palmitato a partir de Acetil-CoA",
+    "short": "Síntesis Palmitato",
+    "cat": "lipidos",
+    "loc": "Citoplasma celular (Principalmente en Hígado, Tejido adiposo y Glándula mamaria)",
+    "enz": "Acetil-CoA carboxilasa (ACC, enzima limitante) · Complejo Ácido graso sintasa",
+    "x": 1593, "y": 86, "w": 160, "h": 28,
+    "reaction": "Acetil-CoA → Malonil-CoA → Palmitato (Ácido graso de 16 carbonos)",
+    "in": "Acetil-CoA · ATP · NADPH (proveniente de la vía de las pentosas fosfato)",
+    "out": "Palmitato (C16:0)",
+    "steps": [
+      "La ACC carboxila el Acetil-CoA para formar Malonil-CoA consumiendo un ATP (Este es el paso limitante y comprometido de la vía).",
+      "El Complejo multienzimático Ácido graso sintasa realiza ciclos repetitivos de condensación y reducción.",
+      "Utiliza poder reductor de moléculas de NADPH hasta sintetizar por completo el Palmitato de 16 carbonos."
+    ],
+    "fact": "Proceso bioquímico anabólico central mediante el cual el organismo fabrica de novo cadenas lineales de ácidos grasos.",
+    "reg": "Activada alostéricamente y de forma hormonal por Insulina y Citrato. Inhibida por hormonas catabólicas como el Glucagón y la Adrenalina, así como por acumulación del producto Palmitato.",
+    "clinica": "Hígado graso no alcohólico: El consumo desmedido de carbohidratos acelera la glucólisis y la lipogénesis de novo, acumulando triglicéridos en el parénquima hepático que pueden progresar a inflamación y fibrosis.",
+    "dato": "El cerebro prácticamente no sintetiza ácidos grasos con fines de obtención de energía.",
+    "video": "",
+    "img": "img/sintesisPalmitato.jpeg"
+
+  },
+  triglic: {
+    "name": "Síntesis de Triglicéridos",
+    "short": "Síntesis de TAG",
+    "cat": "lipidos",
+    "loc": "Hígado, Tejido adiposo y células del Intestino delgado",
+    "enz": "Aciltransferasas",
+    "x": 1831, "y": 93, "w": 170, "h": 46,
+    "reaction": "Glicerol-3-Fosfato + 3 Ácidos grasos activados → Triglicérido",
+    "in": "Glicerol-3-fosfato · 3 Ácidos grasos activados (Acil-CoA)",
+    "out": "Triglicéridos (Triacilgliceroles)",
+    "steps": [
+      "Se obtiene el esqueleto base de Glicerol-3-fosfato (proveniente de la glucólisis o fosforilación directa del glicerol).",
+      "Mediante aciltransferasas secuenciales, se esterifican tres ácidos grasos en los carbonos del glicerol.",
+      "Se obtiene la molécula final neutra e hidrofóbica de Triglicérido."
+    ],
+    "fact": "Vía encargada de la esterificación de ácidos grasos sobre una molécula de glicerol para constituir la principal forma de almacenamiento energético corporal.",
+    "reg": "Estimulada por concentraciones elevadas de Insulina, la cual promueve tanto la captación periférica de glucosa como la esterificación grasa.",
+    "clinica": "La obesidad cursa con un almacenamiento excesivo y patológico de triglicéridos en los adipocitos. La hipertrigliceridemia severa se asocia con un alto riesgo de pancreatitis aguda y riesgo cardiovascular.",
+    "dato": "Un gramo de grasa almacena aproximadamente 9 kcal, mientras que los carbohidratos y las proteínas aportan únicamente 4 kcal/g.",
+    "video": "https://youtu.be/H4NEZUJavx4?si=C5ud6KHNc0jAzZTg",
+    "img": "img/sintesisTrigliceridos.jpeg"
+
+  },
+  glicerofosfo: {
+    "name": "Síntesis de Glicerofosfolípidos",
+    "short": "Sint Fosfolípidos",
+    "cat": "lipidos",
+    "loc": "Retículo endoplásmico celular",
+    "enz": "Transferasas de nucleótidos",
+    "x": 1330, "y": 472, "w": 185, "h": 42,
+    "reaction": "Ácido fosfatídico + Base nitrogenada (Colina/Etanolamina) → Glicerofosfolípido",
+    "in": "Ácido fosfatídico · Diacilglicerol (DAG) · Nucleótidos activados (CDP-colina / CDP-etanolamina)",
+    "out": "Fosfatidilcolina · Fosfatidiletanolamina · Fosfatidilserina",
+    "steps": [
+      "Se utiliza como precursor el ácido fosfatídico o el diacilglicerol en las membranas del retículo.",
+      "Se activa la cabeza polar o el lípido mediante el acoplamiento de nucleótidos de citidina (CDP).",
+      "Se transfieren los componentes formando la cabeza polar hidrofílica unida a las colas apolares."
+    ],
+    "fact": "Vía metabólica estructural encargada de fabricar los lípidos anfipáticos que constituyen la base de todas las membranas biológicas.",
+    "reg": "Coordinada con las necesidades de crecimiento celular, división mitótica y recambio estructural de las membranas corporales.",
+    "clinica": "Alteraciones en la síntesis de fosfolípidos pueden afectar de forma grave la estructura del sistema nervioso, la función secretora hepática y la señalización celular.",
+    "dato": "Más del 50% de la masa total de muchas membranas celulares corresponde a los fosfolípidos.",
+    "video": "https://react.org/nMQcp2bwaGk?si=1PjgL17C0vX9VzpI",
+    "img": ["img/glicero1.jpeg", "img/glicero2.jpeg", "img/glicero3.jpeg"]
+
+  },
+  catab_fosfolip: {
+    "name": "Catabolismo y Degradación de Glicerofosfolípidos",
+    "short": "Degradación Fosfo",
+    "cat": "lipidos",
+    "loc": "Lisosomas y citoplasma de las células",
+    "enz": "Fosfolipasas (A1, A2, C, D)",
+    "x": 1570, "y": 472, "w": 185, "h": 42,
+    "reaction": "Glicerofosfolípido → Ácidos grasos libres + Lisofosfolípido / Segundos mensajeros",
+    "in": "Glicerofosfolípidos estructurales de membrana",
+    "out": "Ácidos grasos (como Ácido araquidónico) · Glicerol-fosfato · Bases libres",
+    "steps": [
+      "Las fosfolipasas hidrolizan enlaces éster específicos del lípido anfipático.",
+      "La Fosfolipasa A1 y A2 cortan los ácidos grasos en las posiciones 1 y 2 respectivamente.",
+      "La Fosfolipasa A2 corta de forma selectiva liberando Ácido araquidónico.",
+      "Las Fosfolipasas C y D cortan a la altura del grupo fosfato liberando segundos mensajeros celulares."
+    ],
+    "fact": "Proceso de degradación y recambio de los lípidos de membrana encargado también de liberar precursores inflamatorios.",
+    "reg": "Sujeto a señalización por receptores extracelulares. Los fármacos glucocorticoides inhiben la actividad enzimática de la fosfolipasa A2.",
+    "clinica": "Los glucocorticoides inhiben de manera indirecta a la fosfolipasa A2, bloqueando la liberación de sustratos reactivos, lo que explica su potente efecto antiinflamatorio en la clínica médica.",
+    "dato": "La enzima fosfolipasa A2 está presente de forma abundante y destructiva en muchos venenos de serpientes.",
+    "video": "https://youtu.be/T9In5D6e5Bc?si=tpQgYLg3XzPn4imq",
+    "img": "img/catabolismoGlicero.jpeg"
+
+  },
+  degr_fosfoglic: {
+    "name": "Degradación de Fosfoglicéridos",
+    "short": "Degr Fosfoglicéridos",
+    "cat": "lipidos",
+    "loc": "Lisosoma celular",
+    "enz": "Fosfolipasas específicas",
+    "x": 1810, "y": 472, "w": 185, "h": 42,
+    "reaction": "Fosfoglicérido → Glicerol + Ácidos grasos + Fosfato + Base",
+    "in": "Fosfoglicéridos de membrana",
+    "out": "Componentes básicos solubles y cadenas de ácidos grasos libres",
+    "steps": [
+      "Las hidrolasas lisosomales captan trozos de membrana celular envejecidos.",
+      "Se hidrolizan por completo los enlaces moleculares restantes.",
+      "Permite el reciclaje o la completa degradación de los bloques de construcción lipídicos."
+    ],
+    "fact": "Ruta catabólica terminal lisosomal encargada del reciclaje y disposición final de los componentes lipídicos fosforilados.",
+    "reg": "Coordinada con los procesos de autofagia celular y el mantenimiento de la homeostasis de los lípidos membranosos.",
+    "clinica": "Comparte relevancia con el catabolismo de fosfolípidos al liberar ácidos grasos esenciales y estar implicada en cascadas inflamatorias tisulares.",
+    "dato": "La fosfolipasa A2 conecta de forma directa con la inflamación al liberar ácido araquidónico de las membranas.",
+    "video": "https://youtu.be/T9In5D6e5Bc?si=tpQgYLg3XzPn4imq"
+  },
+  boxidacion: {
+    "name": "β-Oxidación de Ácidos Grasos",
+    "short": "β-Oxidación",
+    "cat": "lipidos",
+    "loc": "Matriz mitocondrial de las células",
+    "enz": "CPT-I (Carnitina palmitoiltransferasa I, paso limitante) · Translocasa · CPT-II",
+    "x": 1330, "y": 775, "w": 185, "h": 46,
+    "reaction": "Acil-CoA graso → Ciclos de oxidación → Acetil-CoA + NADH + FADH₂",
+    "in": "Ácidos grasos libres · ATP · Coenzima A · NAD⁺ · FAD",
+    "out": "Múltiples moléculas de Acetil-CoA · NADH · FADH₂",
+    "steps": [
+      "Activación: El ácido graso se une a la CoA en el citoplasma consumiendo energía.",
+      "Transporte: El sistema de la carnitina (CPT-I, translocasa y CPT-II) introduce el ácido graso activado al interior mitocondrial.",
+      "Oxidación: Se realizan ciclos sucesivos de 4 reacciones (oxidación, hidratación, oxidación, tiólisis), acortando la cadena en 2 carbonos por ciclo.",
+      "Rendimiento: La oxidación completa del Palmitato (16C) produce aproximadamente 106 ATP moleculares."
+    ],
+    "fact": "Ruta catabólica aeróbica mitocondrial encargada de romper secuencialmente las cadenas de ácidos grasos para generar grandes cantidades de energía.",
+    "reg": "Se activa en estados de ayuno, ejercicio e insulina baja. El intermediario Malonil-CoA inhibe fuertemente a la CPT-I, evitando que la síntesis y degradación ocurran al mismo tiempo.",
+    "clinica": "Déficit de carnitina: Impide el transporte mitocondrial de los ácidos grasos de cadena larga. Clínicamente produce debilidad muscular severa, hipoglucemia hipocetósica severa y fatiga crónica.",
+    "dato": "Durante la carrera de un maratón, la mayor parte de la energía total del organismo proviene de la β-oxidación.",
+    "video": "https://youtu.be/TYow1qgI3Gk?si=3--PVeGK5KKVGNrR",
+    "img": ["img/oxi1.jpeg", "img/oxi2.jpeg"]
+  },
+  cetogenesis: {
+    "name": "Cetogénesis",
+    "short": "Cetogénesis",
+    "cat": "lipidos",
+    "loc": "Matriz mitocondrial de las células hepáticas (Exclusivo del hígado)",
+    "enz": "HMG-CoA sintasa mitocondrial · HMG-CoA liasa",
+    "x": 1550, "y": 768, "w": 155, "h": 28,
+    "reaction": "2 Acetil-CoA → Acetoacetato → β-hidroxibutirato + Acetona",
+    "in": "Exceso de unidades de Acetil-CoA provenientes de una β-oxidación masiva",
+    "out": "Cuerpos cetónicos (Acetoacetato, β-hidroxibutirato y Acetona gaseosa)",
+    "steps": [
+      "Se condensan moléculas de Acetil-CoA mitocondrial para formar HMG-CoA.",
+      "La HMG-CoA liasa rompe el intermediario para generar Acetoacetato.",
+      "El acetoacetato puede reducirse a β-hidroxibutirato o descarboxilarse espontáneamente a Acetona."
+    ],
+    "fact": "Vía metabólica hepática encargada de sintetizar cuerpos cetónicos a partir del exceso de Acetil-CoA para exportar combustible soluble a tejidos periféricos.",
+    "reg": "Se activa marcadamente en ayuno prolongado, dietas cetogénicas estrictas y en cuadros de diabetes tipo 1 descontrolada.",
+    "clinica": "Cetoacidosis diabética: Complicación grave con niveles de insulina extremadamente bajos. Se dispara la lipólisis, la β-oxidación y la cetogénesis masiva, liberando tantos cuerpos cetónicos ácidos que causan acidosis metabólica severa, deshidratación y riesgo de coma.",
+    "dato": "Después de varias semanas de ayuno prolongado, el cerebro puede obtener más de la mitad de toda su energía diaria a partir de los cuerpos cetónicos.",
+    "video": "https://youtu.be/_XDXTwD1jls?si=0E46XBg_rjLDjWxb",
+    "img": "img/cetogenesis.jpeg"
+  },
+  esfingo: {
+    "name": "Metabolismo de Esfingolípidos",
+    "short": "Metab Esfingolípidos",
+    "cat": "lipidos",
+    "loc": "Membranas del Retículo endoplásmico y Aparato de Golgi (Especialmente abundantes en Cerebro, Nervios y vainas de Mielina)",
+    "enz": "Esfingomielinasa · Sintetasas complejas",
+    "x": 1324, "y": 1117, "w": 185, "h": 46,
+    "reaction": "Palmitoil-CoA + Serina → Esfingosina → Ceramida → Esfingolípidos complejos",
+    "in": "Palmitoil-CoA · Aminoácido Serina · Azúcares activados (UDP-glucosa / UDP-galactosa)",
+    "out": "Esfingomielina · Cerebrósidos · Gangliósidos",
+    "steps": [
+      "Se condensa Palmitoil-CoA con Serina para estructurar la base nitrogenada Esfingosina.",
+      "Se une un ácido graso a la esfingosina para sintetizar la molécula base de Ceramida.",
+      "Se acoplan grupos polares fosfocolina (Esfingomielina) o azúcares hidrofílicos (Cerebrósidos y Gangliósidos)."
+    ],
+    "fact": "Vía bioquímica encargada de la síntesis y degradación estructural de lípidos complejos que contienen el esqueleto central de esfingosina.",
+    "reg": "Coordinada con los procesos de mielinización del sistema nervioso y de diferenciación y reconocimiento de la superficie celular.",
+    "clinica": "Las fallas heredadas en las enzimas de degradación lisosomal de estos lípidos provocan enfermedades por almacenamiento (Esfingolipidosis) con grave afección neurológica.",
+    "dato": "Los esfingolípidos complejos participan activamente en el aislamiento eléctrico de los axones nerviosos y en los procesos de señalización de la membrana celular.",
+    "video": "https://youtu.be/9CS1zgIZmmA?si=ibMOFjLfh1gSJnS2",
+    "img": "img/esfingolipidos.jpeg"
+  },
+  ceramida: {
+    "name": "Ceramida",
+    "short": "Precursor Ceramida",
+    "cat": "lipidos",
+    "loc": "Centro de señalización lipídica (Retículo endoplásmico celular)",
+    "enz": "Ceramidasa · Ceramida sintasa",
+    "x": 1504, "y": 1119, "w": 135, "h": 28,
+    "reaction": "Esfingosina + Ácido graso → Ceramida → Precursor general de esfingolípidos",
+    "in": "Esfinganina · Acil-CoA graso",
+    "out": "Esfingomielina · Gangliósidos · Cerebrósidos · Señales celulares",
+    "steps": [
+      "Actúa como el núcleo molecular y el precursor estructural directo de toda la familia de esfingolípidos corporales.",
+      "Aparte de su rol estructural, es liberada de la membrana en respuesta a señales de estrés celular.",
+      "Funciona como un potente mediador molecular intracelular que regula la Apoptosis, la inflamación tisular y las respuestas al estrés."
+    ],
+    "fact": "Molécula lipídica estructural y señalizadora central que comanda el metabolismo y las redes de destino de los esfingolípidos.",
+    "reg": "Niveles estrictamente regulados por enzimas de síntesis y degradación en respuesta a estímulos inflamatorios o de supervivencia celular.",
+    "clinica": "Niveles intracelulares crónicamente elevados de ceramida se han asociado con el desarrollo patológico de resistencia a la insulina, obesidad generalizada y diabetes tipo 2.",
+    "dato": "Actualmente se estudia intensamente la ceramida plasmática como un novedoso biomarcador predictor de riesgo cardiovascular.",
+    "video": "",
+    "img": "img/ceramida.jpeg"
+  },
+  eicosanoides: {
+    "name": "Metabolismo de Eicosanoides",
+    "short": "Metab Eicosanoides",
+    "cat": "lipidos",
+    "loc": "Citoplasma y Retículo endoplásmico celular",
+    "enz": "Ciclooxigenasa (COX-1 / COX-2) · Lipooxigenasa",
+    "x": 1810, "y": 768, "w": 185, "h": 46,
+    "reaction": "Ácido araquidónico → Cascadas enzimáticas → Prostaglandinas / Tromboxanos / Leucotrienos",
+    "in": "Ácido araquidónico libre (liberado previamente por la fosfolipasa A2)",
+    "out": "Prostaglandinas · Tromboxanos · Leucotrienos (Hormonas locales potentes)",
+    "steps": [
+      "Vía de la Ciclooxigenasa (COX): Oxida el ácido araquidónico sintetizando Prostaglandinas (mediadores de inflamación, dolor, fiebre) y Tromboxanos (inductores de la agregación plaquetaria).",
+      "Vía de la Lipooxigenasa: Sintetiza Leucotrienos, potentes compuestos encargados de mediar procesos alérgicos, broncoconstricción pulmonar y el asma."
+    ],
+    "fact": "Ruta de síntesis de hormonas lipídicas de acción local y vida media corta que median de manera potente los procesos inflamatorios e inmunitarios del cuerpo.",
+    "reg": "Modulada por estímulos lesivos o inflamatorios. Los fármacos Antiinflamatorios No Esteroideos (AINEs) actúan bloqueando directamente la vía.",
+    "clinica": "Los fármacos AINEs como la Aspirina y el Ibuprofeno bloquean de forma competitiva a la enzima COX, disminuyendo clínicamente el dolor, la inflamación y la fiebre. La aspirina altera de forma irreversible a la COX mediante acetilación.",
+    "dato": "La aspirina acetila irreversiblemente a la enzima COX, anulando su función durante toda la vida útil de la célula (como en las plaquetas).",
+    "video": "https://youtu.be/qShr7YDX_S0?si=D0Obf50IJ2TBtzEx",
+    "img": "img/eicosanoides.jpeg"
+
+  },
+  esteroles: {
+    "name": "Metabolismo de Esteroles (Colesterol)",
+    "short": "Síntesis Colesterol",
+    "cat": "lipidos",
+    "loc": "Citoplasma y Retículo endoplásmico (Principalmente en células del Hígado)",
+    "enz": "HMG-CoA reductasa (Enzima limitante y paso regulador clave)",
+    "x": 1655, "y": 1120, "w": 160, "h": 42,
+    "reaction": "Acetil-CoA → HMG-CoA → Mecalonato → Escualeno → Colesterol",
+    "in": "Acetil-CoA mitocondrial y citoplasmático · ATP · Coenzimas NADPH",
+    "out": "Colesterol libre (Precursor de membranas, hormonas y ácidos biliares)",
+    "steps": [
+      "Se condensan tres unidades de Acetil-CoA para estructurar la molécula de HMG-CoA.",
+      "La HMG-CoA reductasa reduce el compuesto hacia Mevalonato consumiendo NADPH (Paso comprometido de la vía).",
+      "El mevalonato sufre polimerizaciones repetitivas pasando por intermediarios hasta formar Escualeno.",
+      "El escualeno se cicla de forma compleja hasta sintetizar la molécula final de Colesterol."
+    ],
+    "fact": "Compleja ruta metabólica anabólica encargada de sintetizar colesterol a partir de unidades simples de acetato.",
+    "reg": "Estimulada fuertemente por la hormona Insulina (estado alimentado). Inhibida por el Glucagón, por concentraciones intracelulares elevadas de colesterol y mediante retroalimentación génica.",
+    "clinica": "Los fármacos hipolipemiantes de la familia de las Estatinas actúan inhibiendo de manera competitiva a la enzima HMG-CoA reductasa, disminuyendo notablemente los niveles corporales de colesterol plasmático.",
+    "dato": "Aproximadamente el 70% de todo el colesterol corporal es sintetizado de forma endógena por el propio organismo; el resto proviene de la dieta.",
+    "video": "https://youtu.be/zqc77lmFQZk?si=ePq98isdrK_A1A3t",
+    "img": "img/esteroles.jpeg"
+  },
+  degr_colesterol: {
+    "name": "Degradación del Colesterol",
+    "short": "Degr Colesterol",
+    "cat": "lipidos",
+    "loc": "Hígado",
+    "enz": "Colesterol 7α-hidroxilasa",
+    "x": 1825, "y": 1116, "w": 140, "h": 46,
+    "reaction": "Colesterol → Reacciones de oxidación → Ácidos y Sales Biliares",
+    "in": "Colesterol libre · NADPH · Oxígeno molecular",
+    "out": "Ácidos biliares (como Ácido cólico) esterificados en Sales biliares",
+    "steps": [
+      "El anillo rígido del colesterol se hidroxila inicialmente mediante la Colesterol 7α-hidroxilasa.",
+      "Se acortan las cadenas y se introducen grupos carboxilo para otorgar polaridad.",
+      "Los ácidos biliares resultantes se conjugan y se secretan a través de la bilis hacia la luz del intestino delgado."
+    ],
+    "fact": "Proceso hepático mediante el cual el anillo hidrofóbico del colesterol es modificado químicamente para formar compuestos anfipáticos eliminables.",
+    "reg": "Regulado por mecanismos de retroalimentación negativa: la abundancia de sales biliares en el circuito enterohepático inhibe a la enzima inicial.",
+    "clinica": "Alteraciones o desbalances físico-químicos en las concentraciones de Colesterol, Sales biliares o Fosfolípidos en la vesícula provocan la precipitación de cristales, formando cálculos biliares.",
+    "dato": "La conversión en ácidos biliares y su posterior excreción en las heces representa la única vía fisiológica importante que tiene el cuerpo humano para eliminar los excesos de colesterol.",
+    "video": "https://youtu.be/zqc77lmFQZk?si=ePq98isdrK_A1A3t",
+    "img": "img/degColesterol.jpeg"
+  },
+  metab_aa: {
+    "name": "Metabolismo de Aminoácidos",
+    "short": "Metab Aminoácidos",
+    "cat": "nitrogeno",
+    "loc": "Hígado, Músculo esquelético y Riñones",
+    "enz": "Transaminasas (Aminotransferasas) · Desaminasas",
+    "x": 145, "y": 1472, "w": 205, "h": 42,
+    "reaction": "Aminoácidos → Separación en Grupo Amino (-NH₂) + Esqueleto Carbonado",
+    "in": "Aminoácidos de la dieta o de la proteólisis celular",
+    "out": "Grupos amonio libres (tóxicos) · Cetoácidos (esqueletos de carbono)",
+    "steps": [
+      "Transaminación: Se traspasa el grupo amino de un aminoácido hacia un cetoácido (usualmente α-cetoglutarato) formando Glutamato.",
+      "Desaminación: Se libera el grupo amino del glutamato en forma de amoníaco libre.",
+      "Destino del carbono: El esqueleto de carbono restante se introduce según su estructura a la glucólisis, ciclo de Krebs o vías lipídicas.",
+      "Clasificación: Se dividen en Glucogénicos (forman glucosa como Alanina, Glutamato), Cetogénicos (forman cuerpos cetónicos como Leucina, Lisina) o Mixtos (Isoleucina, Fenilalanina, Tirosina)."
+    ],
+    "fact": "Conjunto general de vías encargadas de asimilar, interconvertir y degradar los aminoácidos para extraer energía o bloques de síntesis.",
+    "reg": "Coordinado estrechamente con el balance de nitrógeno corporal. Durante estados de ayuno prolongado, el tejido muscular degrada sus propias proteínas estructurales para mantener los niveles de glucemia.",
+    "clinica": "Durante estados catabólicos extremos o ayuno prolongado, la proteólisis muscular masiva es mandatoria para alimentar la gluconeogénesis hepática con los esqueletos de carbono liberados.",
+    "dato": "A diferencia de las grasas (tejido adiposo) y los carbohidratos (glucógeno), el organismo humano no posee ningún almacén molecular específico de proteínas de reserva.",
+    "video": "https://youtu.be/L5cxXtrCJmM?si=rvf5k7rrds5vhcD2",
+    "img": "img/metabAminoacidos.jpeg"
+  },
+  metab_nitro: {
+    "name": "Metabolismo del Nitrógeno",
+    "short": "Manejo del Nitrógeno",
+    "cat": "nitrogeno",
+    "loc": "Tejidos periféricos → Torrente sanguíneo → Tejido hepático",
+    "enz": "Glutamina sintetasa · Glutaminasa",
+    "x": 1210, "y": 1460, "w": 195, "h": 42,
+    "reaction": "Amoníaco tisular (NH₃) + Transportadores no tóxicos → Hígado",
+    "in": "Amoníaco altamente tóxico producido en tejidos periféricos",
+    "out": "Glutamina y Alanina plasmáticas seguras que descargan nitrógeno en el hígado",
+    "steps": [
+      "La degradación celular de los aminoácidos libera amoníaco (NH₃), un compuesto gaseoso soluble altamente neurotóxico.",
+      "Los tejidos periféricos fijan el amoníaco libre sobre el glutamato formando Glutamina, un transportador neutro seguro.",
+      "El tejido muscular fija el amoníaco sobre el piruvato constituyendo Alanina.",
+      "Ambos transportadores viajan de forma segura por la sangre hasta llegar al hígado sin causar daños vasculares."
+    ],
+    "fact": "Sistema de seguridad biológica encargado de captar, neutralizar y transportar de forma segura los grupos amonio residuales para evitar la neurotoxicidad.",
+    "reg": "Sensible a los niveles de amoníaco libre circulante. Una falla en estos sistemas provoca la acumulación directa del gas en sangre.",
+    "clinica": "Hiperamonemia: Acumulación de amoníaco libre en sangre por fallas en el transporte o ciclo hepático. Causa severa toxicidad encefálica que clínicamente genera confusión mental, asterixis, convulsiones generalizadas, coma y daño neurológico permanente.",
+    "dato": "Incluso concentraciones moderadamente elevadas de amonio libre en la sangre pueden alterar de forma catastrófica e inmediata la función cerebral.",
+    "video": "https://youtu.be/jMG_0p9CrtY?si=55GjtQylj9I562Qx",
+    "img": "img/metabNitrogeno.jpeg"
+  },
+  urea: {
+    "name": "Ciclo de la Urea",
+    "short": "Ciclo de la Urea",
+    "cat": "nitrogeno",
+    "loc": "Exclusivo de los hepatocitos en el Hígado (Compartimentalizado entre la Mitocondria y el Citoplasma)",
+    "enz": "Carbamoil-fosfato sintetasa I (CPS-I, enzima reguladora clave)",
+    "x": 930, "y": 1460, "w": 245, "h": 42,
+    "reaction": "NH₃ (Amoníaco) + CO₂ + Aspartato + 3 ATP → Urea + Fumarato",
+    "in": "Amonio libre (NH₄⁺) · Dióxido de carbono (CO₂) · Aminoácido Aspartato · 3 ATP",
+    "out": "Urea no tóxica soluble (excretada por la orina) · Fumarato (conecta con Krebs)",
+    "steps": [
+      "Mitocondria: La CPS-I condensa Amonio con CO₂ formando Carbamoil-fosfato gastando 2 ATP (Este paso es activado de forma obligatoria por el N-acetilglutamato).",
+      "Mitocondria: El carbamoil-fosfato se une a la Ornitina constituyendo Citrulina, la cual sale al citoplasma.",
+      "Citoplasma: La citrulina se condensa con Aspartato e ingresa al circuito de escisiones metabólicas.",
+      "Liberación: La enzima Arginasa hidroliza el compuesto liberando una molécula final de Urea y regenerando la Ornitina para reiniciar el ciclo."
+    ],
+    "fact": "Ruta metabólica detoxificadora central encargada de transformar el amoníaco tóxico en urea soluble para su posterior excreción renal.",
+    "reg": "Regulado de forma alostérica estricta por el compuesto N-acetilglutamato, cuya síntesis aumenta cuando hay una alta disponibilidad de aminoácidos en el cuerpo.",
+    "clinica": "Defectos congénitos en las enzimas del ciclo de la urea: Mutaciones genéticas causan el bloqueo de la vía, provocando hiperamonemia neonatal severa, daño neurológico irreversible, retraso profundo del desarrollo psicomotor y alta mortalidad.",
+    "dato": "El hígado es prácticamente el único órgano de toda la economía corporal capaz de realizar de manera completa y eficiente el ciclo de la urea.",
+    "video": "https://youtu.be/miiF324Dzxs?si=5HUAmsv8Cpnxurhg",
+    "img": "img/urea.jpeg"
+  },
+  aa_akg: {
+    "name": "Síntesis de aminoácidos derivados del α-cetoglutarato",
+    "short": "Síntesis aa α-CG",
+    "cat": "nitrogeno",
+    "loc": "Mitocondria y citoplasma celular",
+    "enz": "Aminotransferasas (Transaminasas)",
+    "x": 618, "y": 1464, "w": 215, "h": 42,
+    "reaction": "α-Cetoglutarato (de Krebs) + Donadores de Nitrógeno → Familia del Glutamato",
+    "in": "α-Cetoglutarato · Grupos amino de desecho",
+    "out": "Glutamato · Glutamina · Prolina · Arginina (Aminoácidos no esenciales)",
+    "steps": [
+      "Se toma el intermediario cetoácido α-cetoglutarato directamente del giro metabólico del ciclo de Krebs.",
+      "Mediante transaminaciones, se incorpora un grupo amino para sintetizar Glutamato.",
+      "A partir del glutamato, se ramifican modificaciones que sintetizan los aminoácidos funcionales Glutamina, Prolina y Arginina."
+    ],
+    "fact": "Vía biosintética de aminoácidos no esenciales que representa un punto de unión crucial entre el metabolismo oxidativo energético y el nitrogenado.",
+    "reg": "Controlada por la disponibilidad de intermediarios del ciclo de Krebs y los niveles de amonio intracelular.",
+    "clinica": "El glutamato sintetizado en esta ruta cumple un rol fundamental en el sistema nervioso central, actuando como el neurotransmisor excitador más abundante e importante del cerebro.",
+    "dato": "Muchos de los aminoácidos considerados no esenciales pueden sintetizarse de manera óptima a partir de intermediarios metabólicos comunes del cuerpo.",
+    "video": "",
+    "img": "img/sintesisaa.jpeg"
+  },
+  glu_gln: {
+    "name": "Síntesis de Glutamato y Glutamina",
+    "short": "Síntesis Glu / Gln",
+    "cat": "nitrogeno",
+    "loc": "Mitocondria y citoplasma celular",
+    "enz": "Glutamato deshidrogenasa · Glutamina sintetasa",
+    "x": 380, "y": 1463, "w": 205, "h": 42,
+    "reaction": "α-CG + NH₃ → Glutamato | Glutamato + NH₃ + ATP → Glutamina",
+    "in": "α-Cetoglutarato · Amoníaco (NH₃) · ATP",
+    "out": "Glutamato · Glutamina",
+    "steps": [
+      "La Glutamato deshidrogenasa fija amoníaco sobre el α-cetoglutarato para formar Glutamato.",
+      "El glutamato funciona recolectando nitrógeno y sirviendo como precursor del neurotransmisor inhibidor GABA.",
+      "La Glutamina sintetasa añade un segundo amoníaco al glutamato consumiendo un ATP, produciendo Glutamina."
+    ],
+    "fact": "Reacciones enzimáticas consecutivas encargadas de fijar el nitrógeno inorgánico libre en compuestos orgánicos neutros transportables y funcionales.",
+    "reg": "La glutamina producida actúa como el combustible metabólico preferencial para las células de división rápida, tales como los enterocitos intestinales y las células del sistema inmunitario.",
+    "clinica": "En pacientes críticamente enfermos (grandes quemados, sepsis, trauma), el consumo celular de glutamina se dispara de forma masiva, considerándose un aminoácido esencial en situaciones de estrés metabólico.",
+    "dato": "La glutamina es cuantitativamente el aminoácido libre más abundante que se encuentra disuelto en el plasma sanguíneo.",
+    "video": "",
+    "img": "img/sintesisGl.jpeg"
+  },
+  porfirinas: {
+    "name": "Metabolismo de Porfirinas",
+    "short": "Sint Porfirinas",
+    "cat": "nitrogeno",
+    "loc": "Compartimentado entre la mitocondria y el citoplasma de células del Hígado y de la Médula ósea",
+    "enz": "ALA sintasa (Enzima limitante y paso regulador obligatorio)",
+    "x": 1716, "y": 1460, "w": 205, "h": 42,
+    "reaction": "Succinil-CoA + Glicina → Ácido δ-aminolevulínico (ALA) → Porfirinas → Hemo",
+    "in": "Succinil-CoA (de Krebs) · Aminoácido Glicina · Vitamina B6 (cofactor)",
+    "out": "Grupo Hemo (núcleo para Hemoglobina, Mioglobina y Citocromos respiratorios)",
+    "steps": [
+      "La ALA sintasa condensa Succinil-CoA y Glicina en la mitocondria, requiriendo obligatoriamente Vitamina B6 como cofactor.",
+      "El ALA sale al citoplasma y sufre condensaciones sucesivas para formar anillos pirrólicos (Porfobilinógeno).",
+      "Los anillos se ensamblan en estructuras macromoculares cíclicas de Porfirinas.",
+      "Se introduce un átomo de hierro (Fe²⁺) en el centro del anillo en la mitocondria para constituir el Grupo Hemo."
+    ],
+    "fact": "Vía biosintética compleja encargada de construir los anillos tetrapirrólicos que forman el grupo prostético Hemo.",
+    "reg": "En el hígado, la vía es fuertemente inhibida por el producto final Grupo Hemo mediante represión genética de la ALA sintasa.",
+    "clinica": "Porfirias: Grupo de trastornos metabólicos genéticos causados por deficiencias en las enzimas de esta vía. Provocan acumulación de porfirinas intermedia, manifestando dolor abdominal agudo, severas alteraciones neurológicas, psicosis y fotosensibilidad cutánea extrema con ulceraciones al exponerse al sol.",
+    "dato": "La acumulación patológica de ciertos intermediarios de las porfirinas en el cuerpo puede hacer que la orina de los pacientes adquiera tonalidades rojizas oscuras al exponerse a la luz.",
+    "video": ""
+  },
+  catab_hemo: {
+    "name": "Catabolismo del Grupo Hemo",
+    "short": "Catabolismo Hemo",
+    "cat": "nitrogeno",
+    "loc": "Macrófagos del Sistema Retículo Endotelial (Bazo) → Hígado → Conductos Biliares → Luz Intestinal",
+    "enz": "Hemo oxigenasa · Biliverdina reductasa · UDP-glucuroniltransferasa hepática",
+    "x": 1422, "y": 1463, "w": 195, "h": 42,
+    "reaction": "Grupo Hemo → Biliverdina → Bilirrubina indirecta → Bilirrubina conjugada → Estercobilina / Urobilina",
+    "in": "Grupo Hemo proveniente de la destrucción de eritrocitos viejos (120 días)",
+    "out": "Bilirrubina conjugada · Estercobilina (heces) · Urobilina (orina) · Hierro reciclado · CO",
+    "steps": [
+      "Bazo: La Hemo oxigenasa abre el anillo liberando el hierro y formando Biliverdina.",
+      "Bazo: La biliverdina se reduce a Bilirrubina indirecta (liposoluble, insoluble en agua, requiere Albúmina para viajar en sangre).",
+      "Hígado: El hepatocito capta la bilirrubina indirecta y mediante la UDP-glucuroniltransferasa la conjuga con ácido glucurónico, volviéndola Bilirrubina directa o conjugada (hidrosoluble).",
+      "Intestino: La bilirrubina conjugada se secreta en la bilis hacia el intestino, donde las bacterias la convierten en Urobilinógeno, derivando en Estercobilina y Urobilina."
+    ],
+    "fact": "Ruta catabólica encargada de degradar de forma segura el anillo de porfirina de la hemoglobina liberada por el envejecimiento eritrocitario.",
+    "reg": "Sujeta a la tasa de hemólisis fisiológica. La bilirrubina indirecta depende estrictamente de los niveles de albúmina plasmática para su transporte seguro hacia el hígado.",
+    "clinica": "Ictericia: Coloración amarillenta patológica de la piel, mucosas y escleróticas de los ojos debida a la acumulación y depósito de bilirrubina en los tejidos. Ocurre por hemólisis masiva, obstrucción biliar o fallas en la conjugación hepática.",
+    "dato": "La estercobilina otorga el característico color marrón a las heces, mientras que la urobilina remanente excretada por vía renal otorga el color amarillo a la orina.",
+    "video": "https://youtu.be/UCvUtIQeXP8?si=YL21GfdztrcP2d_l",
+    "img": "img/catabolismoHemo.jpeg"
+  },
+  pur_pir: {
+    "name": "Metabolismo de Purinas y Pirimidinas",
+    "short": "Metab Bases",
+    "cat": "nitrogeno",
+    "loc": "Citoplasma celular",
+    "enz": "PRPP sintetasa · Amido phosphoribosyltransferase",
+    "x": 404, "y": 1783, "w": 664, "h": 48,
+    "reaction": "Precursores moleculares → Estructuración de Bases Nitrogenadas",
+    "in": "Aminoácidos diversos · Ribosa-5-Fosfato · Moléculas de Carbono",
+    "out": "Bases purinas (Adenina, Guanina) · Bases pirimidinas (Citosina, Timina, Uracilo)",
+    "steps": [
+      "Purinas: El anillo bicíclico de Adenina y Guanina se ensambla átomo por átomo directamente.",
+      "Pirimidinas: El anillo simple de Citosina, Timina y Uracilo se fabrica inicialmente de forma libre y posteriormente se une.",
+      "Ambas familias de bases se destinan a la síntesis de nucleótidos esenciales para la vida celular."
+    ],
+    "fact": "Vías bioquímicas encargadas de la síntesis, interconversión y degradación de los anillos nitrogenados heterocíclicos.",
+    "reg": "Esencial para sostener los procesos de replicación celular del ADN, transcripción de ARN y la división mitótica tisular.",
+    "clinica": "Gota: Patología dolorosa causada por el exceso crónico de ácido úrico en sangre (Hiperuricemia). El ácido úrico precipita en forma de cristales de urato monosódico en el interior de las articulaciones, causando inflamación aguda deformante (típicamente en el primer dedo del pie o podagra).",
+    "dato": "El Ácido úrico representa el producto final insoluble no degradable del catabolismo de las bases purinas en el ser humano.",
+    "video": "https://youtu.be/Kko9PvRBWtM?si=Ldqdzn_bbihXgXL6"
+  },
+  nucleotidos: {
+    "name": "Metabolismo de Nucleótidos",
+    "short": "Metab Nucleótidos",
+    "cat": "nitrogeno",
+    "loc": "Citoplasma celular",
+    "enz": "HGPRT (Hipoxantina-guanina fosforribosiltransferasa)",
+    "x": 949, "y": 1796, "w": 195, "h": 28,
+    "reaction": "Bases nitrogenadas + Azúcar fosfato → Nucleótidos nucleicos y energéticos",
+    "in": "Bases libres · Azúcar Ribosa activada (PRPP) · Grupos Fosfato",
+    "out": "Nucleótidos completos (Adenosín, Guanosín, Citidín, Timidín trifosfatos: ATP, GTP, cAMP, ADN, ARN)",
+    "steps": [
+      "Vía de Novo: Construcción completa del nucleótido utilizando precursores moleculares simples desde cero.",
+      "Vía de Salvamento (Reciclaje): Captación de bases nitrogenadas libres preexistentes provenientes de la dieta o degradación celular, uniéndolas directamente a PRPP para ahorrar energía celular."
+    ],
+    "fact": "Red de vías encargada de estructurar los nucleótidos individuales que componen el material genético y las monedas energéticas celulares.",
+    "reg": "La vía de reciclaje o salvamento es termodinámicamente prioritaria para la célula ya que consume mucha menos energía metabólica que fabricar los nucleótidos desde cero.",
+    "clinica": "Defectos genéticos en las vías de salvamento (como fallas en la enzima HGPRT) anulan el reciclaje de purinas, desviándolas a degradación masiva y provocando una acumulación excesiva y nociva de ácido úrico.",
+    "dato": "Reciclar bases nitrogenadas mediante la vía de salvamento le consume a la célula significativamente menos energía que sintetizarlas desde cero.",
+    "video": "https://youtu.be/Q7hSyw8Z9sU?si=gU-MehHRJWOsnki3"
+  },
+  novo: {
+    "name": "Biosíntesis de Novo de Nucleótidos",
+    "short": "Biosíntesis de Novo",
+    "cat": "nitrogeno",
+    "loc": "Citoplasma celular",
+    "enz": "PRPP amidotransferasa (Regulada por retroalimentación)",
+    "x": 289, "y": 1816, "w": 170, "h": 24,
+    "reaction": "Moléculas simples (Aminoácidos + Folato + CO₂) → Nucleótidos Nuevos",
+    "in": "Aminoácidos (Glutamina, Glicina, Aspartato) · Tetrahidrofolato (Derivado del Folato) · PRPP",
+    "out": "Monofosfatos de nucleótidos nuevos (IMP, OMP)",
+    "steps": [
+      "Purinas: El anillo nitrogenado se construye paso a paso directamente asentado sobre una estructura de ribosa-5-fosfato ya formada, requiriendo Glutamina, Glicina, Aspartato y Folato.",
+      "Pirimidinas: Primero se sintetiza por completo la estructura del anillo libre de la base nitrogenada (Ácido orótico) y posteriormente se acopla a la ribosa activada (PRPP).",
+      "Mecanismo de control: La vía utiliza una estricta regulación por retroalimentación negativa; la acumulación de nucleótidos finales inhibe a las enzimas iniciales."
+    ],
+    "fact": "Ruta anabólica compleja encargada de fabricar nucleótidos nuevos a partir de precursores metabólicos elementales.",
+    "reg": "Altamente activa en células en constante división. Cuando existen suficientes concentraciones de nucleótidos en el medio citoplasmático, se bloquea la síntesis de forma alostérica.",
+    "clinica": "Fármaco Metotrexato: Potente quimioterapéutico que inhibe el metabolismo del folato, bloqueando la síntesis de novo de nucleótidos y frenando la replicación del ADN. Se usa ampliamente en el tratamiento del cáncer y enfermedades autoinmunes.",
+    "dato": "Las células tumorales de proliferación maligna suelen tener una biosíntesis de novo extremadamente acelerada e hiperactiva debido a sus altas demandas de replicación celular.",
+    "video": "https://youtu.be/WKkz235VfvM?si=jbv6TbxfpGbtQgEx"
+  }
 };
 
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -387,6 +1205,33 @@ function openDrawer(id) {
   const vb = $("drVideo");
   if (r.video) { vb.style.display = "block"; vb.href = r.video; }
   else { vb.style.display = "none"; }
+
+  const imgSec = $("drImgSec");
+  const imgContainer = $("drImgContainer");
+  
+  if (r.img) {
+    imgSec.style.display = "block";
+    imgContainer.innerHTML = ""; // Limpiar contenedor
+    
+    // Convertir a array si es string
+    const imgs = Array.isArray(r.img) ? r.img : [r.img];
+    
+    // Crear imagen para cada item
+    imgs.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "Esquema metabólico";
+      img.style.maxWidth = "100%";
+      img.style.maxHeight = "220px";
+      img.style.objectFit = "contain";
+      img.style.borderRadius = "8px";
+      img.style.border = "1px solid var(--line)";
+      img.style.background = "#fcfcfc";
+      imgContainer.appendChild(img);
+    });
+  } else {
+    imgSec.style.display = "none";
+  }
   
   
   $("scrim").classList.add("open");
