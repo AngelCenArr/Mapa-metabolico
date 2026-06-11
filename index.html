@@ -19,7 +19,7 @@
     --bg:#f8f5f0; --panel:#ffffff; --ink:#1a150f; --ink-soft:#5a5042; --line:#e0d8cc;
     --shadow:0 1px 2px rgba(60,45,25,.06),0 8px 30px rgba(60,45,25,.10);
     /* Familias */
-    --carb:#c25e2a; --lipido:#2f6fb0; --nitro:#4a9a52;
+    --carb:#2f6fb0; --lipido:#d9b98b; --nitro:#4a9a52;
     --carb-bg:#fdf2e9; --lipido-bg:#ebf5ff; --nitro-bg:#f0f9f0;
     --enz:#c0392b;
     --r:16px;
@@ -67,7 +67,7 @@
   .tbtn svg{width:16px;height:16px}
   .tbtn.ghost{margin-left:auto;opacity:.7}
 
-  .map-container{position:relative;background:#f0f0f0;overflow:auto;aspect-ratio:1408 / 768;}
+  .map-container{position:relative;background:#f0f0f0;overflow:auto;aspect-ratio:1920 / 1920;}
   .map-image-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;z-index:1}
   svg.map{position:absolute;top:0;left:0;width:100%;height:100%;display:block;z-index:2;pointer-events:none}
 
@@ -141,7 +141,6 @@
 <button class="tbtn" id="showLabelsToggle">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Resaltar áreas</button>
 <button class="tbtn" id="editToggle" aria-pressed="false">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"></path></svg>Editar posiciones</button>
 <button class="tbtn ghost" id="resetBtn">Restablecer vista</button>
 </div>
 <div class="legend">
@@ -150,8 +149,8 @@
 <div class="leg-item"><span class="leg-box" style="background:var(--nitro)"></span> Nitrógeno</div>
 </div>
 <div class="map-container">
-<img alt="Metabolic Map Background" class="map-image-bg" src="img/fotomapaajja.jpeg"/>
-<svg class="map" id="map" viewbox="0 0 1408 768">
+<img alt="Metabolic Map Background" class="map-image-bg" src="img/mapanuevo.png"/>
+<svg class="map" id="map" viewbox="0 0 1920 1920">
 <g id="layerChips"></g>
 </svg>
 </div>
@@ -165,7 +164,7 @@
 <button class="ebtn" id="copyCoords" style="margin-left:auto">Copiar coordenadas</button>
 </div>
 <textarea id="coordsOut" readonly="" spellcheck="false"></textarea>
-<p style="margin:8px 0 0">Pega estos valores en cada ruta de <code>ROUTES</code> (campos <code>x, y, w, h</code>). Las coordenadas son <strong>píxeles de la imagen</strong> (lienzo <code>1408 × 768</code>); <code>x, y</code> es el centro del recuadro.</p>
+<p style="margin:8px 0 0">Pega estos valores en cada ruta de <code>ROUTES</code> (campos <code>x, y, w, h</code>). Las coordenadas son <strong>píxeles de la imagen</strong> (lienzo <code>1920 × 1920</code>); <code>x, y</code> es el centro del recuadro.</p>
 </div>
 <div style="padding: 20px; font-size: 12px; color: var(--ink-soft); border-top: 1px solid var(--line); text-align: center;">
       Infografía Original · Visualización Interactiva Optimizada
@@ -210,159 +209,167 @@
 </aside>
 <script>
 const CATS = {
-  carbohidratos: { n: 1, label: "Carbohidratos", hex: "#c25e2a", bg: "#fdf2e9" },
-  lipidos: { n: 2, label: "Lípidos", hex: "#2f6fb0", bg: "#ebf5ff" },
-  nitrogeno: { n: 3, label: "Nitrógeno", hex: "#4a9a52", bg: "#f0f9f0" }
+  carbohidratos: { n: 1, label: "Carbohidratos", hex: "#2f6fb0", bg: "#eef4fb" },
+  lipidos: { n: 2, label: "Lípidos", hex: "#c0801f", bg: "#fdf3e3" },
+  nitrogeno: { n: 3, label: "Nitrógeno", hex: "#3f8f4a", bg: "#eef7ee" }
 };
 
-// 36 rutas (Carbohidratos, Lípidos, Nitrógeno). x,y,w,h en píxeles de la imagen (1408x768); x,y = centro.
+// 36 rutas (Carbohidratos, Lípidos, Nitrógeno). x,y,w,h en píxeles de la imagen (1920x1920); x,y = centro.
 const ROUTES={
   /* ===================== 1 · CARBOHIDRATOS ===================== */
-  glucolisis:{name:"Glucólisis",short:"Glucólisis",cat:"carbohidratos",loc:"Citosol",enz:"PFK-1 · hexoquinasa", x:221, y:112, w:100, h:30,
+  glucolisis:{name:"Glucólisis",short:"Glucólisis",cat:"carbohidratos",loc:"Citosol",enz:"PFK-1 · hexoquinasa", x:137,y:81, w:150, h:28,
     reaction:"Glucosa → 2 Piruvato",in:"Glucosa · 2 ATP · 2 NAD⁺",out:"2 Piruvato · 2 ATP neto · 2 NADH",
     steps:["Fosforilación de la glucosa.","Ruptura en dos triosas-fosfato.","Obtención de ATP por fosforilación a nivel de sustrato."],
     reg:"La PFK-1 es el punto de control principal.",fact:"Ruta universal: funciona con o sin oxígeno."},
-  gluconeogenesis:{name:"Gluconeogénesis",short:"Gluconeogénesis",cat:"carbohidratos",loc:"Citosol",enz:"PEPCK · F-1,6-BPasa", x:233, y:208, w:122, h:28,
+  gluconeogenesis:{name:"Gluconeogénesis",short:"Gluconeogénesis",cat:"carbohidratos",loc:"Citosol",enz:"PEPCK · F-1,6-BPasa", x:929, y:86, w:174, h:27,
     reaction:"Piruvato → Glucosa",in:"Piruvato · ATP · GTP",out:"Glucosa",
     steps:["Rodea los pasos irreversibles de la glucólisis.","Usa PEPCK y glucosa-6-fosfatasa."],
     reg:"Activa en ayuno; opuesta a la glucólisis.",fact:"Mantiene la glucemia hepática cuando no comemos."},
-  cori:{name:"Ciclo de Cori",short:"Ciclo de Cori",cat:"carbohidratos",loc:"Músculo ↔ Hígado",enz:"", x:725, y:200, w:128, h:20,
+  cori:{name:"Ciclo de Cori",short:"Ciclo de Cori",cat:"carbohidratos",loc:"Músculo ↔ Hígado",enz:"", x:1133, y:80, w:150, h:28,
     reaction:"Lactato (músculo) → Glucosa (hígado)",in:"Lactato",out:"Glucosa",
     steps:["Músculo: glucosa → lactato.","Hígado: lactato → glucosa.","La glucosa vuelve al músculo."],
     reg:"Conecta dos órganos por la sangre.",fact:"Recicla el lactato del ejercicio intenso."},
-  glu_alanina:{name:"Ciclo Glucosa-Alanina",short:"Glucosa-Alanina",cat:"carbohidratos",loc:"Músculo ↔ Hígado",enz:"", x:725, y:219, w:128, h:20,
+  glu_alanina:{name:"Ciclo Glucosa-Alanina",short:"Glucosa-Alanina",cat:"carbohidratos",loc:"Músculo ↔ Hígado",enz:"", x:1141, y:462, w:175, h:42,
     reaction:"Alanina → Glucosa + Urea",in:"Alanina",out:"Glucosa · N → urea",
     steps:["Músculo: piruvato + amino → alanina.","Hígado: alanina → glucosa; el N va a la urea."],
     reg:"Transporta carbono y nitrógeno a la vez.",fact:"Como el ciclo de Cori, pero llevando nitrógeno."},
-  ox_piruvato:{name:"Oxidación del Piruvato",short:"Ox. Piruvato",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Piruvato deshidrogenasa (PDH)", x:455, y:293, w:74, h:24,
+  ox_piruvato:{name:"Oxidación del Piruvato",short:"Ox. Piruvato",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Piruvato deshidrogenasa (PDH)", x:150, y:790, w:205, h:30,
     reaction:"Piruvato → Acetil-CoA + CO₂",in:"Piruvato · NAD⁺ · CoA",out:"Acetil-CoA · NADH · CO₂",
     steps:["Complejo piruvato deshidrogenasa.","Descarboxilación oxidativa irreversible."],
     reg:"Inhibida por acetil-CoA y NADH.",fact:"Enlaza la glucólisis con el ciclo de Krebs."},
-  krebs:{name:"Ciclo de Krebs",short:"Ciclo de Krebs",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Citrato sintasa", x:456, y:513, w:96, h:42,
+  krebs:{name:"Ciclo de Krebs",short:"Ciclo de Krebs",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Citrato sintasa", x:690, y:1090, w:280, h:170,
     reaction:"Acetil-CoA → 2 CO₂",in:"Acetil-CoA · NAD⁺ · FAD",out:"CO₂ · NADH · FADH₂ · GTP",
     steps:["Formación de citrato.","Descarboxilaciones oxidativas.","Regeneración del oxalacetato."],
     reg:"Citrato sintasa e isocitrato deshidrogenasa.",fact:"Cruce central de azúcares, grasas y proteínas."},
-  carb_piruvato:{name:"Carboxilación del Piruvato",short:"Carbox. Piruvato",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Piruvato carboxilasa", x:560, y:238, w:92, h:30,
+  carb_piruvato:{name:"Carboxilación del Piruvato",short:"Carbox. Piruvato",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Piruvato carboxilasa", x:458, y:842, w:175, h:44,
     reaction:"Piruvato + CO₂ → Oxalacetato",in:"Piruvato · CO₂ · ATP",out:"Oxalacetato",
     steps:["Piruvato carboxilasa (requiere biotina).","Repone oxalacetato para Krebs/gluconeogénesis."],
     reg:"Activada por el acetil-CoA.",fact:"Reacción anaplerótica: rellena el ciclo de Krebs."},
-  fosfox:{name:"Fosforilación Oxidativa",short:"Fosfor. Oxidativa",cat:"carbohidratos",loc:"Membrana interna mito.",enz:"ATP sintasa", x:690, y:515, w:142, h:40,
-    reaction:"NADH + O₂ + ADP → ATP + H₂O",in:"NADH · FADH₂ · O₂ · ADP · Pi",out:"ATP · H₂O",
-    steps:["Gradiente de protones de la cadena.","ATP sintasa fabrica ATP por quimiósmosis."],
-    reg:"Acoplada a ADP y O₂.",fact:"Produce la mayor parte del ATP celular."},
-  cte:{name:"Cadena de Transporte de Electrones",short:"Cadena de e⁻",cat:"carbohidratos",loc:"Membrana interna mito.",enz:"Complejos I–IV", x:655, y:582, w:92, h:28,
+  cte:{name:"CADENA DE TRANSPORTE DE ELECTRONES (CTE)",short:"Cadena de e⁻",cat:"carbohidratos",loc:"Matriz mitocondrial",enz:"Complejos I–IV", x:1025, y:962, w:205, h:46,
     reaction:"NADH → e⁻ → O₂ (bombea H⁺)",in:"NADH · FADH₂ · O₂",out:"H₂O · gradiente de H⁺",
     steps:["Los complejos I–IV transfieren electrones.","Bombean protones al espacio intermembrana."],
     reg:"El O₂ es el aceptor final.",fact:"Sin oxígeno se detiene y se acumula NADH."},
-  pentosas:{name:"Ruta de las Pentosas Fosfato",short:"Pentosas-P",cat:"carbohidratos",loc:"Citosol",enz:"G6PDH", x:585, y:111, w:150, h:28,
+  fosfox:{name:"Fosforilación Oxidativa",short:"Fosfor. Oxidativa",cat:"carbohidratos",loc:"Membrana interna mito.",enz:"ATP sintasa", x:1040, y:1155, w:205, h:30,
+    reaction:"NADH + O₂ + ADP → ATP + H₂O",in:"NADH · FADH₂ · O₂ · ADP · Pi",out:"ATP · H₂O",
+    steps:["Gradiente de protones de la cadena.","ATP sintasa fabrica ATP por quimiósmosis."],
+    reg:"Acoplada a ADP y O₂.",fact:"Produce la mayor parte del ATP celular."},
+  cte:{name:"Cadena de Transporte de Electrones",short:"Cadena de e⁻",cat:"carbohidratos",loc:"Membrana interna mito.",enz:"Complejos I–IV", x:1025, y:962, w:205, h:46,
+    reaction:"NADH → e⁻ → O₂ (bombea H⁺)",in:"NADH · FADH₂ · O₂",out:"H₂O · gradiente de H⁺",
+    steps:["Los complejos I–IV transfieren electrones.","Bombean protones al espacio intermembrana."],
+    reg:"El O₂ es el aceptor final.",fact:"Sin oxígeno se detiene y se acumula NADH."},
+  pentosas:{name:"Ruta de las Pentosas Fosfato",short:"Pentosas-P",cat:"carbohidratos",loc:"Citosol",enz:"G6PDH", x:431, y:82, w:185, h:28,
     reaction:"Glucosa-6-P → NADPH + Ribosa-5-P",in:"Glucosa-6-P",out:"NADPH · Ribosa-5-P · CO₂",
     steps:["Fase oxidativa: genera NADPH.","Fase no oxidativa: reorganiza azúcares."],
     reg:"Demanda de NADPH y de ribosa.",fact:"Aporta poder reductor y precursores de nucleótidos."},
-  fructosa:{name:"Metabolismo de la Fructosa",short:"Fructosa",cat:"carbohidratos",loc:"Citosol (hígado)",enz:"Fructoquinasa · aldolasa B", x:140, y:255, w:110, h:20,
+  fructosa:{name:"Metabolismo de la Fructosa",short:"Fructosa",cat:"carbohidratos",loc:"Citosol (hígado)",enz:"Fructoquinasa · aldolasa B", x:397, y:554, w:185, h:42,
     reaction:"Fructosa → triosas-fosfato",in:"Fructosa · ATP",out:"Gliceraldehído-3-P · DHAP",
     steps:["Fructoquinasa → fructosa-1-fosfato.","La aldolasa B la rompe en triosas."],
     reg:"Salta el control por PFK-1.",fact:"Su exceso favorece la síntesis de grasa hepática."},
-  galactosa:{name:"Metabolismo de la Galactosa",short:"Galactosa",cat:"carbohidratos",loc:"Citosol",enz:"Galactoquinasa · vía de Leloir", x:236, y:255, w:92, h:20,
+  galactosa:{name:"Metabolismo de la Galactosa",short:"Galactosa",cat:"carbohidratos",loc:"Citosol",enz:"Galactoquinasa · vía de Leloir", x:640, y:568, w:185, h:42,
     reaction:"Galactosa → Glucosa-6-P",in:"Galactosa · ATP · UDP-glucosa",out:"Glucosa-6-P",
     steps:["Galactoquinasa → galactosa-1-fosfato.","Vía de Leloir → glucosa-6-fosfato."],
     reg:"Su fallo enzimático causa galactosemia.",fact:"Procesa la galactosa de la lactosa (leche)."},
-  glucogenesis:{name:"Glucogénesis",short:"Glucogénesis",cat:"carbohidratos",loc:"Citosol",enz:"Glucógeno sintasa", x:728, y:102, w:134, h:34,
+  glucogenesis:{name:"Glucogénesis",short:"Glucogénesis",cat:"carbohidratos",loc:"Citosol",enz:"Glucógeno sintasa", x:685, y:84, w:149, h:32,
     reaction:"Glucosa → Glucógeno",in:"Glucosa · UTP",out:"Glucógeno",
     steps:["Activación de la glucosa (UDP-Glc).","Polimerización ramificada."],
     reg:"Estimulada por la insulina.",fact:"Reserva rápida de glucosa en hígado y músculo."},
+   glucogenolisis:{name:"Glucogenolisis",short:"Glucogenolisis",cat:"carbohidratos",loc:"Citosol",enz:"Glucógeno fosforilasa", x:680, y:307, w:149, h:32,
+    reaction:"Glucógeno → Glucosa-6-P",in:"Glucógeno",out:"Glucosa-6-P",
+    steps:["Glucógeno fosforilasa (requiere Mg²⁺).","Desramificación y liberación de glucosa."],
+    reg:"Estimulada por la glucagon.",fact:"Libera glucosa para mantener el nivel de azúcar en sangre."},
 
   /* ===================== 2 · LÍPIDOS ===================== */
-  lanz_citrato:{name:"Lanzadera de Citrato",short:"Lanzadera Citrato",cat:"lipidos",loc:"Mitocondria → Citosol",enz:"ATP-citrato liasa", x:878, y:168, w:98, h:40,
+  lanz_citrato:{name:"Lanzadera de Citrato",short:"Lanzadera Citrato",cat:"lipidos",loc:"Mitocondria → Citosol",enz:"ATP-citrato liasa", x:1365, y:85, w:195, h:26,
     reaction:"Citrato → Acetil-CoA (citosol)",in:"Citrato (matriz)",out:"Acetil-CoA citosólico",
     steps:["El citrato sale de la mitocondria.","La ATP-citrato liasa libera el acetil-CoA."],
     reg:"Aporta acetil-CoA para sintetizar lípidos.",fact:"El acetil-CoA no cruza la membrana: viaja como citrato."},
-  palmitate:{name:"Síntesis de Palmitato a partir de Acetil-CoA",short:"Síntesis Palmitato",cat:"lipidos",loc:"Citosol",enz:"ACC · FAS", x:1011, y:163, w:128, h:40,
+  palmitate:{name:"Síntesis de Palmitato a partir de Acetil-CoA",short:"Síntesis Palmitato",cat:"lipidos",loc:"Citosol",enz:"ACC · FAS", x:1593, y:86, w:160, h:28,
     reaction:"Acetil-CoA → Palmitato (C16)",in:"Acetil-CoA · NADPH · ATP",out:"Palmitato",
     steps:["Acetil-CoA carboxilasa → malonil-CoA.","La FAS alarga la cadena hasta 16 carbonos."],
     reg:"Activada por insulina y citrato.",fact:"Es el ácido graso del que derivan los demás."},
-  triglic:{name:"Síntesis de Triglicéridos",short:"Triglicéridos",cat:"lipidos",loc:"Retículo endoplásmico",enz:"Aciltransferasas", x:902, y:270, w:104, h:20,
+  triglic:{name:"Síntesis de Triglicéridos",short:"Triglicéridos",cat:"lipidos",loc:"Retículo endoplásmico",enz:"Aciltransferasas", x:1831, y:93, w:170, h:46,
     reaction:"Glicerol-3-P + 3 acil-CoA → TAG",in:"Glicerol-3-P · acil-CoA",out:"Triacilglicerol",
     steps:["Acilación sucesiva del glicerol-3-fosfato.","Ácido fosfatídico y luego triglicérido."],
     reg:"Aumenta tras las comidas (insulina).",fact:"Principal forma de almacenar energía."},
-  glicerofosfo:{name:"Síntesis de Glicerofosfolípidos",short:"Glicerofosfolíp.",cat:"lipidos",loc:"Retículo endoplásmico",enz:"CDP-transferasas", x:935, y:287, w:150, h:20,
+  glicerofosfo:{name:"Síntesis de Glicerofosfolípidos",short:"Glicerofosfolíp.",cat:"lipidos",loc:"Retículo endoplásmico",enz:"CDP-transferasas", x:1330, y:472, w:185, h:42,
     reaction:"Ác. fosfatídico → Fosfolípido",in:"Ác. fosfatídico · CDP-colina/etanolamina",out:"Fosfatidilcolina, etanolamina…",
     steps:["Activación con CDP del alcohol o del DAG.","Unión de la cabeza polar."],
     reg:"Coordinada con la síntesis de membranas.",fact:"Forman la bicapa de todas las membranas."},
-  catab_fosfolip:{name:"Catabolismo de Glicerofosfolípidos",short:"Catab. fosfolíp.",cat:"lipidos",loc:"Citosol / lisosoma",enz:"Fosfolipasas A, C, D", x:930, y:318, w:162, h:22,
+  catab_fosfolip:{name:"Catabolismo de Glicerofosfolípidos",short:"Catab. fosfolíp.",cat:"lipidos",loc:"Citosol / lisosoma",enz:"Fosfolipasas A, C, D", x:1570, y:472, w:185, h:42,
     reaction:"Fosfolípido → ác. grasos + cabeza polar",in:"Glicerofosfolípido",out:"Ácidos grasos · glicerol · fosfato",
     steps:["Las fosfolipasas cortan distintos enlaces.","Liberan ácidos grasos y segundos mensajeros."],
     reg:"Inicia rutas de señalización.",fact:"La fosfolipasa A₂ libera ácido araquidónico."},
-  degr_fosfoglic:{name:"Degradación de Fosfoglicéridos",short:"Degr. fosfoglic.",cat:"lipidos",loc:"Membranas / lisosoma",enz:"Fosfolipasa A₂", x:930, y:333, w:162, h:18,
+  degr_fosfoglic:{name:"Degradación de Fosfoglicéridos",short:"Degr. fosfoglic.",cat:"lipidos",loc:"Membranas / lisosoma",enz:"Fosfolipasa A₂", x:1810, y:472, w:185, h:42,
     reaction:"Fosfoglicérido → componentes",in:"Fosfoglicéridos de membrana",out:"Glicerol · ác. grasos · fosfato · base",
     steps:["Hidrólisis escalonada por fosfolipasas.","Recambio continuo de la membrana."],
     reg:"Equilibrio síntesis/degradación.",fact:"Permite remodelar y reciclar las membranas."},
-  ceramida:{name:"Ceramida",short:"Ceramida",cat:"lipidos",loc:"Retículo endoplásmico",enz:"Ceramida sintasa", x:878, y:353, w:58, h:18,
+  ceramida:{name:"Ceramida",short:"Ceramida",cat:"lipidos",loc:"Retículo endoplásmico",enz:"Ceramida sintasa", x:1504, y:1119, w:135, h:28,
     reaction:"Esfinganina + acil-CoA → Ceramida",in:"Esfinganina · acil-CoA",out:"Ceramida",
     steps:["Núcleo común de los esfingolípidos.","Base para esfingomielina y glucolípidos."],
     reg:"Segundo mensajero (apoptosis).",fact:"Base estructural de los esfingolípidos."},
-  esfingo:{name:"Metabolismo de Esfingolípidos",short:"Esfingolípidos",cat:"lipidos",loc:"R. endoplásmico / Golgi",enz:"Serina palmitoiltransferasa", x:972, y:353, w:80, h:18,
+  esfingo:{name:"Metabolismo de Esfingolípidos",short:"Esfingolípidos",cat:"lipidos",loc:"R. endoplásmico / Golgi",enz:"Serina palmitoiltransferasa", x:1324, y:1117, w:185, h:46,
     reaction:"Serina + palmitoil-CoA → esfingolípidos",in:"Serina · palmitoil-CoA · azúcares",out:"Esfingomielina · glucolípidos",
     steps:["Síntesis de ceramida en el RE.","Adición de cabezas en el Golgi."],
     reg:"Su acumulación causa esfingolipidosis.",fact:"Abundan en la mielina de las neuronas."},
-  eicosanoides:{name:"Metabolismo de Eicosanoides",short:"Eicosanoides",cat:"lipidos",loc:"RE / membrana",enz:"Ciclooxigenasa (COX) · LOX", x:905, y:370, w:142, h:18,
+  eicosanoides:{name:"Metabolismo de Eicosanoides",short:"Eicosanoides",cat:"lipidos",loc:"RE / membrana",enz:"Ciclooxigenasa (COX) · LOX", x:1810, y:768, w:185, h:46,
     reaction:"Ác. araquidónico → Prostaglandinas…",in:"Ácido araquidónico · O₂",out:"Prostaglandinas · tromboxanos · leucotrienos",
     steps:["La COX da prostaglandinas y tromboxanos.","La lipooxigenasa da leucotrienos."],
     reg:"La aspirina inhibe la COX.",fact:"Median inflamación, dolor, fiebre y coagulación."},
-  esteroles:{name:"Metabolismo de Esteroles",short:"Esteroles",cat:"lipidos",loc:"RE / citosol",enz:"HMG-CoA reductasa", x:1045, y:370, w:72, h:18,
+  esteroles:{name:"Metabolismo de Esteroles",short:"Esteroles",cat:"lipidos",loc:"RE / citosol",enz:"HMG-CoA reductasa", x:1655, y:1120, w:160, h:42,
     reaction:"Acetil-CoA → Colesterol",in:"Acetil-CoA · NADPH",out:"Colesterol",
     steps:["Vía del mevalonato (HMG-CoA reductasa).","Escualeno → ciclación → colesterol."],
     reg:"La HMG-CoA reductasa es diana de las estatinas.",fact:"El colesterol origina hormonas y sales biliares."},
-  degr_colesterol:{name:"Degradación del Colesterol",short:"Degr. colesterol",cat:"lipidos",loc:"R. endoplásmico (hígado)",enz:"7α-hidroxilasa", x:1045, y:352, w:72, h:18,
+  degr_colesterol:{name:"Degradación del Colesterol",short:"Degr. colesterol",cat:"lipidos",loc:"R. endoplásmico (hígado)",enz:"7α-hidroxilasa", x:1825, y:1116, w:140, h:46,
     reaction:"Colesterol → Ácidos biliares",in:"Colesterol",out:"Ácidos y sales biliares",
     steps:["La 7α-hidroxilasa inicia la conversión.","Se conjugan y se excretan por la bilis."],
     reg:"Principal vía para eliminar colesterol.",fact:"Los ácidos biliares ayudan a digerir las grasas."},
-  boxidacion:{name:"β-Oxidación de Ácidos Grasos",short:"β-oxidación",cat:"lipidos",loc:"Matriz mitocondrial",enz:"Carnitina aciltransferasa I", x:925, y:418, w:115, h:28,
+  boxidacion:{name:"β-Oxidación de Ácidos Grasos",short:"β-oxidación",cat:"lipidos",loc:"Matriz mitocondrial",enz:"Carnitina aciltransferasa I", x:1330, y:775, w:185, h:46,
     reaction:"Acil-CoA → Acetil-CoA",in:"Acil-CoA · NAD⁺ · FAD",out:"Acetil-CoA · NADH · FADH₂",
     steps:["Ciclos de cuatro reacciones.","Cada vuelta libera un acetil-CoA (–2 C)."],
     reg:"Transporte por carnitina; activa en ayuno.",fact:"Las grasas rinden más del doble de energía que los azúcares."},
-  cetogenesis:{name:"Cetogénesis",short:"Cetogénesis",cat:"lipidos",loc:"Matriz mitocondrial (hígado)",enz:"HMG-CoA sintasa", x:1030, y:418, w:96, h:28,
+  cetogenesis:{name:"Cetogénesis",short:"Cetogénesis",cat:"lipidos",loc:"Matriz mitocondrial (hígado)",enz:"HMG-CoA sintasa", x:1550, y:768, w:155, h:28,
     reaction:"Acetil-CoA → Cuerpos cetónicos",in:"Acetil-CoA",out:"Acetoacetato · β-hidroxibutirato · acetona",
     steps:["Condensación a HMG-CoA.","Rotura del HMG-CoA → acetoacetato."],
     reg:"Aumenta en ayuno y diabetes.",fact:"En ayuno largo el cerebro usa cuerpos cetónicos."},
 
   /* ===================== 3 · NITRÓGENO ===================== */
-  metab_aa:{name:"Metabolismo de Aminoácidos",short:"Aminoácidos",cat:"nitrogeno",loc:"Citosol / mitocondria",enz:"Aminotransferasas (ALT, AST)", x:950, y:668, w:170, h:24,
+  metab_aa:{name:"Metabolismo de Aminoácidos",short:"Aminoácidos",cat:"nitrogeno",loc:"Citosol / mitocondria",enz:"Aminotransferasas (ALT, AST)", x:145, y:1472, w:205, h:42,
     reaction:"Aminoácido → α-cetoácido + NH₄⁺",in:"Aminoácidos",out:"Esqueletos carbonados · NH₄⁺",
     steps:["Transaminación del grupo amino.","Desaminación oxidativa que libera amoníaco."],
     reg:"Conecta las proteínas con Krebs y la urea.",fact:"Los esqueletos pueden ser glucogénicos o cetogénicos."},
-  metab_nitro:{name:"Metabolismo del Nitrógeno",short:"Nitrógeno",cat:"nitrogeno",loc:"Citosol / mitocondria",enz:"Glutamato deshidrogenasa", x:935, y:505, w:168, h:24,
+  metab_nitro:{name:"Metabolismo del Nitrógeno",short:"Nitrógeno",cat:"nitrogeno",loc:"Citosol / mitocondria",enz:"Glutamato deshidrogenasa", x:1210, y:1460, w:195, h:42,
     reaction:"NH₄⁺ ↔ aminoácidos / urea",in:"Aminoácidos · α-cetoglutarato",out:"Glutamato · NH₄⁺",
     steps:["El glutamato concentra los grupos amino.","La glutamato deshidrogenasa libera amoníaco."],
     reg:"Equilibra fijación y eliminación de N.",fact:"El glutamato es el repartidor central del nitrógeno."},
-  urea:{name:"Ciclo de la Urea",short:"Ciclo de la Urea",cat:"nitrogeno",loc:"Mitocondria + citosol (hígado)",enz:"CPS I · ornitina transcarbamilasa", x:935, y:586, w:170, h:96,
+  urea:{name:"Ciclo de la Urea",short:"Ciclo de la Urea",cat:"nitrogeno",loc:"Mitocondria + citosol (hígado)",enz:"CPS I · ornitina transcarbamilasa", x:930, y:1460, w:245, h:42,
     reaction:"NH₄⁺ + CO₂ → Urea",in:"NH₄⁺ · CO₂ · aspartato · ATP",out:"Urea",
     steps:["Inicia en la mitocondria (CPS I).","Se completa en el citosol regenerando ornitina."],
     reg:"Se ajusta a la proteína de la dieta.",fact:"Convierte el amoníaco tóxico en urea excretable."},
-  aa_akg:{name:"Síntesis de aminoácidos derivados del α-cetoglutarato",short:"Aa del α-CG",cat:"nitrogeno",loc:"Mitocondria / citosol",enz:"Aminotransferasas", x:995, y:690, w:150, h:20,
+  aa_akg:{name:"Síntesis de aminoácidos derivados del α-cetoglutarato",short:"Aa del α-CG",cat:"nitrogeno",loc:"Mitocondria / citosol",enz:"Aminotransferasas", x:618, y:1464, w:215, h:42,
     reaction:"α-Cetoglutarato → Glu, Gln, Pro, Arg",in:"α-Cetoglutarato · NH₄⁺",out:"Glutamato · glutamina · prolina · arginina",
     steps:["El α-cetoglutarato del Krebs recibe el amino.","Origina la familia del glutamato."],
     reg:"Une el ciclo de Krebs con la síntesis de aa.",fact:"Aminoácidos no esenciales: el cuerpo los fabrica."},
-  glu_gln:{name:"Síntesis de glutamato y glutamina",short:"Glu y Gln",cat:"nitrogeno",loc:"Mitocondria / citosol",enz:"Glutamina sintetasa", x:915, y:706, w:120, h:30,
+  glu_gln:{name:"Síntesis de glutamato y glutamina",short:"Glu y Gln",cat:"nitrogeno",loc:"Mitocondria / citosol",enz:"Glutamina sintetasa", x:380, y:1463, w:205, h:42,
     reaction:"α-CG + NH₄⁺ → Glutamato → Glutamina",in:"α-Cetoglutarato · NH₄⁺ · ATP",out:"Glutamato · glutamina",
     steps:["La glutamato deshidrogenasa fija el NH₄⁺.","La glutamina sintetasa añade un segundo amino."],
     reg:"La glutamina sintetasa está muy regulada.",fact:"La glutamina transporta nitrógeno de forma segura."},
-  porfirinas:{name:"Metabolismo de Porfirinas",short:"Porfirinas",cat:"nitrogeno",loc:"Mitocondria + citosol",enz:"ALA sintasa (ALAS 1)", x:1288, y:505, w:218, h:22,
+  porfirinas:{name:"Metabolismo de Porfirinas",short:"Porfirinas",cat:"nitrogeno",loc:"Mitocondria + citosol",enz:"ALA sintasa (ALAS 1)", x:1716, y:1460, w:205, h:42,
     reaction:"Glicina + succinil-CoA → Hemo",in:"Glicina · succinil-CoA · Fe²⁺",out:"Hemo",
     steps:["Comienza y termina en la mitocondria.","Pasos intermedios en el citosol."],
     reg:"Sus fallos causan las porfirias.",fact:"El hemo da color a la sangre y capta el oxígeno."},
-  catab_hemo:{name:"Catabolismo del grupo Hemo",short:"Catab. del hemo",cat:"nitrogeno",loc:"RE / citosol (bazo, hígado)",enz:"Hemo-oxigenasa", x:1288, y:523, w:218, h:20,
+  catab_hemo:{name:"Catabolismo del grupo Hemo",short:"Catab. del hemo",cat:"nitrogeno",loc:"RE / citosol (bazo, hígado)",enz:"Hemo-oxigenasa", x:1422, y:1463, w:195, h:42,
     reaction:"Hemo → Bilirrubina",in:"Hemo · O₂",out:"Biliverdina → bilirrubina · Fe · CO",
     steps:["La hemo-oxigenasa abre el anillo.","Se reduce a bilirrubina y se excreta por la bilis."],
     reg:"Recicla el hierro de los glóbulos rojos.",fact:"La bilirrubina da el color amarillo de la ictericia."},
-  nucleotidos:{name:"Metabolismo de Nucleótidos",short:"Nucleótidos",cat:"nitrogeno",loc:"Citosol",enz:"Ribonucleótido reductasa", x:1260, y:628, w:264, h:22,
+  nucleotidos:{name:"Metabolismo de Nucleótidos",short:"Nucleótidos",cat:"nitrogeno",loc:"Citosol",enz:"Ribonucleótido reductasa", x:949, y:1796, w:195, h:28,
     reaction:"Bases ↔ Nucleótidos",in:"Bases · ribosa-5-P · ATP",out:"Nucleótidos (síntesis o reciclaje)",
     steps:["Vía de novo: síntesis desde cero.","Vía de recuperación: recicla bases libres."],
     reg:"La recuperación ahorra energía.",fact:"Aportan los ladrillos del ADN y el ARN."},
-  pur_pir:{name:"Metabolismo de Purinas y Pirimidinas",short:"Purinas/pirim.",cat:"nitrogeno",loc:"Citosol",enz:"PRPP sintetasa", x:1260, y:648, w:260, h:20,
+  pur_pir:{name:"Metabolismo de Purinas y Pirimidinas",short:"Purinas/pirim.",cat:"nitrogeno",loc:"Citosol",enz:"PRPP sintetasa", x:404, y:1783, w:664, h:48,
     reaction:"Aminoácidos + PRPP → bases",in:"Aminoácidos · PRPP · CO₂",out:"Purinas (A, G) · pirimidinas (C, U, T)",
     steps:["Purinas: el anillo se arma sobre la ribosa.","Pirimidinas: el anillo se hace y luego se une a la ribosa."],
     reg:"El catabolismo de purinas da ácido úrico.",fact:"El exceso de ácido úrico provoca la gota."},
-  novo:{name:"Biosíntesis de Novo",short:"Síntesis de Novo",cat:"nitrogeno",loc:"Citosol",enz:"PRPP sintetasa", x:1228, y:675, w:150, h:20,
+  novo:{name:"Biosíntesis de Novo",short:"Síntesis de Novo",cat:"nitrogeno",loc:"Citosol",enz:"PRPP sintetasa", x:289, y:1816, w:170, h:24,
     reaction:"Precursores simples → Nucleótidos",in:"Aminoácidos · PRPP · CO₂ · ATP",out:"Nucleótidos nuevos",
     steps:["Construye el nucleótido desde cero.","Costosa en energía frente al reciclaje."],
     reg:"Diana de fármacos antitumorales.",fact:"Imprescindible en células que se dividen mucho."}
@@ -519,8 +526,8 @@ $("showLabelsToggle").onclick = () => {
       más fácil, pulsa "Editar posiciones", arrastra cada caja a su
       sitio y pulsa "Copiar coordenadas".
    =================================================================== */
-const VIEW_W = 1408, VIEW_H = 768;   // <-- ajusta al tamaño/proporción de tu imagen
-const BASE_W = 1408, BASE_H = 768;   // <-- escala de x,y,w,h (= píxeles reales de la imagen)
+const VIEW_W = 1920, VIEW_H = 1920;  // <-- tamaño real de la imagen (mapanuevo.png)
+const BASE_W = 1920, BASE_H = 1920;  // <-- escala de x,y,w,h (= píxeles reales de la imagen)
 const SX = VIEW_W / BASE_W, SY = VIEW_H / BASE_H;
 
 const chipRefs = {};
@@ -566,68 +573,13 @@ function onChipDown(id, kind, evt) {
   refreshEditPanel();
 }
 
-window.addEventListener("pointermove", e => {
-  if (editMode) {
-    const p = svgPt(e);
-    const cp = $("curPos");
-    if (cp) cp.textContent = `cursor: x:${Math.round(p.x / SX)}  y:${Math.round(p.y / SY)}`;
-  }
-  if (!drag) return;
-  const r = ROUTES[drag.id], p = svgPt(e);
-  if (drag.kind === "move") {
-    r.x = Math.round(p.x / SX - drag.offx);
-    r.y = Math.round(p.y / SY - drag.offy);
-  } else {
-    r.w = Math.max(20, Math.round(2 * (p.x / SX - r.x)));
-    r.h = Math.max(14, Math.round(2 * (p.y / SY - r.y)));
-  }
-  updateChip(drag.id);
-  refreshEditPanel();
-});
-window.addEventListener("pointerup", () => { drag = null; });
 
-function refreshEditPanel() {
-  const out = $("coordsOut");
-  if (out) {
-    out.value = Object.keys(ROUTES).map(id => {
-      const r = ROUTES[id];
-      return `  ${id}: { x:${r.x}, y:${r.y}, w:${r.w}, h:${r.h} },`;
-    }).join("\n");
-  }
-  const ar = $("activeReadout");
-  if (ar) {
-    ar.textContent = activeEdit
-      ? `▸ ${activeEdit}  →  x:${ROUTES[activeEdit].x}  y:${ROUTES[activeEdit].y}  w:${ROUTES[activeEdit].w}  h:${ROUTES[activeEdit].h}`
-      : "Arrastra un recuadro para moverlo · usa la esquina para redimensionar";
-  }
-}
 
-function setEdit(on) {
-  editMode = on;
-  map.classList.toggle("edit", on);
-  $("editPanel").classList.toggle("open", on);
-  $("editToggle").setAttribute("aria-pressed", on);
-  if (on) refreshEditPanel();
-}
 
-$("editToggle").onclick = () => setEdit(!editMode);
-$("copyCoords").onclick = async () => {
-  const t = $("coordsOut");
-  t.select();
-  try { await navigator.clipboard.writeText(t.value); } catch (e) { try { document.execCommand("copy"); } catch (e2) {} }
-  const b = $("copyCoords");
-  b.textContent = "¡Copiado!";
-  setTimeout(() => b.textContent = "Copiar coordenadas", 1200);
-};
 
-// Informa del tamaño real de la imagen (para fijar VIEW_W/VIEW_H si quieres 1:1)
-const bgImg = document.querySelector(".map-image-bg");
-function reportImg() {
-  const info = $("imgInfo");
-  if (info && bgImg && bgImg.naturalWidth)
-    info.textContent = `· imagen real: ${bgImg.naturalWidth}×${bgImg.naturalHeight} px`;
-}
-if (bgImg) { bgImg.complete ? reportImg() : bgImg.addEventListener("load", reportImg); }
+
+
+
 
 $("drClose").onclick = closeDrawer;
 $("drBack").onclick = closeDrawer;
